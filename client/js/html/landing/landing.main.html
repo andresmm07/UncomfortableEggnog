@@ -1,7 +1,7 @@
 <div class="row" ng-controller='LandingPageCtrl as landing'>
   <div class="col-md-12">
     <h1>Favorites</h1>
-    <div class="col-xs-4" ng-repeat="package in landing.packages | orderBy:'-average' track by $index">
+    <div class="col-xs-6" ng-repeat="package in landing.packages | orderBy:'-average' track by $index">
       <div class="package-widget">
         <div class="packageDetails">
           <h3>
@@ -25,4 +25,3 @@
       </div>
     </div>
   </div>
-</div>
