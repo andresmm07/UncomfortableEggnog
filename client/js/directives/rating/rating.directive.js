@@ -21,6 +21,12 @@
     return directive;
 
     function link(scope, elem, attrs) {
+      scope.$watch('packageEntry', function (newValue, oldValue) {
+        if (newValue) {
+          console.log("new value", newValue);
+        }
+      }, true);
+
       scope.updateStars = function () {
         var index = 0;
         scope.stars = [];
