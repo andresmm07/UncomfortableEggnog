@@ -1,25 +1,22 @@
 {
-  "name": "uncomfortableeggnog",
+  "name": "electron-jarvis",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
+  "directories": {
+    "test": "./electron/test"
+  },
   "scripts": {
     "test": "grunt test",
-    "start": "grunt run",
+    "start": "grunt",
+    "view": "webpack --watch",
     "lint": "jscs ./"
   },
   "pre-commit": "lint",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yilenpan/UncomfortableEggnog.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/yilenpan/UncomfortableEggnog/issues"
-  },
-  "homepage": "https://github.com/yilenpan/UncomfortableEggnog#readme",
   "dependencies": {
+<<<<<<< HEAD
     "async": "^1.5.0",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.0.6",
@@ -39,17 +36,33 @@
     "passport-google-oauth": "^0.2.0",
     "passport-local": "^1.0.0",
     "underscore": "^1.8.3"
+=======
+    "babel-core": "^6.3.17",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "electron-prebuilt": "^0.35.4",
+    "history": "^1.13.1",
+    "jquery": "^2.1.4",
+    "natural": "^0.2.1",
+    "pre-commit": "^1.1.2",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-router": "^1.0.2",
+    "underscore": "^1.8.3",
+    "webpack": "^1.12.9"
+>>>>>>> 63ece49a6e54e8860bf32c832b60bccbdabc7498
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "del": "^2.2.0",
     "grunt": "^0.4.5",
-    "grunt-contrib-concat": "^0.5.1",
     "grunt-docco": "^0.4.0",
     "grunt-mocha-test": "^0.12.7",
     "grunt-nodemon": "^0.4.1",
+    "grunt-shell": "^1.1.2",
     "mocha": "^2.3.4",
-    "nodemon": "^1.8.1",
-    "pre-commit": "^1.1.2",
-    "supertest": "^1.1.0"
+    "supertest": "^1.1.0",
+    "webpack-target-electron-renderer": "^0.2.0"
   }
 }

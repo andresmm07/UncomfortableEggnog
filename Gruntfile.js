@@ -5,41 +5,42 @@ module.exports = function (grunt) {
     mochaTest: {
       test: {
         options: {
-          reporter: 'spec'
+          reporter: 'nyan'
         },
-        src: ['test/**/*.js']
-      }
-    },
-    nodemon: {
-      dev: {
-        script: 'server/server.js'
+        src: ['electron/test/**/*.js']
       }
     },
     docco: {
       debug: {
-        src: ['client/*.js', 'server/**/*.js'],
+        src: ['electron/**/*.js'],
         options: {
           output: 'docs/'
         }
+      }
+    },
+    shell: {
+      options: {
+        stderr: false
+      },
+      target: {
+        command: 'webpack .; electron .'
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-docco');
+  grunt.loadNpmTasks('grunt-shell');
 
   grunt.registerTask('test', [
     'mochaTest'
   ]);
 
-  grunt.registerTask('run', [
-    'nodemon'
+  grunt.registerTask('docs', [
+    'docco'
   ]);
 
-  grunt.registerTask('deploy', [
-    'test',
-    'run'
+  grunt.registerTask('default', [
+    'shell'
   ]);
-
 };

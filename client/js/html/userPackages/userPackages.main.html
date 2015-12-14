@@ -1,7 +1,0 @@
-<div class="container" ng-controller="UserPackagesCtrl as u">
-  <h1> Hello </h1>
-  <a ui-sref="createPackage">Create package</a>
-  <div class="row" ng-repeat="pkg in u.packages">
-    <a ui-sref="editPackage({packageName: pkg.title})">{{pkg.title}}</a>
-  </div>
-</div>

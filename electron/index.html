@@ -2,17 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Webkit</title>
+  <title>Jarvis</title>
 </head>
 <body>
-  <button>Toggle</button>
+  <div id="app"></div>
+  <!-- <button>Toggle</button>
 
   <p id="print">Print to screen</p>
   <p id="json"></p>
-  <input type="text" name="something" speech grammar="grammar.grxml" />
+  <button id="add">Add enhance/dehance</button>
+  <input type="text" id="command" placeholder="command"/>
+  <input type="text" id="action" placeholder="action"/>
+  <button id="button">Click</button>
+  <button id="delete">delete</button> -->
 
-  <script>window.$ = window.jQuery = require('../client/assets/vendor/jquery/dist/jquery.min.js');</script>
-  <script src="speechRecognition/speechRecognition.js"></script>
+  <!-- <script>window.$ = window.jQuery = require('jquery');</script> -->
+  <script src="main/speechRecognition.js"></script>
+  <script src="main/dist/bundle.js"></script>
+  <script>
+    // var commandUtil = require('./commandsUtil/commandsUtil');
+    // $('#add').on('click', function () {
+    //   var extraCommands = {
+    //     "enhance": "osascript -e 'tell application \"System Events\"" +
+    //                "to repeat 2 times' -e 'key code 24 using {command down}'" +
+    //                " -e 'delay 0.1' -e 'end repeat'",
+    //     "dehance": "osascript -e 'tell application \"System Events\"" +
+    //                "to repeat 2 times' -e 'key code 24 using {command down}'" +
+    //                " -e 'delay 0.1' -e 'end repeat'",
+    //     "zoom out": "osascript -e 'tell application \"System Events\"" +
+    //                " to repeat 2 times' -e 'key code 27 using {command down}'" +
+    //                " -e 'delay 0.1' -e 'end repeat'"
+    //   };
+    //   console.log(extraCommands);
+    //   commandUtil.addCommand(extraCommands);
+    // });
+    // $('#button').on('click', function (e) {
+    //   e.preventDefault();
+    //   var commandObj = {};
+    //   commandObj[$('#command').val()] = $('#action').val();
+    //   console.log(commandObj);
+    //   commandUtil.addCommand(commandObj);
+    // });
+    // $('#delete').on('click', function (e) {
+    //   e.preventDefault();
+    //   commandUtil.delCommand('dehance');
+    // });
+  </script>
 
 </body>
 </html>
