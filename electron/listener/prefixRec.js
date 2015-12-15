@@ -11,6 +11,7 @@ module.exports = function (event) {
   var confidence = event.results[0][0].confidence;
   console.log(transcript);
   if (transcript.match(/Jarvis/gi)) {
+    this.switchListener.hasTimeout = true;
     startCmd.play();
     this.switch();
   }

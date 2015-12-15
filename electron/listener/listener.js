@@ -3,28 +3,27 @@ var failedCmd = require('../audio/audio').failedCmd;
 
 module.exports = function (cb, name, timeout) {
   var listener = new webkitSpeechRecognition();
-
+  listener.hasTimeout = timeout ? true : false;
   listener.name = name;
   var on;
 
   listener.onend = function (event) {
-    console.log('ended ', this.name);
     if (on) {
+      console.log('restarting', this.name);
       this.start();
     }
   };
   listener.onresult = cb;
 
-  var switchListener;
+  listener.switchListener;
   listener.link = function (otherListener) {
-    switchListener = otherListener;
+    listener.switchListener = otherListener;
   };
 
   listener.selfDestruct = function () {
     this.timer = window.setTimeout(function () {
-      console.log('switch!');
+      console.log('selfDestruct fired!');
       failedCmd.play();
-      this.killTimer();
       this.switch();
     }.bind(this), timeout);
   };
@@ -32,22 +31,24 @@ module.exports = function (cb, name, timeout) {
   listener.killTimer = function () {
     console.log('TIMER KILLED');
     window.clearTimeout(this.timer);
+    console.log('hasTimeout is now', listener.hasTimeout);
   };
 
   listener.onstart = function (e) {
-    if (timeout) {
+    console.log('listener.hasTimeout is ', listener.hasTimeout);
+    if (listener.hasTimeout) {
+      console.log('self destruct kicked off');
       this.selfDestruct();
+      listener.hasTimeout = false;
     }
-    console.log('starting', this.name);
     on = true;
   };
 
   listener.switch = function () {
-    console.log('aborting');
+    console.log('switching');
     on = false;
     listener.abort();
-    console.log('starting');
-    switchListener.start();
+    listener.switchListener.start();
   };
   return listener;
 };

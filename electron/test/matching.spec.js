@@ -1,11 +1,10 @@
 var fs = require('fs');
 var expect = require('chai').expect;
-var matchUtil = require('../match/matching');
-
-var matching = matchUtil.matching;
-var testPhrases = matchUtil.testPhrases;
-var JWDTest = matchUtil.JWDTest;
-var phoneticsTest = matchUtil.phoneticsTest;
+var matching = require('../match/matching-test');
+var testPhrases = require('../match/testers/testPhrases');
+var JWDTest = require('../match/testers/JWDTest');
+var phoneticsTest = require('../match/testers/phoneticsTest');
+var getMatchByScore = require('../match/testers/getMatchByScore');
 
 var commandsObj = {};
 commandsObj.rawCommands = require('./tmp/commands');
@@ -13,6 +12,7 @@ commandsObj.parsedCommands = require('../match/parseCommands').parseCommands(com
 var phrases = require('./tmp/phrases-tmp');
 commandsObj.phrases = phrases;
 
+var testCases = require('./tmp/matching-test-cases');
 
 
 describe('Matching', function (done) {
@@ -22,20 +22,24 @@ describe('Matching', function (done) {
     done();
   });
   it('should match added phrases', function (done) {
-    var obj = matching("kyoto protocol", null, commandsObj);
-    expect(obj.action).to.not.equal(undefined);
-    expect(obj.action).to.equal("say kyle cho pro tip");
+    phrases['kyle cho pro tip'].push('Kyles cho pros tips');
+    var addedPhrase = testPhrases(phrases, 'Kyles cho pros tips');
+    expect(addedPhrase).to.equal('kyle cho pro tip');
     done();
   });
   it('should match phonetics', function (done) {
-    for (var phrase in phrases) {
-      var matches = phrases[phrase];
-      for (var i = 0; i < matches.length; i++) {
-        console.log('\n\n\n');
-        console.log("testing " + matches[i] + ' with ' + phrase);
-        console.log("phoneticsTest  " + phoneticsTest(matches[i], phrase));
-        console.log("JWDTest   " + JWDTest(matches[i], phrase));
-
+    for (var phrase in testCases) {
+      for (var i = 0; i < testCases[phrase].length; i++) {
+        console.log('\n\n');
+        var userInput = testCases[phrase][i].term;
+        if (testCases[phrase][i].score > 0.4) {
+          var guess = getMatchByScore(Object.keys(testCases), userInput);
+          console.log('\n\n');
+          console.log('WebSpeechAPI score: ', testCases[phrase][i].score);
+          console.log("should match: ", phrase);
+          console.log('guessing: ', guess);
+          expect(guess).to.equal(phrase);
+        }
       }
     }
     done();

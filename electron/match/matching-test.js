@@ -1,52 +1,12 @@
 var fs = require('fs');
 var natural = require('natural');
-var regMatch = require('./regMatch');
 var formatVariable = require('./formatVariable');
+var testPhrases = require('./testers/testPhrases');
+var getMatchByScore = require('./testers/getMatchByScore');
+var phoneticsTest = require('./testers/phoneticsTest');
+var JWDTest = require('./testers/JWDTest');
 
-var JaroWinklerDistance = natural.JaroWinklerDistance;
-var Metaphone = natural.Metaphone;
-var soundEx = natural.SoundEx;
-
-soundEx.attach();
-
-module.exports.testPhrases = function (phrases, _actionPrefix) {
-  for (var phrasesBucket in phrases) {
-    if (regMatch(phrases[phrasesBucket], _actionPrefix)) {
-      return phrasesBucket;
-    };
-  }
-  return false;
-};
-
-module.exports.JWDTest = function (key, _actionPrefix) {
-  return JaroWinklerDistance(key, _actionPrefix);
-};
-
-module.exports.phoneticsTest = function (actionPrefix, key) {
-  return parseFloat(module.exports.JWDTest(Metaphone.process(key), Metaphone.process(actionPrefix)));
-};
-
-module.exports.getMatchByScore = function (phrases, actionPrefix) {
-  return phrases.reduce(function (max, phrase) {
-    if (max.score === undefined) {
-      max.phrase = phrase;
-      max.score = module.exports.phoneticsTest(phrase, actionPrefix);
-      console.log('\n\n\n\n');
-      console.log(phrase + " scored: " + max.score);
-      return max;
-    } else {
-      var score = module.exports.phoneticsTest(phrase, actionPrefix);
-      console.log(phrase + " scored: " + score);
-      return max.score > score ? max : {
-        phrase: phrase,
-        score: score
-      };
-    }
-  }, {})['phrase'];
-};
-
-
-var matching = function (actionPrefix, variable, commandsObj) {
+module.exports = function (actionPrefix, variable, commandsObj) {
   var _actionPrefix = actionPrefix.toLowerCase();
   var actionObj = {};
   actionObj.exact = false;
@@ -58,7 +18,7 @@ var matching = function (actionPrefix, variable, commandsObj) {
   var closeMatchThreshold = 0.6;
 
   var phrases = commandsObj.phrases;
-  var actions = commandsObj.rawCommands; // TODO: change to rawCommands
+  var actions = commandsObj.rawCommands;
   var argCommands = commandsObj.parsedCommands.argCommands;
   var exactCommands = commandsObj.parsedCommands.exactCommands;
 
@@ -72,8 +32,8 @@ var matching = function (actionPrefix, variable, commandsObj) {
     }
     return actionObj;
   }
-  var addedPhraseTest = module.exports.testPhrases(phrases, _actionPrefix);
 
+  var addedPhraseTest = testPhrases(phrases, _actionPrefix);
   if (addedPhraseTest) {
     console.log('added phrase found: ', addedPhraseTest);
     actionObj.exact = true;
@@ -83,7 +43,7 @@ var matching = function (actionPrefix, variable, commandsObj) {
       actionObj.action = exactCommands[addedPhraseTest];
     }
   } else {
-    var key = module.exports.getMatchByScore(Object.keys(phrases), _actionPrefix);
+    var key = getMatchByScore(Object.keys(actions), _actionPrefix);
     console.log('guessing ' + key);
     actionObj.exact = false;
     actionObj.guessedCommand = key;
@@ -95,5 +55,3 @@ var matching = function (actionPrefix, variable, commandsObj) {
   }
   return actionObj;
 };
-
-module.exports.matching = matching;
