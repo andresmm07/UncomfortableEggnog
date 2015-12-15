@@ -1,19 +1,15 @@
 var startCmd = require('../audio/audio').startCmd;
 var failedCmd = require('../audio/audio').failedCmd;
-var natural = require('natural');
-var Metaphone = natural.Metaphone;
-var JaroWinklerDistance = natural.JaroWinklerDistance;
+var phoneticsTest = require('../match/testers/phoneticsTest');
+var regMatch = require('../match/regMatch');
 
 module.exports = function (event) {
-  console.log('got something');
-
-  var transcript = event.results[0][0].transcript;
-  var confidence = event.results[0][0].confidence;
-  console.log(transcript);
-  if (transcript.match(/Jarvis/gi)) {
-    this.switchListener.hasTimeout = true;
-    startCmd.play();
-    this.switch();
+  for (var i = event.resultIndex; i < event.results.length; ++i) {
+    var word = event.results[i][0].transcript;
+    if (phoneticsTest(word, 'Jarvis') > 0.8 || regMatch(word.split(' '), 'Jarvis')) {
+      this.switchListener.hasTimeout = true;
+      startCmd.play();
+      this.switch();
+    }
   }
-
 };
