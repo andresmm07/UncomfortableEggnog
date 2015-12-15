@@ -33,14 +33,11 @@ module.exports.loadPackage = function (commandsPath) {
   var commandObj = {};
   var rawCommands = lowerCaseProps(JSON.parse(fs.readFileSync(commandsPath, 'utf8')));
   // convert all props to lowerCase
-  commandObj.rawCommands = rawCommands; // TODO: change name to rawCommands
+  commandObj.rawCommands = rawCommands;
   commandObj.parsedCommands = parseCommands(rawCommands); // { exactCommands: {}, argCommands: {}}
-  console.log(commandObj.parsedCommands);
   commandObj.commandsPath = commandsPath;
   commandObj.phrasesPath = commandsPath.replace('commands.', 'phrases.');
   commandObj.phrases = loadPhrases(commandObj.phrasesPath, commandObj.rawCommands);
-  console.log(Object.keys(commandObj.parsedCommands.argCommands));
-  // var argCommands = ["open", "check the", "what is the", "look up the", "how is the", "google", "youtube", "Wikipedia"];
   prefixTrie.build(Object.keys(commandObj.parsedCommands.argCommands));
   module.exports.saveCommands(commandObj);
 };

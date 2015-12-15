@@ -1,7 +1,7 @@
 var startCmd = require('../audio/audio').startCmd;
 var failedCmd = require('../audio/audio').failedCmd;
 
-module.exports = function (cb, name) {
+module.exports = function (cb, name, timeout) {
   var listener = new webkitSpeechRecognition();
 
   listener.name = name;
@@ -20,7 +20,24 @@ module.exports = function (cb, name) {
     switchListener = otherListener;
   };
 
+  listener.selfDestruct = function () {
+    this.timer = window.setTimeout(function () {
+      console.log('switch!');
+      failedCmd.play();
+      this.killTimer();
+      this.switch();
+    }.bind(this), timeout);
+  };
+
+  listener.killTimer = function () {
+    console.log('TIMER KILLED');
+    window.clearTimeout(this.timer);
+  };
+
   listener.onstart = function (e) {
+    if (timeout) {
+      this.selfDestruct();
+    }
     console.log('starting', this.name);
     on = true;
   };

@@ -6,6 +6,7 @@ var match = require('../match/match-util').matchUtil;
 
 
 module.exports = function (event) {
+  this.killTimer();
   var transcript = event.results[0][0].transcript;
   var confidence = event.results[0][0].confidence;
   var userCommand = {
