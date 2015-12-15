@@ -10,8 +10,14 @@ if (!('webkitSpeechRecognition' in window)) {
 } else {
   //instance that will listen for the prefix
   var prefixRecognition = listener(prefixRec, 'prefix');
+  prefixRecognition.continuous = true;
+  prefixRecognition.interimResults = true;
+  prefixRecognition.onaudioend = function () {
+    console.log('audio ended, restarting');
+    this.stop();
+  };
   //instance that will listen for the command
-  var commandRecognition = listener(cmdRec, 'cmd');
+  var commandRecognition = listener(cmdRec, 'cmd', 5000);
   // connect the two so that tdhe prefixRec will stop its process and kick off
   // it's link
   prefixRecognition.link(commandRecognition);

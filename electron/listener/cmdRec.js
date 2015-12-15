@@ -6,13 +6,18 @@ var match = require('../match/match-util').matchUtil;
 
 
 module.exports = function (event) {
+  this.killTimer();
   var transcript = event.results[0][0].transcript;
   var confidence = event.results[0][0].confidence;
+  console.log('webspeechapi confidence, ', confidence);
+  // if (confidence < 0.3) {
+  //   failedCmd.play();
+  //   this.switch();
+  // } else {
   var userCommand = {
     score: confidence,
     term: transcript
   };
-
   console.log('command is ', transcript);
   var matchObj = match(userCommand, commandsUtil.getCommands());
   console.log('going to exec, ', matchObj.action);
@@ -35,4 +40,5 @@ module.exports = function (event) {
     failedCmd.play();
     this.switch();
   }
+  // }
 };

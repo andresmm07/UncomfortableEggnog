@@ -1,36 +1,49 @@
 var startCmd = require('../audio/audio').startCmd;
 var failedCmd = require('../audio/audio').failedCmd;
 
-module.exports = function (cb, name) {
+module.exports = function (cb, name, timeout) {
   var listener = new webkitSpeechRecognition();
-
+  listener.hasTimeout = timeout ? true : false;
   listener.name = name;
   var on;
 
   listener.onend = function (event) {
-    console.log('ended ', this.name);
     if (on) {
+      console.log('restarting', this.name);
       this.start();
     }
   };
   listener.onresult = cb;
 
-  var switchListener;
+  listener.switchListener;
   listener.link = function (otherListener) {
-    switchListener = otherListener;
+    listener.switchListener = otherListener;
+  };
+
+  listener.selfDestruct = function () {
+    this.timer = window.setTimeout(function () {
+      failedCmd.play();
+      this.switch();
+    }.bind(this), timeout);
+  };
+
+  listener.killTimer = function () {
+    window.clearTimeout(this.timer);
   };
 
   listener.onstart = function (e) {
-    console.log('starting', this.name);
+    if (listener.hasTimeout) {
+      this.selfDestruct();
+      listener.hasTimeout = false;
+    }
     on = true;
   };
 
   listener.switch = function () {
-    console.log('aborting');
+    console.log('switching to ', listener.switchListener.name);
     on = false;
     listener.abort();
-    console.log('starting');
-    switchListener.start();
+    listener.switchListener.start();
   };
   return listener;
 };

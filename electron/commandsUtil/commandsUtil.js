@@ -8,13 +8,6 @@ var save = require('../utils/utils').save;
 var write = require('../utils/utils').write;
 var parseCommands = require('../match/parseCommands').parseCommands;
 
-module.exports.saveCommands = function (obj) {
-  if (typeof obj === 'object') {
-    obj = JSON.stringify(obj);
-  }
-  save('Commands', obj);
-};
-
 
 var get = function (name) {
   return JSON.parse(localStorage.getItem(name));
@@ -29,18 +22,22 @@ var lowerCaseProps = function (obj) {
 };
 
 
+module.exports.saveCommands = function (obj) {
+  if (typeof obj === 'object') {
+    obj = JSON.stringify(obj);
+  }
+  save('Commands', obj);
+};
+
 module.exports.loadPackage = function (commandsPath) {
   var commandObj = {};
   var rawCommands = lowerCaseProps(JSON.parse(fs.readFileSync(commandsPath, 'utf8')));
   // convert all props to lowerCase
-  commandObj.rawCommands = rawCommands; // TODO: change name to rawCommands
+  commandObj.rawCommands = rawCommands;
   commandObj.parsedCommands = parseCommands(rawCommands); // { exactCommands: {}, argCommands: {}}
-  console.log(commandObj.parsedCommands);
   commandObj.commandsPath = commandsPath;
   commandObj.phrasesPath = commandsPath.replace('commands.', 'phrases.');
   commandObj.phrases = loadPhrases(commandObj.phrasesPath, commandObj.rawCommands);
-  console.log(Object.keys(commandObj.parsedCommands.argCommands));
-  // var argCommands = ["open", "check the", "what is the", "look up the", "how is the", "google", "youtube", "Wikipedia"];
   prefixTrie.build(Object.keys(commandObj.parsedCommands.argCommands));
   module.exports.saveCommands(commandObj);
 };
@@ -87,7 +84,6 @@ module.exports.updateCommand = function (command, action, oldCommand) {
 
 module.exports.addPhrase = function (correctCommand, userCommand) {
   var commandsObj = this.getCommands();
-  console.log(commandsObj);
   commandsObj.phrases[correctCommand] = commandsObj.phrases[correctCommand] || [];
   commandsObj.phrases[correctCommand].push(userCommand);
   module.exports.saveCommands(commandsObj);
