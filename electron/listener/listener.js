@@ -22,12 +22,14 @@ module.exports = function (cb, name, timeout) {
 
   listener.selfDestruct = function () {
     this.timer = window.setTimeout(function () {
+      console.log('self destruct has been kicked off');
       failedCmd.play();
       this.switch();
     }.bind(this), timeout);
   };
 
   listener.killTimer = function () {
+    console.log('self destruct has been disabled');
     window.clearTimeout(this.timer);
   };
 

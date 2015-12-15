@@ -8,10 +8,10 @@ var loadPhrases = function (phrasesPath, commands) {
   } catch (e) {
     console.log('new file');
   }
-
   phrases = _.defaults(phrases, Object.keys(commands)
     .reduce(function (phrases, command) {
-      phrases[command] = command;
+      phrases[command] = [command];
+      console.log(phrases[command]);
       return phrases;
     }, {}));
 
