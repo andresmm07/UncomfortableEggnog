@@ -5,6 +5,9 @@ export default class Commands extends React.Component {
   handleClick(key) {
     console.log('You clicked: ' + this.props.items[key]);
   }
+  getAllCommands() {
+    return getCommands();
+  }
   render() {
     const commands = this.getAllCommands();
     const keys = Object.keys(commands.rawCommands);
@@ -17,8 +20,5 @@ export default class Commands extends React.Component {
         }
       </ul>
     );
-  }
-  getAllCommands() {
-    return getCommands();
   }
 };
