@@ -40048,6 +40048,11 @@
 	  }
 
 	  _createClass(Commands, [{
+	    key: 'handleClick',
+	    value: function handleClick(key) {
+	      console.log('You clicked: ' + this.props.items[key]);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var commands = this.getAllCommands();
