@@ -10,10 +10,6 @@ module.exports = function (event) {
   var transcript = event.results[0][0].transcript;
   var confidence = event.results[0][0].confidence;
   console.log('webspeechapi confidence, ', confidence);
-  // if (confidence < 0.3) {
-  //   failedCmd.play();
-  //   this.switch();
-  // } else {
   var userCommand = {
     score: confidence,
     term: transcript
@@ -40,5 +36,4 @@ module.exports = function (event) {
     failedCmd.play();
     this.switch();
   }
-  // }
 };

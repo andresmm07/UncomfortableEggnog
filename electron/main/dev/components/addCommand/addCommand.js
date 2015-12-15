@@ -11,7 +11,9 @@ export default class AddCommand extends React.Component{
   handleSubmit() {
     const formData = this.sendFormData();
     console.log("Action: ", formData.action);
-    cmdUtils.addCommand(formData.action);
+    var actionObj = {};
+    actionObj[formData.command] = formData.action;
+    cmdUtils.addCommand(actionObj);
     //addPhrase()
   }
   sendFormData() {

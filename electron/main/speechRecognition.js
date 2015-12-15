@@ -10,7 +10,6 @@ if (!('webkitSpeechRecognition' in window)) {
 } else {
   //instance that will listen for the prefix
   var prefixRecognition = listener(prefixRec, 'prefix');
-  prefixRecognition.continuous = true;
   prefixRecognition.interimResults = true;
   prefixRecognition.onaudioend = function () {
     console.log('audio ended, restarting');
