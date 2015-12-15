@@ -28,6 +28,13 @@
   <button>dance yourself clean</button>
   <button>when is my dentist appointment</button>
   <button>erase my browser history</button>
+  <button>enhance</button>
+  <button>dehance</button>
+  <button>say pro tip</button>
+  <button>jump at the chance</button>
+  <button>reach for the sky</button>
+  <button>don't die on me</button>
+  <button>Jarvis</button>
 
   <p id="print">Print to screen</p>
   <p id="save">Save to file</p>
@@ -40,7 +47,7 @@
         console.error('Console.save: No data')
         return;
       }
-      if(!filename) filename = 'console.json'
+      if(!filename) filename = 'test-suite.json'
       if(typeof data === "object"){
         data = JSON.stringify(data, undefined, 4)
       }
@@ -66,7 +73,15 @@
     "dance yourself clean": [],
     "when is my dentist appointment":[],
     "how are you doing": [],
-    "erase my browser history": []
+    "erase my browser history": [],
+    "enhance": [],
+    "dehance": [],
+    "say pro tip": [],
+    "jump at the chance": [],
+    "how do i get to san francsico": [],
+    "reach for the sky": [],
+    "don't die on me": [],
+    "Jarvis": []
   };
   if (!('webkitSpeechRecognition' in window)) {
     upgrade();

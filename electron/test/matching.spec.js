@@ -1,6 +1,6 @@
 var fs = require('fs');
 var expect = require('chai').expect;
-var matching = require('../match/matching-test');
+var matching = require('../match/matching');
 var testPhrases = require('../match/testers/testPhrases');
 var JWDTest = require('../match/testers/JWDTest');
 var phoneticsTest = require('../match/testers/phoneticsTest');

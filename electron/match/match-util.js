@@ -1,5 +1,5 @@
 'use strict';
-var matching = require('./matching-test');
+var matching = require('./matching');
 var prefixTrie = require('./prefixTrie');
 
 module.exports.matchUtil = function (userCommand, commandsObj) {

@@ -5,7 +5,7 @@ module.exports = {
             "term": "Kyoto Protocol"
         },
         {
-            "score": 0,
+            "score": 0.8,
             "term": "Kyoto Protocol"
         },
         {
@@ -13,11 +13,7 @@ module.exports = {
             "term": "Kyoto Protocol"
         },
         {
-            "score": 0,
-            "term": "how to approach him"
-        },
-        {
-            "score": 0,
+            "score": 0.6,
             "term": "Township Road 10"
         },
         {

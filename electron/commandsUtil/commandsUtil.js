@@ -8,13 +8,6 @@ var save = require('../utils/utils').save;
 var write = require('../utils/utils').write;
 var parseCommands = require('../match/parseCommands').parseCommands;
 
-module.exports.saveCommands = function (obj) {
-  if (typeof obj === 'object') {
-    obj = JSON.stringify(obj);
-  }
-  save('Commands', obj);
-};
-
 
 var get = function (name) {
   return JSON.parse(localStorage.getItem(name));
@@ -28,6 +21,13 @@ var lowerCaseProps = function (obj) {
   return newObj;
 };
 
+
+module.exports.saveCommands = function (obj) {
+  if (typeof obj === 'object') {
+    obj = JSON.stringify(obj);
+  }
+  save('Commands', obj);
+};
 
 module.exports.loadPackage = function (commandsPath) {
   var commandObj = {};
@@ -84,7 +84,6 @@ module.exports.updateCommand = function (command, action, oldCommand) {
 
 module.exports.addPhrase = function (correctCommand, userCommand) {
   var commandsObj = this.getCommands();
-  console.log(commandsObj);
   commandsObj.phrases[correctCommand] = commandsObj.phrases[correctCommand] || [];
   commandsObj.phrases[correctCommand].push(userCommand);
   module.exports.saveCommands(commandsObj);

@@ -22,22 +22,17 @@ module.exports = function (cb, name, timeout) {
 
   listener.selfDestruct = function () {
     this.timer = window.setTimeout(function () {
-      console.log('selfDestruct fired!');
       failedCmd.play();
       this.switch();
     }.bind(this), timeout);
   };
 
   listener.killTimer = function () {
-    console.log('TIMER KILLED');
     window.clearTimeout(this.timer);
-    console.log('hasTimeout is now', listener.hasTimeout);
   };
 
   listener.onstart = function (e) {
-    console.log('listener.hasTimeout is ', listener.hasTimeout);
     if (listener.hasTimeout) {
-      console.log('self destruct kicked off');
       this.selfDestruct();
       listener.hasTimeout = false;
     }
@@ -45,7 +40,7 @@ module.exports = function (cb, name, timeout) {
   };
 
   listener.switch = function () {
-    console.log('switching');
+    console.log('switching to ', listener.switchListener.name);
     on = false;
     listener.abort();
     listener.switchListener.start();

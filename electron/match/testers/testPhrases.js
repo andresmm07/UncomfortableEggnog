@@ -5,5 +5,5 @@ module.exports = function (phrases, _actionPrefix) {
       return phrase;
     };
   }
-  return false;
+  return null;
 };
