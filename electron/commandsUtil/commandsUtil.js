@@ -55,7 +55,6 @@ module.exports.addCommand = function (command) {
   var newCommandsObj = _.extend({}, this.getCommands());
   newCommandsObj.rawCommands = lowerCaseProps(_.extend(this.getCommands().rawCommands, command));
   newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);
-  console.log(newCommandsObj);
   module.exports.saveCommands(newCommandsObj);
   write(newCommandsObj.commandsPath, newCommandsObj.rawCommands);
   module.exports.addPhrase(Object.keys(command)[0], Object.keys(command)[0]);
