@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
-// import { ipcRenderer } from 'electron';
-var ipcRenderer = require('electron').ipcRenderer;
+import { ipcRenderer } from 'electron';
+import { Link } from 'react-router';
+//var ipcRenderer = require('electron').ipcRenderer;
 
 export default class Packages extends React.Component {
 
@@ -18,7 +19,14 @@ export default class Packages extends React.Component {
       // </div>
       <div className="row">
         <div className="col-md-4">
-          Options
+          <Link to="addCommand">
+            <button>Add Command</button>
+          </Link>
+        </div>
+        <div className="col-md-4">
+          <Link to="editCommand">
+            <button>Edit Command</button>
+          </Link>
         </div>
         <div className="col-md-12">
           List of Packages
