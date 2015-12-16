@@ -1,0 +1,12 @@
+{"say hello":"say \"hello\"",
+  "enhance":"osascript -e 'tell application \"System Events\"to repeat 2 times' -e 'key code 24 using {command down}' -e 'delay 0.1' -e 'end repeat'",
+  "zoom out":"osascript -e 'tell application \"System Events\" to repeat 2 times' -e 'key code 27 using {command down}' -e 'delay 0.1' -e 'end repeat'",
+  "dance for me":"say \"No\"",
+  "new command":"say 'got it'",
+  "old command":"say \"god damn it, really?\"",
+  "jarvis":"say \"what damn it?\"",
+  "dehance":"osascript -e 'tell application \"System Events\"to repeat 2 times' -e 'key code 24 using {command down}' -e 'delay 0.1' -e 'end repeat'",
+  "do awesome things":"say \"I'm afraid I can't do that dave\"",
+  "free willy":"say \"FREEEEEEDOOOOM\"",
+  "what time is it":"say $(date)"
+}

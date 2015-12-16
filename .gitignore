@@ -3,3 +3,4 @@ client/assets/vendor/
 **/.DS_STORE
 server/config/authKeys.js
 .DS_Store
+electron/main/dist/bundle.js
