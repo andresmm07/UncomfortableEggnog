@@ -1,0 +1,8 @@
+.commandtable {
+  max-height: 100%;
+  table {
+    color: $darkergray;
+    background-color: $offwhite;
+    overflow-y: auto;
+  }
+}

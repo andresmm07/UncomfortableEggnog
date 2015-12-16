@@ -51,28 +51,28 @@ module.exports.getCommands = function () {
 module.exports.addCommand = function (command) {
   console.log('I GOT A COMMAND FROM THE VIEWS');
   console.log(command);
-  var newCommandsObj = _.extend({}, this.getCommands());
-  newCommandsObj.rawCommands = lowerCaseProps(_.extend(this.getCommands().rawCommands, command));
+  var newCommandsObj = _.extend({}, module.exports.getCommands());
+  newCommandsObj.rawCommands = lowerCaseProps(_.extend(module.exports.getCommands().rawCommands, command));
   newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);
   module.exports.saveCommands(newCommandsObj);
   console.log(newCommandsObj.commandsPath);
   write(newCommandsObj.commandsPath, newCommandsObj.rawCommands);
-  module.exports.addPhrase(Object.keys(command)[0], Object.keys(command));
+  module.exports.addPhrase(Object.keys(command)[0], Object.keys(command)[0]);
 };
 
 
 module.exports.delCommand = function (command) {
-  var commandsObj = this.getCommands();
+  var commandsObj = module.exports.getCommands();
   delete commandsObj.rawCommands[command];
   delete commandsObj.phrases[command];
-  this.saveCommands(commandsObj);
+  module.exports.saveCommands(commandsObj);
   write(commandsObj.commandsPath, commandsObj.rawCommands);
   write(commandsObj.phrasesPath, commandsObj.phrases);
 };
 
 
 module.exports.updateCommand = function (command, action, oldCommand) {
-  var commandsObj = this.getCommands();
+  var commandsObj = module.exports.getCommands();
   if (oldCommand === command) {
     commandsObj.rawCommands[command] = action;
   } else {
@@ -86,7 +86,7 @@ module.exports.updateCommand = function (command, action, oldCommand) {
 };
 
 module.exports.addPhrase = function (correctCommand, userCommand) {
-  var commandsObj = this.getCommands();
+  var commandsObj = module.exports.getCommands();
   commandsObj.phrases[correctCommand] = commandsObj.phrases[correctCommand] || [];
   commandsObj.phrases[correctCommand].push(userCommand);
   module.exports.saveCommands(commandsObj);

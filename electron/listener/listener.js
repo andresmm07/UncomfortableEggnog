@@ -9,7 +9,7 @@ module.exports = function (cb, name, timeout) {
 
   listener.onend = function (event) {
     if (on) {
-      console.log('restarting', this.name);
+      // console.log('restarting', this.name);
       this.start();
     }
   };

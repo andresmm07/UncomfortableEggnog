@@ -10,8 +10,10 @@ var loadPhrases = function (phrasesPath, commands) {
   }
   phrases = _.defaults(phrases, Object.keys(commands)
     .reduce(function (phrases, command) {
+      if (Array.isArray(phrases[commands])) {
+        return phrases;
+      }
       phrases[command] = [command];
-      console.log(phrases[command]);
       return phrases;
     }, {}));
 

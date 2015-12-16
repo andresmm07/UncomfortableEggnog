@@ -1,10 +1,15 @@
 import { dispatch, register } from '../dispatchers/dispatcher';
-import { Constants } from '../constants/constants';
+import Constants from '../constants/constants';
 import { EventEmitter } from 'events';
-import {getCommands} from '../../../commandsUtil/commandsUtil';
+import { getCommands, addCommand } from '../../../commandsUtil/commandsUtil';
 
 
 const CHANGE_EVENT = 'change';
+
+function _addCommand (command) {
+  console.log('inside store with ', command);
+  addCommand(command);
+}
 
 const Store = Object.assign(EventEmitter.prototype, {
   emitChange () {
@@ -20,6 +25,7 @@ const Store = Object.assign(EventEmitter.prototype, {
     this.removeListener( CHANGE_EVENT, callback);
   },
   dispatcherIndex: register( function (action) {
+    console.log(action);
     switch (action.actionType) {
       case Constants.ADD_COMMAND:
         _addCommand( action.command );
