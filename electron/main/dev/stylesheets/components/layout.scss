@@ -3,6 +3,7 @@
   border-radius: 0px;
   height: 60px;
   margin: 0;
+  color: white;
   .buttons-group {
     margin: 0;
     padding: 0;
@@ -10,6 +11,12 @@
     height: 100%;
     .buttons-left {
       display: inline;
+    }
+    #home {
+      // background-image: $home;
+      height: 48px;
+      width: 48px;
+      background-color: white;
     }
   }
 }
