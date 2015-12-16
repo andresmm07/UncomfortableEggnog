@@ -11,8 +11,8 @@ export default class Commands extends React.Component {
     return (
       <ul>
         {
-          keys.map(function (key) {
-            return (<li>key: {key}</li>);
+          keys.map((key, i) => {
+            return (<li key={i}>key: {key}</li>);
           })
         }
       </ul>

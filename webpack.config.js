@@ -15,6 +15,10 @@ var options = {
         query: {
           presets: ['es2015', 'react']
         }
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style!css!sass!'
       }
     ]
   }

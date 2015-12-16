@@ -1,0 +1,10 @@
+$blue: #343D5C;
+$bluegray: #706D78;
+$gray: #9F9F9F;
+$offwhite: #EBECE7;
+$darkergray: #7A7770;
+$home: image-url('icons/home.ico', false, false);
+
+@import 'bootstrap-sass-3.3.6/assets/stylesheets/bootstrap';
+@import 'base/base';
+@import 'components/all';
