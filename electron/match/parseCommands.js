@@ -6,9 +6,9 @@
  *  Example functionality
  *  input:
  *   {
- *    "check the": "open https//www.google.com/?gws_rd=ssl#q=<ARG del='+' />",
- *    "open": "open <ARG del='\\ ' capitalize=true/>.app",
- *    "kyle cho pro tip": "say kyle cho pro tip"
+ *    "check the": "open https//www.google.com/?gws_rd=ssl#q=<ARG del='+'>",               //single argument command
+ *    "open": "open <ARG del='\\ ' capitalize=true chain=true chainkey='and also'/>.app",  //single argument command with chaining
+ *    "kyle cho pro tip": "say kyle cho pro tip"                                           //exact command
  *   }
  *  output:
  *   {

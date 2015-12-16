@@ -17,8 +17,8 @@ if (!('webkitSpeechRecognition' in window)) {
   };
   //instance that will listen for the command
   var commandRecognition = listener(cmdRec, 'cmd', 5000);
-  // connect the two so that tdhe prefixRec will stop its process and kick off
-  // it's link
+  // connect the two so that the prefixRec will stop its process and kick off
+  // its link
   prefixRecognition.link(commandRecognition);
   commandRecognition.link(prefixRecognition);
 }

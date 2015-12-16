@@ -1,5 +1,5 @@
 var commandsUtil = require('../commandsUtil/commandsUtil');
-var executeShellComand = require('../cmd/execShellCommand');
+var executeShellCommand = require('../cmd/execShellCommand');
 var startCmd = require('../audio/audio').startCmd;
 var failedCmd = require('../audio/audio').failedCmd;
 var match = require('../match/match-util').matchUtil;
@@ -21,7 +21,7 @@ module.exports = function (event) {
     var guessCorrectly = confirm("Did you mean \"" + matchObj.guessedCommand + "\"?");
     if (guessCorrectly) {
       startCmd.play();
-      executeShellComand(matchObj.action);
+      executeShellCommand(matchObj.action);
       this.switch();
       commandsUtil.addPhrase(matchObj.guessedCommand, matchObj.userCommand);
     } else {
@@ -30,7 +30,7 @@ module.exports = function (event) {
     }
   } else if (matchObj.action) {
     startCmd.play();
-    executeShellComand(matchObj.action);
+    executeShellCommand(matchObj.action);
     this.switch();
   } else {
     failedCmd.play();

@@ -6,6 +6,9 @@ var getMatchByScore = require('./testers/getMatchByScore');
 var phoneticsTest = require('./testers/phoneticsTest');
 var JWDTest = require('./testers/JWDTest');
 
+var exactMatchThreshold = 0.8;
+var closeMatchThreshold = 0.6;
+
 module.exports = function (actionPrefix, variable, commandsObj) {
   var _actionPrefix = actionPrefix.toLowerCase();
   var actionObj = {};
@@ -14,8 +17,6 @@ module.exports = function (actionPrefix, variable, commandsObj) {
   actionObj.guessedCommand = null;
   actionObj.action = '';
 
-  var exactMatchThreshold = 0.8;
-  var closeMatchThreshold = 0.6;
 
   var phrases = commandsObj.phrases;
   var actions = commandsObj.rawCommands;

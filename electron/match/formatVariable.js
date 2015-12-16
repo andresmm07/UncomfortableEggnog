@@ -24,11 +24,14 @@
 //           "del": "+"
 //           }]
 //         },
+
 //       "open": {
 //         "commands": ["open ", ".app"],
 //         "args": [{
 //           "del": "\\ ",
 //           "capitalize": true
+//           "chain": true,
+//           "chainkey": "and also"
 //           }]
 //         }
 //     }
@@ -39,15 +42,18 @@
 var _argSyntax = /<ARG\s*[a-zA-Z+=_'"\s\\\/]*\/>/;
 
 module.exports = function (actionPrefix, actionObj, variable, commandsObj) {
-  console.log('INSIDE FORMAT VARIABLE');
   var bash = commandsObj.rawCommands[actionPrefix]; // open http://.....<args/>
   console.log(variable);
   var argParams = actionObj["args"];
 
   //=========Argument Parameter Handling=======
   //TODO: move argument parameter handling to separate module.
+  // if (argParams['chain']) {
+
+  // }
 
   //===string case====
+
   if (argParams['case'] === 'upper') {
     variable = variable.toUpperCase();
   } else if (argParams['case'] === 'lower') {
