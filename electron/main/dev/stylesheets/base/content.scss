@@ -1,6 +1,6 @@
-div {
-  .content {
-    height: calc(100vh - 40px);
-    background-color: purple;
-  }
+.content {
+  height: calc(100vh - 40px);
+  background-color: $darkergray;
+  border-radius: 0px;
+  color: white;
 }

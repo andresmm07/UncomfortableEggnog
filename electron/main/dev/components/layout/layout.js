@@ -26,14 +26,14 @@ export default class Layout extends React.Component {
             </div>
             <div className="col-xs-4 pull-right">
               <div className="pull-right">
-                <Link className="button btn btn-success" to="packages">
-                  Packages
+                <Link className="button btn btn-success" to="settings">
+                  Contact
                 </Link>
               </div>
               <div className="pull-right">
-                <Link className="button btn btn-success" to="settings">
-                  Settings
-                  </Link>
+                <Link className="button btn btn-success" to="packages">
+                  About
+                </Link>
               </div>
             </div>
           </div>
