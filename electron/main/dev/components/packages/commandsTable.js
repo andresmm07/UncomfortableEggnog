@@ -8,7 +8,6 @@ function getCommands () {
   }
 }
 
-
 const CommandsTable = (props) => {
   let commands = Object.keys(props.commands).map( (command, i) => {
     return (
