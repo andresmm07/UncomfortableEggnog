@@ -56,7 +56,7 @@
 
 	var _appContainer2 = _interopRequireDefault(_appContainer);
 
-	var _ipcRecv = __webpack_require__(321);
+	var _ipcRecv = __webpack_require__(328);
 
 	var _ipcRecv2 = _interopRequireDefault(_ipcRecv);
 
@@ -19517,23 +19517,23 @@
 
 	var _packages2 = _interopRequireDefault(_packages);
 
-	var _settings = __webpack_require__(211);
+	var _settings = __webpack_require__(212);
 
 	var _settings2 = _interopRequireDefault(_settings);
 
-	var _commands = __webpack_require__(323);
+	var _commands = __webpack_require__(213);
 
 	var _commands2 = _interopRequireDefault(_commands);
 
-	var _addCommand = __webpack_require__(212);
+	var _addCommand = __webpack_require__(325);
 
 	var _addCommand2 = _interopRequireDefault(_addCommand);
 
-	var _editCommand = __webpack_require__(320);
+	var _editCommand = __webpack_require__(326);
 
 	var _editCommand2 = _interopRequireDefault(_editCommand);
 
-	var _landing = __webpack_require__(322);
+	var _landing = __webpack_require__(327);
 
 	var _landing2 = _interopRequireDefault(_landing);
 
@@ -24319,6 +24319,10 @@
 
 	var _reactRouter = __webpack_require__(159);
 
+	var _uploadFile = __webpack_require__(211);
+
+	var _uploadFile2 = _interopRequireDefault(_uploadFile);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24355,6 +24359,11 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-md-4' },
+	            _react2.default.createElement(_uploadFile2.default, null)
+	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-md-4' },
@@ -24419,6 +24428,73 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _packagesUtil = __webpack_require__(329);
+
+	var _packagesUtil2 = _interopRequireDefault(_packagesUtil);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var UploadFile = (function (_React$Component) {
+	  _inherits(UploadFile, _React$Component);
+
+	  function UploadFile() {
+	    _classCallCheck(this, UploadFile);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(UploadFile).apply(this, arguments));
+	  }
+
+	  _createClass(UploadFile, [{
+	    key: 'handleFile',
+	    value: function handleFile(e) {
+	      var self = this;
+	      var reader = new FileReader();
+	      var file = e.target.files[0];
+	      var path = file.path;
+	      var fileName = file.name;
+	      if (fileName.split('.')[1] !== 'json') {
+	        alert("The package needs to be a JSON file");
+	      } else {
+	        _packagesUtil2.default.uploadPackage(path, fileName);
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'form',
+	        { encType: 'multipart/form-data' },
+	        _react2.default.createElement('input', { type: 'file', onChange: this.handleFile.bind(this) })
+	      );
+	    }
+	  }]);
+
+	  return UploadFile;
+	})(_react2.default.Component);
+
+	exports.default = UploadFile;
+
+/***/ },
+/* 212 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24455,7 +24531,7 @@
 	Settings.propTypes = {};
 
 /***/ },
-/* 212 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24470,13 +24546,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactDom = __webpack_require__(157);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _commandsUtil = __webpack_require__(213);
-
-	var _commandsUtil2 = _interopRequireDefault(_commandsUtil);
+	var _commandsUtil = __webpack_require__(214);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24486,100 +24556,68 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var AddCommand = (function (_React$Component) {
-	  _inherits(AddCommand, _React$Component);
+	var Commands = (function (_React$Component) {
+	  _inherits(Commands, _React$Component);
 
-	  function AddCommand(props) {
-	    _classCallCheck(this, AddCommand);
+	  function Commands() {
+	    _classCallCheck(this, Commands);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AddCommand).call(this, props));
-
-	    _this.state = {};
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Commands).apply(this, arguments));
 	  }
 
-	  _createClass(AddCommand, [{
-	    key: 'handleSubmit',
-	    value: function handleSubmit() {
-	      var formData = this.sendFormData();
-	      console.log("Action: ", formData.action);
-	      var actionObj = {};
-	      actionObj[formData.command] = formData.action;
-	      _commandsUtil2.default.addCommand(actionObj);
-	      //addPhrase()
-	    }
-	  }, {
-	    key: 'sendFormData',
-	    value: function sendFormData() {
-	      return {
-	        title: _reactDom2.default.findDOMNode(this.refs.title).value,
-	        description: _reactDom2.default.findDOMNode(this.refs.description).value,
-	        command: _reactDom2.default.findDOMNode(this.refs.command).value,
-	        action: _reactDom2.default.findDOMNode(this.refs.action).value
-	      };
+	  _createClass(Commands, [{
+	    key: 'handleClick',
+	    value: function handleClick(key) {
+	      console.log('You clicked: ' + this.props.items[key]);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var commands = this.getAllCommands();
+	      var keys = Object.keys(commands.rawCommands);
 	      return _react2.default.createElement(
-	        'form',
+	        'ul',
 	        null,
-	        _react2.default.createElement(
-	          'label',
-	          null,
-	          'Title: '
-	        ),
-	        _react2.default.createElement('input', { type: 'text', ref: 'title' }),
-	        _react2.default.createElement(
-	          'label',
-	          null,
-	          'Description: '
-	        ),
-	        _react2.default.createElement('input', { type: 'text', ref: 'description' }),
-	        _react2.default.createElement(
-	          'label',
-	          null,
-	          'Command: '
-	        ),
-	        _react2.default.createElement('input', { type: 'text', ref: 'command' }),
-	        _react2.default.createElement(
-	          'label',
-	          null,
-	          'Action: '
-	        ),
-	        _react2.default.createElement('input', { type: 'text', ref: 'action' }),
-	        _react2.default.createElement(
-	          'button',
-	          { type: 'button', onClick: this.handleSubmit.bind(this) },
-	          'Submit'
-	        )
+	        keys.map(function (key) {
+	          return _react2.default.createElement(
+	            'li',
+	            null,
+	            'key: ',
+	            key
+	          );
+	        })
 	      );
+	    }
+	  }, {
+	    key: 'getAllCommands',
+	    value: function getAllCommands() {
+	      return (0, _commandsUtil.getCommands)();
 	    }
 	  }]);
 
-	  return AddCommand;
+	  return Commands;
 	})(_react2.default.Component);
 
-	exports.default = AddCommand;
+	exports.default = Commands;
 	;
 
 /***/ },
-/* 213 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
-	var matchUtil = __webpack_require__(214);
-	var config = __webpack_require__(316);
-	var fs = __webpack_require__(216);
-	var _ = __webpack_require__(267);
-	var loadPhrases = __webpack_require__(317).loadPhrases;
-	var prefixTrie = __webpack_require__(315);
-	var save = __webpack_require__(318).save;
-	var write = __webpack_require__(318).write;
-	var parseCommands = __webpack_require__(319).parseCommands;
+	var matchUtil = __webpack_require__(215);
+	var config = __webpack_require__(321);
+	var fs = __webpack_require__(217);
+	var _ = __webpack_require__(268);
+	var loadPhrases = __webpack_require__(322).loadPhrases;
+	var prefixTrie = __webpack_require__(320);
+	var save = __webpack_require__(323).save;
+	var write = __webpack_require__(323).write;
+	var parseCommands = __webpack_require__(324).parseCommands;
 
 	var get = function get(name) {
 	  return JSON.parse(localStorage.getItem(name));
@@ -24661,13 +24699,13 @@
 	};
 
 /***/ },
-/* 214 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var matching = __webpack_require__(215);
-	var prefixTrie = __webpack_require__(315);
+	var matching = __webpack_require__(216);
+	var prefixTrie = __webpack_require__(320);
 
 	module.exports.matchUtil = function (userCommand, commandsObj) {
 	  var prefixArray = prefixTrie.findPrefix(userCommand.term);
@@ -24682,18 +24720,18 @@
 	};
 
 /***/ },
-/* 215 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var fs = __webpack_require__(216);
-	var natural = __webpack_require__(217);
+	var fs = __webpack_require__(217);
+	var natural = __webpack_require__(218);
 	var formatVariable = __webpack_require__(314);
-	var testPhrases = __webpack_require__(324);
-	var getMatchByScore = __webpack_require__(325);
-	var phoneticsTest = __webpack_require__(326);
-	var JWDTest = __webpack_require__(327);
+	var testPhrases = __webpack_require__(315);
+	var getMatchByScore = __webpack_require__(317);
+	var phoneticsTest = __webpack_require__(318);
+	var JWDTest = __webpack_require__(319);
 
 	module.exports = function (actionPrefix, variable, commandsObj) {
 	  var _actionPrefix = actionPrefix.toLowerCase();
@@ -24746,91 +24784,10 @@
 	};
 
 /***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports) {
 
 	module.exports = require("fs");
-
-/***/ },
-/* 217 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-	Copyright (c) 2011, Chris Umbel
-
-	Permission is hereby granted, free of charge, to any person obtaining a copy
-	of this software and associated documentation files (the "Software"), to deal
-	in the Software without restriction, including without limitation the rights
-	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-	copies of the Software, and to permit persons to whom the Software is
-	furnished to do so, subject to the following conditions:
-
-	The above copyright notice and this permission notice shall be included in
-	all copies or substantial portions of the Software.
-
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-	THE SOFTWARE.
-	*/
-
-	exports.SoundEx = __webpack_require__(218);
-	exports.Metaphone = __webpack_require__(224);
-	exports.DoubleMetaphone = __webpack_require__(225);
-	exports.SoundExDM = __webpack_require__(226);
-	exports.PorterStemmer = __webpack_require__(227);
-	exports.PorterStemmerFa = __webpack_require__(229);
-	exports.PorterStemmerFr = __webpack_require__(233);
-	exports.PorterStemmerRu = __webpack_require__(237);
-	exports.PorterStemmerEs = __webpack_require__(241);
-	exports.PorterStemmerIt = __webpack_require__(245);
-	exports.PorterStemmerNo = __webpack_require__(249);
-	exports.LancasterStemmer = __webpack_require__(254);
-	exports.StemmerFr = __webpack_require__(234);
-	exports.StemmerPl = __webpack_require__(256);
-	exports.StemmerJa = __webpack_require__(259);
-	exports.AggressiveTokenizerNl = __webpack_require__(264);
-	exports.AggressiveTokenizerFa = __webpack_require__(232);
-	exports.AggressiveTokenizerRu = __webpack_require__(240);
-	exports.AggressiveTokenizerEs = __webpack_require__(244);
-	exports.AggressiveTokenizerIt = __webpack_require__(248);
-	exports.AggressiveTokenizerPl = __webpack_require__(258);
-	exports.AggressiveTokenizerPt = __webpack_require__(265);
-	exports.AggressiveTokenizerNo = __webpack_require__(252);
-	exports.AggressiveTokenizer = __webpack_require__(221);
-	exports.RegexpTokenizer = __webpack_require__(266).RegexpTokenizer;
-	exports.WordTokenizer = __webpack_require__(266).WordTokenizer;
-	exports.WordPunctTokenizer = __webpack_require__(266).WordPunctTokenizer;
-	exports.TreebankWordTokenizer = __webpack_require__(268);
-	exports.TokenizerJa = __webpack_require__(260);
-	exports.BayesClassifier = __webpack_require__(269);
-	exports.LogisticRegressionClassifier = __webpack_require__(284);
-	exports.NounInflector = __webpack_require__(285);
-	exports.NounInflectorFr = __webpack_require__(288);
-	exports.NounInflectorJa = __webpack_require__(289);
-	exports.PresentVerbInflector = __webpack_require__(290);
-	exports.CountInflector = __webpack_require__(291);
-	exports.WordNet = __webpack_require__(292);
-	exports.TfIdf = __webpack_require__(297);
-	exports.Trie = __webpack_require__(298);
-	exports.SentenceAnalyzer = __webpack_require__(299);
-	exports.stopwords = __webpack_require__(220).words;
-	exports.ShortestPathTree = __webpack_require__(300);
-	exports.LongestPathTree = __webpack_require__(304);
-	exports.EdgeWeightedDigraph = __webpack_require__(301);
-	exports.NGrams = __webpack_require__(305);
-	exports.NGramsZH = __webpack_require__(306);
-	exports.JaroWinklerDistance = __webpack_require__(307);
-	exports.LevenshteinDistance = __webpack_require__(308);
-	exports.DiceCoefficient = __webpack_require__(309);
-	exports.normalize = __webpack_require__(310).normalize_tokens;
-	exports.normalize_ja = __webpack_require__(261).normalize_ja;
-	exports.removeDiacritics = __webpack_require__(311);
-	exports.transliterate_ja = __webpack_require__(312);
-
 
 /***/ },
 /* 218 */
@@ -24858,7 +24815,88 @@
 	THE SOFTWARE.
 	*/
 
-	var Phonetic = __webpack_require__(219);
+	exports.SoundEx = __webpack_require__(219);
+	exports.Metaphone = __webpack_require__(225);
+	exports.DoubleMetaphone = __webpack_require__(226);
+	exports.SoundExDM = __webpack_require__(227);
+	exports.PorterStemmer = __webpack_require__(228);
+	exports.PorterStemmerFa = __webpack_require__(230);
+	exports.PorterStemmerFr = __webpack_require__(234);
+	exports.PorterStemmerRu = __webpack_require__(238);
+	exports.PorterStemmerEs = __webpack_require__(242);
+	exports.PorterStemmerIt = __webpack_require__(246);
+	exports.PorterStemmerNo = __webpack_require__(250);
+	exports.LancasterStemmer = __webpack_require__(255);
+	exports.StemmerFr = __webpack_require__(235);
+	exports.StemmerPl = __webpack_require__(257);
+	exports.StemmerJa = __webpack_require__(260);
+	exports.AggressiveTokenizerNl = __webpack_require__(265);
+	exports.AggressiveTokenizerFa = __webpack_require__(233);
+	exports.AggressiveTokenizerRu = __webpack_require__(241);
+	exports.AggressiveTokenizerEs = __webpack_require__(245);
+	exports.AggressiveTokenizerIt = __webpack_require__(249);
+	exports.AggressiveTokenizerPl = __webpack_require__(259);
+	exports.AggressiveTokenizerPt = __webpack_require__(266);
+	exports.AggressiveTokenizerNo = __webpack_require__(253);
+	exports.AggressiveTokenizer = __webpack_require__(222);
+	exports.RegexpTokenizer = __webpack_require__(267).RegexpTokenizer;
+	exports.WordTokenizer = __webpack_require__(267).WordTokenizer;
+	exports.WordPunctTokenizer = __webpack_require__(267).WordPunctTokenizer;
+	exports.TreebankWordTokenizer = __webpack_require__(269);
+	exports.TokenizerJa = __webpack_require__(261);
+	exports.BayesClassifier = __webpack_require__(270);
+	exports.LogisticRegressionClassifier = __webpack_require__(285);
+	exports.NounInflector = __webpack_require__(286);
+	exports.NounInflectorFr = __webpack_require__(289);
+	exports.NounInflectorJa = __webpack_require__(290);
+	exports.PresentVerbInflector = __webpack_require__(291);
+	exports.CountInflector = __webpack_require__(292);
+	exports.WordNet = __webpack_require__(293);
+	exports.TfIdf = __webpack_require__(298);
+	exports.Trie = __webpack_require__(299);
+	exports.SentenceAnalyzer = __webpack_require__(300);
+	exports.stopwords = __webpack_require__(221).words;
+	exports.ShortestPathTree = __webpack_require__(301);
+	exports.LongestPathTree = __webpack_require__(305);
+	exports.EdgeWeightedDigraph = __webpack_require__(302);
+	exports.NGrams = __webpack_require__(306);
+	exports.NGramsZH = __webpack_require__(307);
+	exports.JaroWinklerDistance = __webpack_require__(308);
+	exports.LevenshteinDistance = __webpack_require__(309);
+	exports.DiceCoefficient = __webpack_require__(310);
+	exports.normalize = __webpack_require__(311).normalize_tokens;
+	exports.normalize_ja = __webpack_require__(262).normalize_ja;
+	exports.removeDiacritics = __webpack_require__(312);
+	exports.transliterate_ja = __webpack_require__(313);
+
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+	Copyright (c) 2011, Chris Umbel
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in
+	all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	THE SOFTWARE.
+	*/
+
+	var Phonetic = __webpack_require__(220);
 
 	function transformLipps(token) {
 	    return token.replace(/[bfpv]/g, '1');
@@ -24923,7 +24961,7 @@
 
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -24948,8 +24986,8 @@
 	THE SOFTWARE.
 	*/
 
-	var stopwords = __webpack_require__(220);
-	var Tokenizer = __webpack_require__(221),
+	var stopwords = __webpack_require__(221);
+	var Tokenizer = __webpack_require__(222),
 	    tokenizer = new Tokenizer();
 
 	module.exports = function() {
@@ -24983,7 +25021,7 @@
 
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports) {
 
 	/*
@@ -25030,7 +25068,7 @@
 
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25055,8 +25093,8 @@
 	THE SOFTWARE.
 	*/
 
-	var Tokenizer = __webpack_require__(222),
-	    util = __webpack_require__(223);
+	var Tokenizer = __webpack_require__(223),
+	    util = __webpack_require__(224);
 
 	var AggressiveTokenizer = function() {
 	    Tokenizer.call(this);    
@@ -25072,7 +25110,7 @@
 
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports) {
 
 	/*
@@ -25129,13 +25167,13 @@
 
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports) {
 
 	module.exports = require("util");
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25160,7 +25198,7 @@
 	THE SOFTWARE.
 	*/
 
-	var Phonetic = __webpack_require__(219);
+	var Phonetic = __webpack_require__(220);
 
 	function dedup(token) {
 	    return token.replace(/([^c])\1/g, '$1');
@@ -25333,7 +25371,7 @@
 
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -25358,7 +25396,7 @@
 	THE SOFTWARE.
 	*/
 
-	var Phonetic = __webpack_require__(219);
+	var Phonetic = __webpack_require__(220);
 
 	var DoubleMetaphone = new Phonetic();
 	module.exports = DoubleMetaphone;
@@ -25850,7 +25888,7 @@
 
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -26095,7 +26133,7 @@
 	    return token.slice(0, length);
 	}
 
-	var Phonetic = __webpack_require__(219);
+	var Phonetic = __webpack_require__(220);
 	var soundex = new Phonetic();
 	soundex.process = process;
 	module.exports = soundex;
@@ -26103,7 +26141,7 @@
 
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -26128,7 +26166,7 @@
 	THE SOFTWARE.
 	*/
 
-	var Stemmer = __webpack_require__(228);
+	var Stemmer = __webpack_require__(229);
 
 	// denote groups of consecutive consonants with a C and consecutive vowels
 	// with a V.
@@ -26342,7 +26380,7 @@
 
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -26367,8 +26405,8 @@
 	THE SOFTWARE.
 	*/
 
-	var stopwords = __webpack_require__(220);
-	var Tokenizer = __webpack_require__(221);
+	var stopwords = __webpack_require__(221);
+	var Tokenizer = __webpack_require__(222);
 
 	module.exports = function() {
 	    var stemmer = this;
@@ -26409,7 +26447,7 @@
 
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -26435,7 +26473,7 @@
 	THE SOFTWARE.
 	*/
 
-	var Stemmer = __webpack_require__(230);
+	var Stemmer = __webpack_require__(231);
 
 	var PorterStemmer = new Stemmer();
 	module.exports = PorterStemmer;
@@ -26447,7 +26485,7 @@
 	};
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -26473,8 +26511,8 @@
 	THE SOFTWARE.
 	*/
 
-	var stopwords = __webpack_require__(231);
-	var Tokenizer = __webpack_require__(232);
+	var stopwords = __webpack_require__(232);
+	var Tokenizer = __webpack_require__(233);
 
 	module.exports = function() {
 	    var stemmer = this;
@@ -26507,7 +26545,7 @@
 
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports) {
 
 	/*
@@ -26551,7 +26589,7 @@
 
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -26577,8 +26615,8 @@
 	THE SOFTWARE.
 	*/
 
-	var Tokenizer = __webpack_require__(222),
-	    util = __webpack_require__(223);
+	var Tokenizer = __webpack_require__(223),
+	    util = __webpack_require__(224);
 
 	var AggressiveTokenizer = function() {
 	    Tokenizer.call(this);    
@@ -26605,7 +26643,7 @@
 
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26637,7 +26675,7 @@
 	 * http://snowball.tartarus.org/algorithms/french/stemmer.html
 	 */
 
-	var Stemmer = __webpack_require__(234);
+	var Stemmer = __webpack_require__(235);
 
 	var PorterStemmer = new Stemmer();
 	module.exports = PorterStemmer;
@@ -26987,7 +27025,7 @@
 	};
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -27012,8 +27050,8 @@
 	THE SOFTWARE.
 	*/
 
-	var stopwords = __webpack_require__(235);
-	var Tokenizer = __webpack_require__(236);
+	var stopwords = __webpack_require__(236);
+	var Tokenizer = __webpack_require__(237);
 
 	module.exports = function() {
 	   var stemmer = this;
@@ -27051,7 +27089,7 @@
 
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports) {
 
 	/*
@@ -27251,7 +27289,7 @@
 
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -27276,8 +27314,8 @@
 	THE SOFTWARE.
 	*/
 
-	var Tokenizer = __webpack_require__(222),
-	    util = __webpack_require__(223);
+	var Tokenizer = __webpack_require__(223),
+	    util = __webpack_require__(224);
 
 	var AggressiveTokenizer = function() {
 	    Tokenizer.call(this);    
@@ -27293,7 +27331,7 @@
 
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -27318,7 +27356,7 @@
 	THE SOFTWARE.
 	*/
 
-	var Stemmer = __webpack_require__(238);
+	var Stemmer = __webpack_require__(239);
 
 	var PorterStemmer = new Stemmer();
 	module.exports = PorterStemmer;
@@ -27450,7 +27488,7 @@
 
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -27475,8 +27513,8 @@
 	THE SOFTWARE.
 	*/
 
-	var stopwords = __webpack_require__(239);
-	var Tokenizer = __webpack_require__(240);
+	var stopwords = __webpack_require__(240);
+	var Tokenizer = __webpack_require__(241);
 
 	module.exports = function() {
 	    var stemmer = this;
@@ -27514,7 +27552,7 @@
 
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports) {
 
 	/*
@@ -27561,7 +27599,7 @@
 
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -27586,8 +27624,8 @@
 	THE SOFTWARE.
 	*/
 
-	var Tokenizer = __webpack_require__(222),
-	    util = __webpack_require__(223);
+	var Tokenizer = __webpack_require__(223),
+	    util = __webpack_require__(224);
 
 	var AggressiveTokenizer = function() {
 	    Tokenizer.call(this);    
@@ -27612,7 +27650,7 @@
 
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -27637,7 +27675,7 @@
 	THE SOFTWARE.
 	*/
 
-	var Stemmer = __webpack_require__(242);
+	var Stemmer = __webpack_require__(243);
 
 	var PorterStemmer = new Stemmer();
 	module.exports = PorterStemmer;
@@ -27839,7 +27877,7 @@
 
 
 /***/ },
-/* 242 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -27864,8 +27902,8 @@
 	THE SOFTWARE.
 	*/
 
-	var stopwords = __webpack_require__(243);
-	var Tokenizer = __webpack_require__(244);
+	var stopwords = __webpack_require__(244);
+	var Tokenizer = __webpack_require__(245);
 
 	module.exports = function() {
 	    var stemmer = this;
@@ -27903,7 +27941,7 @@
 
 
 /***/ },
-/* 243 */
+/* 244 */
 /***/ function(module, exports) {
 
 	/*
@@ -27945,7 +27983,7 @@
 
 
 /***/ },
-/* 244 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -27970,8 +28008,8 @@
 	THE SOFTWARE.
 	*/
 
-	var Tokenizer = __webpack_require__(222),
-	    util = __webpack_require__(223);
+	var Tokenizer = __webpack_require__(223),
+	    util = __webpack_require__(224);
 
 	var AggressiveTokenizer = function() {
 	    Tokenizer.call(this);    
@@ -27987,7 +28025,7 @@
 
 
 /***/ },
-/* 245 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -28012,7 +28050,7 @@
 	THE SOFTWARE.
 	*/
 
-	var Stemmer = __webpack_require__(246);
+	var Stemmer = __webpack_require__(247);
 
 	var PorterStemmer = new Stemmer();
 	module.exports = PorterStemmer;
@@ -28225,11 +28263,11 @@
 	};
 
 /***/ },
-/* 246 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var stopwords = __webpack_require__(247);
-	var Tokenizer = __webpack_require__(248);
+	var stopwords = __webpack_require__(248);
+	var Tokenizer = __webpack_require__(249);
 
 	module.exports = function() {
 	    var stemmer = this;
@@ -28266,7 +28304,7 @@
 	}
 
 /***/ },
-/* 247 */
+/* 248 */
 /***/ function(module, exports) {
 
 	/*
@@ -28324,7 +28362,7 @@
 
 
 /***/ },
-/* 248 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -28349,8 +28387,8 @@
 	THE SOFTWARE.
 	*/
 
-	var Tokenizer = __webpack_require__(222),
-	    util = __webpack_require__(223);
+	var Tokenizer = __webpack_require__(223),
+	    util = __webpack_require__(224);
 
 	var AggressiveTokenizer = function() {
 	    Tokenizer.call(this);    
@@ -28366,7 +28404,7 @@
 
 
 /***/ },
-/* 249 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -28391,7 +28429,7 @@
 	THE SOFTWARE.
 	*/
 
-	var Stemmer = __webpack_require__(250);
+	var Stemmer = __webpack_require__(251);
 
 	// Get the part of the token after the first non-vowel following a vowel
 	function getR1(token) {
@@ -28526,7 +28564,7 @@
 	PorterStemmer.step3  = step3;
 
 /***/ },
-/* 250 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -28551,8 +28589,8 @@
 	THE SOFTWARE.
 	*/
 
-	var stopwords = __webpack_require__(251);
-	var Tokenizer = __webpack_require__(252);
+	var stopwords = __webpack_require__(252);
+	var Tokenizer = __webpack_require__(253);
 
 	module.exports = function() {
 	    var stemmer = this;
@@ -28593,7 +28631,7 @@
 
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports) {
 
 	/*
@@ -28640,7 +28678,7 @@
 	exports.words = words;
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -28665,9 +28703,9 @@
 	THE SOFTWARE.
 	*/
 
-	var Tokenizer = __webpack_require__(222),
-	    normalizer = __webpack_require__(253),
-	    util = __webpack_require__(223);
+	var Tokenizer = __webpack_require__(223),
+	    normalizer = __webpack_require__(254),
+	    util = __webpack_require__(224);
 
 	var AggressiveTokenizer = function() {
 	    Tokenizer.call(this);
@@ -28685,7 +28723,7 @@
 
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports) {
 
 	/*
@@ -28749,7 +28787,7 @@
 	exports.remove_diacritics = remove_diacritics;
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -28774,8 +28812,8 @@
 	THE SOFTWARE.
 	*/
 
-	var Stemmer = __webpack_require__(228);
-	var ruleTable = __webpack_require__(255).rules;
+	var Stemmer = __webpack_require__(229);
+	var ruleTable = __webpack_require__(256).rules;
 
 	function acceptable(candidate) {
 	    if (candidate.match(/^[aeiou]/))
@@ -28829,7 +28867,7 @@
 	}
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports) {
 
 	/*
@@ -29625,7 +29663,7 @@
 
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -29650,8 +29688,8 @@
 	THE SOFTWARE.
 	*/
 
-	var stopwords = __webpack_require__(257);
-	var Tokenizer = __webpack_require__(258);
+	var stopwords = __webpack_require__(258);
+	var Tokenizer = __webpack_require__(259);
 
 	module.exports = function() {
 	    var stemmer = this;
@@ -29689,7 +29727,7 @@
 
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports) {
 
 	/*
@@ -29757,7 +29795,7 @@
 
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -29782,8 +29820,8 @@
 	THE SOFTWARE.
 	*/
 
-	var Tokenizer = __webpack_require__(222),
-	    util = __webpack_require__(223);
+	var Tokenizer = __webpack_require__(223),
+	    util = __webpack_require__(224);
 
 	var AggressiveTokenizer = function() {
 	    Tokenizer.call(this);
@@ -29808,7 +29846,7 @@
 
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -29844,8 +29882,8 @@
 	 * \@todo Use .bind() in StemmerJa.prototype.attach().
 	 */
 
-	var Tokenizer = __webpack_require__(260);
-	var stopwords = __webpack_require__(263);
+	var Tokenizer = __webpack_require__(261);
+	var stopwords = __webpack_require__(264);
 
 
 
@@ -29952,7 +29990,7 @@
 
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Original copyright:
@@ -30014,9 +30052,9 @@
 	// TinySegmenter is freely distributable under the terms of a new BSD licence.
 	// For details, see http://chasen.org/~taku/software/TinySegmenter/LICENCE.txt
 
-	var Tokenizer = __webpack_require__(222),
-	    normalize = __webpack_require__(261).normalize_ja,
-	    util = __webpack_require__(223);
+	var Tokenizer = __webpack_require__(223),
+	    normalize = __webpack_require__(262).normalize_ja,
+	    util = __webpack_require__(224);
 
 
 
@@ -30235,7 +30273,7 @@
 
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30284,9 +30322,9 @@
 	 * converters.katakanaToHiragana               「ひらがな」を「カタカナ」に変換
 	 */
 
-	var flip = __webpack_require__(262).flip;
-	var merge = __webpack_require__(262).merge;
-	var replacer = __webpack_require__(262).replacer;
+	var flip = __webpack_require__(263).flip;
+	var merge = __webpack_require__(263).merge;
+	var replacer = __webpack_require__(263).replacer;
 
 	// From http://fernweh.jp/b/mb_convert_kana_js/
 	var conversionTables = {
@@ -30865,7 +30903,7 @@
 
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports) {
 
 	/*
@@ -30990,7 +31028,7 @@
 
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports) {
 
 	// Original copyright:
@@ -31055,7 +31093,7 @@
 
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -31080,8 +31118,8 @@
 	THE SOFTWARE.
 	*/
 
-	var Tokenizer = __webpack_require__(222),
-	    util = __webpack_require__(223);
+	var Tokenizer = __webpack_require__(223),
+	    util = __webpack_require__(224);
 
 	var AggressiveTokenizer = function() {
 	    Tokenizer.call(this);
@@ -31097,7 +31135,7 @@
 
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -31122,8 +31160,8 @@
 	THE SOFTWARE.
 	*/
 
-	var Tokenizer = __webpack_require__(222),
-	    util = __webpack_require__(223);
+	var Tokenizer = __webpack_require__(223),
+	    util = __webpack_require__(224);
 
 	var AggressiveTokenizer = function() {
 	    Tokenizer.call(this);
@@ -31143,7 +31181,7 @@
 
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -31168,9 +31206,9 @@
 	THE SOFTWARE.
 	*/
 
-	var Tokenizer = __webpack_require__(222),
-	    util = __webpack_require__(223),
-	    _ = __webpack_require__(267)._;
+	var Tokenizer = __webpack_require__(223),
+	    util = __webpack_require__(224),
+	    _ = __webpack_require__(268)._;
 
 	// Base Class for RegExp Matching
 	var RegexpTokenizer = function(options) {
@@ -31235,7 +31273,7 @@
 
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -32789,7 +32827,7 @@
 
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -32814,9 +32852,9 @@
 	THE SOFTWARE.
 	*/
 
-	var Tokenizer = __webpack_require__(222),
-	    util = __webpack_require__(223),
-	    _ = __webpack_require__(267)._;
+	var Tokenizer = __webpack_require__(223),
+	    util = __webpack_require__(224),
+	    _ = __webpack_require__(268)._;
 
 	var contractions2 = [
 	    /(.)('ll|'re|'ve|n't|'s|'m|'d)\b/ig,
@@ -32869,7 +32907,7 @@
 
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -32894,10 +32932,10 @@
 	THE SOFTWARE.
 	*/
 
-	var PorterStemmer = __webpack_require__(227),
-	util = __webpack_require__(223),
-	Classifier = __webpack_require__(270),
-	ApparatusBayesClassifier = __webpack_require__(272).BayesClassifier;
+	var PorterStemmer = __webpack_require__(228),
+	util = __webpack_require__(224),
+	Classifier = __webpack_require__(271),
+	ApparatusBayesClassifier = __webpack_require__(273).BayesClassifier;
 
 	var BayesClassifier = function(stemmer, smoothing) {
 	    var abc = new ApparatusBayesClassifier();
@@ -32933,7 +32971,7 @@
 
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -32958,9 +32996,9 @@
 	THE SOFTWARE.
 	*/
 
-	var PorterStemmer = __webpack_require__(227),
-	util = __webpack_require__(223),
-	events = __webpack_require__(271);
+	var PorterStemmer = __webpack_require__(228),
+	util = __webpack_require__(224),
+	events = __webpack_require__(272);
 
 	var Classifier = function(classifier, stemmer) {
 	    this.classifier = classifier;
@@ -33067,7 +33105,7 @@
 
 	function save(filename, callback) {
 	    var data = JSON.stringify(this);
-	    var fs = __webpack_require__(216);
+	    var fs = __webpack_require__(217);
 	    var classifier = this;
 	    fs.writeFile(filename, data, 'utf8', function(err) {
 	        if(callback) {
@@ -33077,7 +33115,7 @@
 	}
 
 	function load(filename, callback) {
-	    var fs = __webpack_require__(216);
+	    var fs = __webpack_require__(217);
 
 	    fs.readFile(filename, 'utf8', function(err, data) {
 	        var classifier;
@@ -33106,23 +33144,23 @@
 
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports) {
 
 	module.exports = require("events");
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	exports.BayesClassifier = __webpack_require__(273);
-	exports.LogisticRegressionClassifier = __webpack_require__(275);
-	exports.KMeans = __webpack_require__(283);
+	exports.BayesClassifier = __webpack_require__(274);
+	exports.LogisticRegressionClassifier = __webpack_require__(276);
+	exports.KMeans = __webpack_require__(284);
 
 
 /***/ },
-/* 273 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -33147,8 +33185,8 @@
 	THE SOFTWARE.
 	*/
 
-	var util = __webpack_require__(223),
-	Classifier = __webpack_require__(274);
+	var util = __webpack_require__(224),
+	Classifier = __webpack_require__(275);
 
 	var BayesClassifier = function(smoothing) {
 	    Classifier.call(this);
@@ -33259,7 +33297,7 @@
 	module.exports = BayesClassifier;
 
 /***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports) {
 
 	/*
@@ -33319,7 +33357,7 @@
 
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -33344,10 +33382,10 @@
 	THE SOFTWARE.
 	*/
 
-	var util = __webpack_require__(223),
-	     Classifier = __webpack_require__(274);
+	var util = __webpack_require__(224),
+	     Classifier = __webpack_require__(275);
 
-	var sylvester = __webpack_require__(276),
+	var sylvester = __webpack_require__(277),
 	Matrix = sylvester.Matrix,
 	Vector = sylvester.Vector;
 
@@ -33517,25 +33555,25 @@
 
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright (c) 2011, Chris Umbel
 
-	exports.Vector = __webpack_require__(277);
+	exports.Vector = __webpack_require__(278);
 	global.$V = exports.Vector.create;
-	exports.Matrix = __webpack_require__(279);
+	exports.Matrix = __webpack_require__(280);
 	global.$M = exports.Matrix.create;
-	exports.Line = __webpack_require__(280);
+	exports.Line = __webpack_require__(281);
 	global.$L = exports.Line.create;
-	exports.Plane = __webpack_require__(281);
+	exports.Plane = __webpack_require__(282);
 	global.$P = exports.Plane.create;
-	exports.Line.Segment = __webpack_require__(282);
-	exports.Sylvester = __webpack_require__(278);
+	exports.Line.Segment = __webpack_require__(283);
+	exports.Sylvester = __webpack_require__(279);
 
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright (c) 2011, Chris Umbel, James Coglan
@@ -33543,8 +33581,8 @@
 	// other Sylvester classes and are useless unless they are included. Other classes such as Line and
 	// Plane will not function at all without Vector being loaded first.
 
-	var Sylvester = __webpack_require__(278),
-	Matrix = __webpack_require__(279);
+	var Sylvester = __webpack_require__(279),
+	Matrix = __webpack_require__(280);
 
 	function Vector() {}
 	Vector.prototype = {
@@ -33979,7 +34017,7 @@
 
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports) {
 
 	// Copyright (c) 2011, Chris Umbel, James Coglan
@@ -34000,15 +34038,15 @@
 
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright (c) 2011, Chris Umbel, James Coglan
 	// Matrix class - depends on Vector.
 
-	var fs = __webpack_require__(216);
-	var Sylvester = __webpack_require__(278);
-	var Vector = __webpack_require__(277);
+	var fs = __webpack_require__(217);
+	var Sylvester = __webpack_require__(279);
+	var Vector = __webpack_require__(278);
 
 	// augment a matrix M with identity rows/cols
 	function identSize(M, m, n, k) {
@@ -35042,14 +35080,14 @@
 
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright (c) 2011, Chris Umbel, James Coglan
-	var Vector = __webpack_require__(277);
-	var Matrix = __webpack_require__(279);
-	var Plane = __webpack_require__(281);
-	var Sylvester = __webpack_require__(278);
+	var Vector = __webpack_require__(278);
+	var Matrix = __webpack_require__(280);
+	var Plane = __webpack_require__(282);
+	var Sylvester = __webpack_require__(279);
 
 	// Line class - depends on Vector, and some methods require Matrix and Plane.
 
@@ -35279,16 +35317,16 @@
 
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright (c) 2011, Chris Umbel, James Coglan
 	// Plane class - depends on Vector. Some methods require Matrix and Line.
-	var Vector = __webpack_require__(277);
-	var Matrix = __webpack_require__(279);
-	var Line = __webpack_require__(280);
+	var Vector = __webpack_require__(278);
+	var Matrix = __webpack_require__(280);
+	var Line = __webpack_require__(281);
 
-	var Sylvester = __webpack_require__(278);
+	var Sylvester = __webpack_require__(279);
 
 	function Plane() {}
 	Plane.prototype = {
@@ -35559,14 +35597,14 @@
 
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright (c) 2011, Chris Umbel, James Coglan
 	// Line.Segment class - depends on Line and its dependencies.
 
-	var Line = __webpack_require__(280);
-	var Vector = __webpack_require__(277);
+	var Line = __webpack_require__(281);
+	var Vector = __webpack_require__(278);
 
 	Line.Segment = function() {};
 	Line.Segment.prototype = {
@@ -35691,7 +35729,7 @@
 
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -35716,7 +35754,7 @@
 	THE SOFTWARE.
 	*/
 
-	var Sylvester = __webpack_require__(276),
+	var Sylvester = __webpack_require__(277),
 	Matrix = Sylvester.Matrix,
 	Vector = Sylvester.Vector;
 
@@ -35815,7 +35853,7 @@
 
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -35840,10 +35878,10 @@
 	THE SOFTWARE.
 	*/
 
-	var PorterStemmer = __webpack_require__(227),
-	util = __webpack_require__(223),
-	Classifier = __webpack_require__(270),
-	ApparatusLogisticRegressionClassifier = __webpack_require__(272).LogisticRegressionClassifier;
+	var PorterStemmer = __webpack_require__(228),
+	util = __webpack_require__(224),
+	Classifier = __webpack_require__(271),
+	ApparatusLogisticRegressionClassifier = __webpack_require__(273).LogisticRegressionClassifier;
 
 	var LogisticRegressionClassifier = function(stemmer) {
 	    Classifier.call(this, new ApparatusLogisticRegressionClassifier(), stemmer);
@@ -35881,7 +35919,7 @@
 
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -35906,9 +35944,9 @@
 	THE SOFTWARE.
 	*/
 
-	var SingularPluralInflector = __webpack_require__(286),
-	    util = __webpack_require__(223),
-	    FormSet = __webpack_require__(287);
+	var SingularPluralInflector = __webpack_require__(287),
+	    util = __webpack_require__(224),
+	    FormSet = __webpack_require__(288);
 
 	function attach() {
 	    var inflector = this;
@@ -35992,7 +36030,7 @@
 
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports) {
 
 	/*
@@ -36107,7 +36145,7 @@
 
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports) {
 
 	/*
@@ -36141,7 +36179,7 @@
 
 
 /***/ },
-/* 288 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -36176,9 +36214,9 @@
 	 * \@todo General note: French also requires AdjectiveInflector (femininize...).
 	 */
 
-	var SingularPluralInflector = __webpack_require__(286),
-	    util = __webpack_require__(223),
-	    FormSet = __webpack_require__(287);
+	var SingularPluralInflector = __webpack_require__(287),
+	    util = __webpack_require__(224),
+	    FormSet = __webpack_require__(288);
 
 	function attach() {
 	  var inflector = this;
@@ -36382,7 +36420,7 @@
 
 
 /***/ },
-/* 289 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -36426,9 +36464,9 @@
 	 * \@todo Expand the list of common plurals ending by -domo and -gata.
 	 */
 
-	var SingularPluralInflector = __webpack_require__(286),
-	    util = __webpack_require__(223),
-	    FormSet = __webpack_require__(287);
+	var SingularPluralInflector = __webpack_require__(287),
+	    util = __webpack_require__(224),
+	    FormSet = __webpack_require__(288);
 
 	function attach() {
 	  var inflector = this;
@@ -36523,7 +36561,7 @@
 
 
 /***/ },
-/* 290 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -36548,9 +36586,9 @@
 	THE SOFTWARE.
 	*/
 
-	var util = __webpack_require__(223),
-	    SingularPluralInflector = __webpack_require__(286),
-	    FormSet = __webpack_require__(287);
+	var util = __webpack_require__(224),
+	    SingularPluralInflector = __webpack_require__(287),
+	    FormSet = __webpack_require__(288);
 
 	function attach() {
 	    var inflector = this;
@@ -36604,7 +36642,7 @@
 
 
 /***/ },
-/* 291 */
+/* 292 */
 /***/ function(module, exports) {
 
 	/*
@@ -36664,7 +36702,7 @@
 
 
 /***/ },
-/* 292 */
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -36689,8 +36727,8 @@
 	THE SOFTWARE.
 	*/
 
-	var IndexFile = __webpack_require__(293),
-	  DataFile = __webpack_require__(296);
+	var IndexFile = __webpack_require__(294),
+	  DataFile = __webpack_require__(297);
 
 	function pushResults(data, results, offsets, callback) {
 	  var wordnet = this;
@@ -36839,7 +36877,7 @@
 
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -36864,9 +36902,9 @@
 	THE SOFTWARE.
 	*/
 
-	var WordNetFile = __webpack_require__(294),
-	  fs = __webpack_require__(216),
-	  util = __webpack_require__(223);
+	var WordNetFile = __webpack_require__(295),
+	  fs = __webpack_require__(217),
+	  util = __webpack_require__(224);
 
 	function getFileSize(path) {
 	  var stat = fs.statSync(path);
@@ -36985,7 +37023,7 @@
 
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -37010,9 +37048,9 @@
 	THE SOFTWARE.
 	*/
 
-	var  fs = __webpack_require__(216),
-	  path = __webpack_require__(295),
-	  util = __webpack_require__(223);
+	var  fs = __webpack_require__(217),
+	  path = __webpack_require__(296),
+	  util = __webpack_require__(224);
 
 
 	function appendLineChar(fd, pos, buffPos, buff, callback) {
@@ -37050,7 +37088,7 @@
 	var WordNetFile = function(dataDir, fileName) {
 	  this.dataDir = dataDir;
 	  this.fileName = fileName;
-	  this.filePath = __webpack_require__(295).join(this.dataDir, this.fileName);
+	  this.filePath = __webpack_require__(296).join(this.dataDir, this.fileName);
 	};
 
 	WordNetFile.prototype.open = open;
@@ -37060,13 +37098,13 @@
 
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 296 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -37091,9 +37129,9 @@
 	THE SOFTWARE.
 	*/
 
-	var WordNetFile = __webpack_require__(294),
-	  fs = __webpack_require__(216),
-	  util = __webpack_require__(223);
+	var WordNetFile = __webpack_require__(295),
+	  fs = __webpack_require__(217),
+	  util = __webpack_require__(224);
 
 	function get(location, callback) {
 	  var buff = new Buffer(4096);
@@ -37158,7 +37196,7 @@
 
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -37183,11 +37221,11 @@
 	THE SOFTWARE.
 	*/
 
-	var _ = __webpack_require__(267)._,
-	    Tokenizer = __webpack_require__(266).WordTokenizer,
+	var _ = __webpack_require__(268)._,
+	    Tokenizer = __webpack_require__(267).WordTokenizer,
 	    tokenizer = new Tokenizer(),
-	    stopwords = __webpack_require__(220).words,
-	    fs = __webpack_require__(216);
+	    stopwords = __webpack_require__(221).words,
+	    fs = __webpack_require__(217);
 
 	function buildDocument(text, key) {
 	    var stopOut;
@@ -37357,7 +37395,7 @@
 
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports) {
 
 	/*
@@ -37593,7 +37631,7 @@
 
 
 /***/ },
-/* 299 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -37618,7 +37656,7 @@
 	THE SOFTWARE.
 	*/
 
-	var _ = __webpack_require__(267)._;
+	var _ = __webpack_require__(268)._;
 
 	/*
 	 Sentences Analizer Class
@@ -37775,7 +37813,7 @@
 
 
 /***/ },
-/* 300 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -37801,8 +37839,8 @@
 	 */
 	'use strict';
 
-	var EdgeWeightedDigraph = __webpack_require__(301),
-	    Topological = __webpack_require__(303);
+	var EdgeWeightedDigraph = __webpack_require__(302),
+	    Topological = __webpack_require__(304);
 
 	/**
 	  *  The ShortestPathTree represents a data type for solving the
@@ -37881,7 +37919,7 @@
 
 
 /***/ },
-/* 301 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -37907,8 +37945,8 @@
 	 */
 	'use strict';
 
-	var util = __webpack_require__(223),
-	    Bag = __webpack_require__(302);
+	var util = __webpack_require__(224),
+	    Bag = __webpack_require__(303);
 
 	var DirectedEdge = function(start, end, weight) {
 	    this.start = start;
@@ -37999,7 +38037,7 @@
 
 
 /***/ },
-/* 302 */
+/* 303 */
 /***/ function(module, exports) {
 
 	/*
@@ -38055,7 +38093,7 @@
 
 
 /***/ },
-/* 303 */
+/* 304 */
 /***/ function(module, exports) {
 
 	/*
@@ -38159,7 +38197,7 @@
 
 
 /***/ },
-/* 304 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -38185,8 +38223,8 @@
 	 */
 	'use strict';
 
-	var EdgeWeightedDigraph = __webpack_require__(301),
-	    Topological = __webpack_require__(303);
+	var EdgeWeightedDigraph = __webpack_require__(302),
+	    Topological = __webpack_require__(304);
 
 	/**
 	  *  The LongestPathTree represents a data type for solving the
@@ -38264,7 +38302,7 @@
 
 
 /***/ },
-/* 305 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -38289,8 +38327,8 @@
 	THE SOFTWARE.
 	*/
 
-	var _ = __webpack_require__(267)._,
-	    Tokenizer = __webpack_require__(266).WordTokenizer,
+	var _ = __webpack_require__(268)._,
+	    Tokenizer = __webpack_require__(267).WordTokenizer,
 	    tokenizer = new Tokenizer();
 
 	exports.setTokenizer = function(t) {
@@ -38361,7 +38399,7 @@
 
 
 /***/ },
-/* 306 */
+/* 307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -38386,7 +38424,7 @@
 	THE SOFTWARE.
 	*/
 
-	var _ = __webpack_require__(267)._;
+	var _ = __webpack_require__(268)._;
 
 	exports.ngrams = function(sequence, n, startSymbol, endSymbol) {
 	    return ngrams(sequence, n, startSymbol, endSymbol);
@@ -38450,7 +38488,7 @@
 
 
 /***/ },
-/* 307 */
+/* 308 */
 /***/ function(module, exports) {
 
 	/*
@@ -38572,7 +38610,7 @@
 
 
 /***/ },
-/* 308 */
+/* 309 */
 /***/ function(module, exports) {
 
 	/*
@@ -38646,7 +38684,7 @@
 
 
 /***/ },
-/* 309 */
+/* 310 */
 /***/ function(module, exports) {
 
 	/*
@@ -38721,7 +38759,7 @@
 
 
 /***/ },
-/* 310 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -38753,7 +38791,7 @@
 	 * It currently works off a conversion table and falls back to a set of rules.
 	 * Since it is applied first, the conversion table provides an "override" for the rules.
 	 **/
-	var replacer = __webpack_require__(262).replacer;
+	var replacer = __webpack_require__(263).replacer;
 
 	var conversionTable = {
 		"can't":"can not",
@@ -38822,7 +38860,7 @@
 
 
 /***/ },
-/* 311 */
+/* 312 */
 /***/ function(module, exports) {
 
 	/*
@@ -38949,7 +38987,7 @@
 
 
 /***/ },
-/* 312 */
+/* 313 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -38993,7 +39031,7 @@
 	 * \@todo Take iteration marks into account.
 	 */
 
-	var replacer = __webpack_require__(262).replacer;
+	var replacer = __webpack_require__(263).replacer;
 
 	var transliterationTable1 = {
 	  'ウァ': 'wa', // KATAKANA LETTER U + SMALL A
@@ -39537,23 +39575,6 @@
 
 
 /***/ },
-/* 313 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _ = __webpack_require__(267);
-	module.exports = function (arr, term) {
-	  var regTerm = new RegExp(term, 'i'); // creates new regexp obj
-	  for (var i = 0; i < arr.length; i++) {
-	    if (arr[i].match(regTerm)) {
-	      return true;
-	    }
-	  }
-	  return false;
-	};
-
-/***/ },
 /* 314 */
 /***/ function(module, exports) {
 
@@ -39650,7 +39671,94 @@
 
 	'use strict';
 
-	var natural = __webpack_require__(217);
+	var regMatch = __webpack_require__(316);
+	module.exports = function (phrases, _actionPrefix) {
+	  // console.log('testing phrases', phrases);
+	  for (var phrase in phrases) {
+	    console.log(phrases[phrase]);
+	    if (regMatch(phrases[phrase], _actionPrefix)) {
+	      return phrase;
+	    };
+	  }
+	  return null;
+	};
+
+/***/ },
+/* 316 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _ = __webpack_require__(268);
+	module.exports = function (arr, term) {
+	  var regTerm = new RegExp(term, 'i'); // creates new regexp obj
+	  for (var i = 0; i < arr.length; i++) {
+	    if (arr[i].match(regTerm)) {
+	      return true;
+	    }
+	  }
+	  return false;
+	};
+
+/***/ },
+/* 317 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var phoneticsTest = __webpack_require__(318);
+
+	module.exports = function (phrases, actionPrefix) {
+	  console.log('\n\n\n\n');
+	  console.log('Testing: ', actionPrefix);
+	  console.log('\n\n');
+	  return phrases.reduce(function (max, phrase) {
+	    if (max.score === undefined) {
+	      max.phrase = phrase;
+	      max.score = phoneticsTest(phrase, actionPrefix);
+	      console.log(phrase + " scored: " + max.score);
+	      return max;
+	    } else {
+	      var score = phoneticsTest(phrase, actionPrefix);
+	      console.log(phrase + " scored: " + score);
+	      return max.score > score ? max : {
+	        phrase: phrase,
+	        score: score
+	      };
+	    }
+	  }, {})['phrase'];
+	};
+
+/***/ },
+/* 318 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Metaphone = __webpack_require__(218).Metaphone;
+	var JWDTest = __webpack_require__(319);
+	module.exports = function (actionPrefix, key) {
+	  return parseFloat(JWDTest(Metaphone.process(key), Metaphone.process(actionPrefix)));
+	};
+
+/***/ },
+/* 319 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var JaroWinklerDistance = __webpack_require__(218).JaroWinklerDistance;
+	module.exports = function (key, _actionPrefix) {
+	  return JaroWinklerDistance(key, _actionPrefix);
+	};
+
+/***/ },
+/* 320 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var natural = __webpack_require__(218);
 	var Trie = natural.Trie;
 
 	module.exports.build = function (strings) {
@@ -39663,7 +39771,7 @@
 	};
 
 /***/ },
-/* 316 */
+/* 321 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
@@ -39679,13 +39787,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ },
-/* 317 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(267);
-	var fs = __webpack_require__(216);
+	var _ = __webpack_require__(268);
+	var fs = __webpack_require__(217);
 
 	var loadPhrases = function loadPhrases(phrasesPath, commands) {
 	  var phrases = {};
@@ -39717,14 +39825,14 @@
 	};
 
 /***/ },
-/* 318 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
-	var fs = __webpack_require__(216);
+	var fs = __webpack_require__(217);
 
 	module.exports.write = function (filePath, data) {
 	  if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) === 'object') {
@@ -39738,7 +39846,7 @@
 	};
 
 /***/ },
-/* 319 */
+/* 324 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -39850,7 +39958,116 @@
 	};
 
 /***/ },
-/* 320 */
+/* 325 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(157);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _commandsUtil = __webpack_require__(214);
+
+	var _commandsUtil2 = _interopRequireDefault(_commandsUtil);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AddCommand = (function (_React$Component) {
+	  _inherits(AddCommand, _React$Component);
+
+	  function AddCommand(props) {
+	    _classCallCheck(this, AddCommand);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AddCommand).call(this, props));
+
+	    _this.state = {};
+	    return _this;
+	  }
+
+	  _createClass(AddCommand, [{
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      var formData = this.sendFormData();
+	      console.log("Action: ", formData.action);
+	      var actionObj = {};
+	      actionObj[formData.command] = formData.action;
+	      _commandsUtil2.default.addCommand(actionObj);
+	      //addPhrase()
+	    }
+	  }, {
+	    key: 'sendFormData',
+	    value: function sendFormData() {
+	      return {
+	        title: _reactDom2.default.findDOMNode(this.refs.title).value,
+	        description: _reactDom2.default.findDOMNode(this.refs.description).value,
+	        command: _reactDom2.default.findDOMNode(this.refs.command).value,
+	        action: _reactDom2.default.findDOMNode(this.refs.action).value
+	      };
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'form',
+	        null,
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Title: '
+	        ),
+	        _react2.default.createElement('input', { type: 'text', ref: 'title' }),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Description: '
+	        ),
+	        _react2.default.createElement('input', { type: 'text', ref: 'description' }),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Command: '
+	        ),
+	        _react2.default.createElement('input', { type: 'text', ref: 'command' }),
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Action: '
+	        ),
+	        _react2.default.createElement('input', { type: 'text', ref: 'action' }),
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'button', onClick: this.handleSubmit.bind(this) },
+	          'Submit'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return AddCommand;
+	})(_react2.default.Component);
+
+	exports.default = AddCommand;
+	;
+
+/***/ },
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39900,25 +40117,7 @@
 	;
 
 /***/ },
-/* 321 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _electron = __webpack_require__(210);
-
-	_electron.ipcRenderer.on('async reply', function (arg) {
-	  console.log(arg);
-	});
-
-	exports.default = _electron.ipcRenderer;
-
-/***/ },
-/* 322 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39990,144 +40189,54 @@
 	exports.default = Landing;
 
 /***/ },
-/* 323 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _react = __webpack_require__(1);
+	var _electron = __webpack_require__(210);
 
-	var _react2 = _interopRequireDefault(_react);
+	_electron.ipcRenderer.on('async reply', function (arg) {
+	  console.log(arg);
+	});
 
-	var _commandsUtil = __webpack_require__(213);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Commands = (function (_React$Component) {
-	  _inherits(Commands, _React$Component);
-
-	  function Commands() {
-	    _classCallCheck(this, Commands);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Commands).apply(this, arguments));
-	  }
-
-	  _createClass(Commands, [{
-	    key: 'handleClick',
-	    value: function handleClick(key) {
-	      console.log('You clicked: ' + this.props.items[key]);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var commands = this.getAllCommands();
-	      var keys = Object.keys(commands.rawCommands);
-	      return _react2.default.createElement(
-	        'ul',
-	        null,
-	        keys.map(function (key) {
-	          return _react2.default.createElement(
-	            'li',
-	            null,
-	            'key: ',
-	            key
-	          );
-	        })
-	      );
-	    }
-	  }, {
-	    key: 'getAllCommands',
-	    value: function getAllCommands() {
-	      return (0, _commandsUtil.getCommands)();
-	    }
-	  }]);
-
-	  return Commands;
-	})(_react2.default.Component);
-
-	exports.default = Commands;
-	;
+	exports.default = _electron.ipcRenderer;
 
 /***/ },
-/* 324 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var regMatch = __webpack_require__(313);
-	module.exports = function (phrases, _actionPrefix) {
-	  // console.log('testing phrases', phrases);
-	  for (var phrase in phrases) {
-	    console.log(phrases[phrase]);
-	    if (regMatch(phrases[phrase], _actionPrefix)) {
-	      return phrase;
-	    };
-	  }
-	  return null;
-	};
+	var loadPackage = __webpack_require__(214).loadPackage;
+	var fs = __webpack_require__(217);
 
-/***/ },
-/* 325 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var phoneticsTest = __webpack_require__(326);
-
-	module.exports = function (phrases, actionPrefix) {
-	  console.log('\n\n\n\n');
-	  console.log('Testing: ', actionPrefix);
-	  console.log('\n\n');
-	  return phrases.reduce(function (max, phrase) {
-	    if (max.score === undefined) {
-	      max.phrase = phrase;
-	      max.score = phoneticsTest(phrase, actionPrefix);
-	      console.log(phrase + " scored: " + max.score);
-	      return max;
+	//write package to the packages folder
+	var addPackage = function addPackage(data, name) {
+	  var path = 'electron/packages/' + name;
+	  fs.writeFile(path, data, function (err) {
+	    if (err) {
+	      throw err;
 	    } else {
-	      var score = phoneticsTest(phrase, actionPrefix);
-	      console.log(phrase + " scored: " + score);
-	      return max.score > score ? max : {
-	        phrase: phrase,
-	        score: score
-	      };
+	      loadPackage(path);
 	    }
-	  }, {})['phrase'];
+	  });
 	};
 
-/***/ },
-/* 326 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var Metaphone = __webpack_require__(217).Metaphone;
-	var JWDTest = __webpack_require__(327);
-	module.exports = function (actionPrefix, key) {
-	  return parseFloat(JWDTest(Metaphone.process(key), Metaphone.process(actionPrefix)));
-	};
-
-/***/ },
-/* 327 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var JaroWinklerDistance = __webpack_require__(217).JaroWinklerDistance;
-	module.exports = function (key, _actionPrefix) {
-	  return JaroWinklerDistance(key, _actionPrefix);
+	//read the file from the user's local machine and pass the data to add package to
+	//create the file
+	module.exports.uploadPackage = function (path, name) {
+	  fs.readFile(path, 'utf8', function (err, data) {
+	    if (err) {
+	      throw err;
+	    } else {
+	      addPackage(data, name);
+	    }
+	  });
 	};
 
 /***/ }
