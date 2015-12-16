@@ -1,5 +1,13 @@
 div {
-  .container {
-    color: red;
+  .layout {
+    background-color: blue;
+    height: 50px;
+    margin: 0;
+    .buttons-group {
+      padding: 10px;
+      .button {
+        color: blue;
+      }
+    }
   }
 }

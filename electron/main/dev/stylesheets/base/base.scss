@@ -1,4 +1,51 @@
-body {
+$width: 8.3333%;
+
+html {
   font-size: 1em;
   font-family: Arial;
+  height: 100vh;
+  width: 100%;
+  padding: 0;
+  body {
+    margin: 0;
+  }
+}
+
+div {
+  .col1 {
+    width: $width * 1;
+  }
+  .col2 {
+    width: $width * 2;
+  }
+  .col3 {
+    width: $width * 3;
+  }
+  .col4 {
+    width: $width * 4;
+  }
+  .col5 {
+    width: $width * 5;
+  }
+  .col6 {
+    width: $width * 6;
+  }
+  .col7 {
+    width: $width * 7;
+  }
+  .col8 {
+    width: $width * 8;
+  }
+  .col9 {
+    width: $width * 9;
+  }
+  .col10 {
+    width: $width * 10;
+  }
+  .col11 {
+    width: $width * 11;
+  }
+  .col12 {
+    width: $width * 12;
+  }
 }
