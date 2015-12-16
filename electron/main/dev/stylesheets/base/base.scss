@@ -1,11 +1,8 @@
-// @import 'grid';
 @import 'content';
 $width: 8.3333%;
 
 html {
   font-size: 1em;
-  background-color: black;
-  font-family: Arial;
   height: 100vh;
   width: 100%;
   padding: 0;
@@ -15,9 +12,6 @@ html {
       list-style-type: none;
       margin: 0;
       padding: 5px;
-    }
-    button {
-
     }
   }
 }

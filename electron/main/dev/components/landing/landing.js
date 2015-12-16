@@ -8,7 +8,7 @@ export default class Landing extends React.Component {
       color: "white"
     };
     return (
-      <div className="row">
+      <div>
         <div style={style}>Landing</div>
         <div className="col-4">
           <Link to="commands">

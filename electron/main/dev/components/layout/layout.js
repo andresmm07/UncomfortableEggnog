@@ -4,30 +4,46 @@ import { Link } from 'react-router';
 export default class Layout extends React.Component {
   render() {
     return (
-      <div className='container'>
+      <div>
         <div className="navbar row">
           <div className="buttons-group">
-            <div className="button col-xs-4">
-              <Link to="/">
-                <button>Home</button>
-              </Link>
+            <div className="col-xs-5 pull-left buttons-left">
+              <div className=' buttons-left'>
+                <Link className="button btn btn-success" to="/">
+                  Home
+                </Link>
+              </div>
+              <div className='buttons-left'>
+                <Link className=" button btn btn-success" to="packages">
+                  Packages
+                </Link>
+              </div>
+              <div className='buttons-left'>
+                <Link className="button btn btn-success" to="settings">
+                  Settings
+                </Link>
+              </div>
             </div>
-            <div className="button col-xs-4">
-              <Link to="packages">
-                <button>Packages</button>
-              </Link>
-            </div>
-            <div className="button col-xs-4">
-              <Link to="settings">
-                <button>Settings</button>
-              </Link>
+            <div className="col-xs-4 pull-right">
+              <div className="pull-right">
+                <Link className="button btn btn-success" to="packages">
+                  Packages
+                </Link>
+              </div>
+              <div className="pull-right">
+                <Link className="button btn btn-success" to="settings">
+                  Settings
+                  </Link>
+              </div>
             </div>
           </div>
-        <div className="row">
+        </div>
+        <div className="row content">
+          <div className="col-md-12">
             {this.props.children}
+          </div>
         </div>
       </div>
-    </div>
     )
   }
 };
