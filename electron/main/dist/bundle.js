@@ -62,8 +62,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(328);
-
 	(0, _reactDom.render)(_react2.default.createElement(_appContainer2.default, null), document.getElementById('app'));
 
 /***/ },
@@ -19547,11 +19545,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	// class App extends React.Component {
-	//   render() {
-	//     return (<div>Hello</div>);
-	//   }
-	// };
+	__webpack_require__(328);
 
 	var AppContainer = (function (_React$Component) {
 	  _inherits(AppContainer, _React$Component);
@@ -24252,41 +24246,53 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'layout' },
+	        { className: 'navbar row' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'buttons-group' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'button col4' },
+	            { className: 'button col-4', style: { width: "300px" } },
 	            _react2.default.createElement(
 	              _reactRouter.Link,
 	              { to: '/' },
-	              'Home'
+	              _react2.default.createElement(
+	                'button',
+	                null,
+	                'Home'
+	              )
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'button col4' },
+	            { className: 'button col-4' },
 	            _react2.default.createElement(
 	              _reactRouter.Link,
-	              { to: 'packages' },
-	              'Packages'
+	              { to: 'packages', style: { width: "300px" } },
+	              _react2.default.createElement(
+	                'button',
+	                null,
+	                'Packages'
+	              )
 	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'button col4' },
+	            { className: 'button col-4', style: { width: "300px" } },
 	            _react2.default.createElement(
 	              _reactRouter.Link,
 	              { to: 'settings' },
-	              'Settings'
+	              _react2.default.createElement(
+	                'button',
+	                null,
+	                'Settings'
+	              )
 	            )
 	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'content' },
 	          this.props.children
 	        )
 	      );
@@ -24329,6 +24335,16 @@
 
 	//var ipcRenderer = require('electron').ipcRenderer;
 
+	// <div onClick={(e) => {
+	//   ipcRenderer.send('async message', saying);
+	//   ipcRenderer.on('async reply', (event, arg) => {
+	//     console.log('got something!!!!');
+	//     console.log(arg);
+	//   });
+	// }}>
+	//   {saying}
+	// </div>
+
 	var Packages = (function (_React$Component) {
 	  _inherits(Packages, _React$Component);
 
@@ -24342,50 +24358,39 @@
 	    key: 'render',
 	    value: function render() {
 	      var saying = "Packages";
-	      return(
-	        // <div onClick={(e) => {
-	        //   ipcRenderer.send('async message', saying);
-	        //   ipcRenderer.on('async reply', (event, arg) => {
-	        //     console.log('got something!!!!');
-	        //     console.log(arg);
-	        //   });
-	        // }}>
-	        //   {saying}
-	        // </div>
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'row' },
+	          { className: 'col-md-4' },
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-md-4' },
+	            _reactRouter.Link,
+	            { to: 'addCommand' },
 	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: 'addCommand' },
-	              _react2.default.createElement(
-	                'button',
-	                null,
-	                'Add Command'
-	              )
+	              'button',
+	              null,
+	              'Add Command'
 	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-md-4' },
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: 'editCommand' },
-	              _react2.default.createElement(
-	                'button',
-	                null,
-	                'Edit Command'
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-md-12' },
-	            'List of Packages'
 	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-md-4' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: 'editCommand' },
+	            _react2.default.createElement(
+	              'button',
+	              null,
+	              'Edit Command'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-md-12' },
+	          'List of Packages'
 	        )
 	      );
 	    }
@@ -24430,10 +24435,10 @@
 	var Settings = (function (_React$Component) {
 	  _inherits(Settings, _React$Component);
 
-	  function Settings(props) {
+	  function Settings() {
 	    _classCallCheck(this, Settings);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Settings).call(this, props));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Settings).apply(this, arguments));
 	  }
 
 	  _createClass(Settings, [{
@@ -24451,8 +24456,6 @@
 	})(_react2.default.Component);
 
 	exports.default = Settings;
-
-	Settings.propTypes = {};
 
 /***/ },
 /* 212 */
@@ -24502,10 +24505,10 @@
 	      return _react2.default.createElement(
 	        'ul',
 	        null,
-	        keys.map(function (key) {
+	        keys.map(function (key, i) {
 	          return _react2.default.createElement(
 	            'li',
-	            null,
+	            { key: i },
 	            'key: ',
 	            key
 	          );
@@ -40084,7 +40087,7 @@
 	      };
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'row' },
 	        _react2.default.createElement(
 	          'div',
 	          { style: style },
@@ -40092,7 +40095,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-md-4' },
+	          { className: 'col-4' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { to: 'commands' },
@@ -40165,7 +40168,7 @@
 
 
 	// module
-	exports.push([module.id, "div .layout {\n  background-color: blue;\n  height: 50px;\n  margin: 0; }\n  div .layout .buttons-group {\n    padding: 10px; }\n    div .layout .buttons-group .button {\n      color: blue; }\n\nhtml {\n  font-size: 1em;\n  font-family: Arial;\n  height: 100vh;\n  width: 100%;\n  padding: 0; }\n  html body {\n    margin: 0; }\n\ndiv .col1 {\n  width: 8.3333%; }\n\ndiv .col2 {\n  width: 16.6666%; }\n\ndiv .col3 {\n  width: 24.9999%; }\n\ndiv .col4 {\n  width: 33.3332%; }\n\ndiv .col5 {\n  width: 41.6665%; }\n\ndiv .col6 {\n  width: 49.9998%; }\n\ndiv .col7 {\n  width: 58.3331%; }\n\ndiv .col8 {\n  width: 66.6664%; }\n\ndiv .col9 {\n  width: 74.9997%; }\n\ndiv .col10 {\n  width: 83.333%; }\n\ndiv .col11 {\n  width: 91.6663%; }\n\ndiv .col12 {\n  width: 99.9996%; }\n", ""]);
+	exports.push([module.id, ".navbar {\n  background-color: blue;\n  height: 50px;\n  margin: 0; }\n  .navbar .buttons-group {\n    padding: 10px; }\n    .navbar .buttons-group .button {\n      color: blue;\n      display: inline; }\n\n.test {\n  color: green; }\n\n.row:after {\n  display: block;\n  clear: both;\n  content: ''; }\n\n.row + .row {\n  margin-top: 3%; }\n\n[class^=\"col-\"] {\n  float: left;\n  border: 1px solid white;\n  margin-right: 3%;\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box; }\n  [class^=\"col-\"]:last-child {\n    margin-right: 0%; }\n\n.col-1 {\n  width: 5.583333333333333%; }\n\n.col-2 {\n  width: 14.16666666666667%; }\n\n.col-3 {\n  width: 22.75%; }\n\n.col-4 {\n  width: 31.33333333333333%; }\n\n.col-5 {\n  width: 39.91666666666667%; }\n\n.col-6 {\n  width: 48.5%; }\n\n.col-7 {\n  width: 57.08333333333333%; }\n\n.col-8 {\n  width: 65.66666666666666%; }\n\n.col-9 {\n  width: 74.25%; }\n\n.col-10 {\n  width: 82.83333333333333%; }\n\n.col-11 {\n  width: 91.41666666666666%; }\n\n.col-12 {\n  width: 100%; }\n\ndiv .content {\n  height: calc(100vh - 40px);\n  background-color: purple; }\n\nhtml {\n  font-size: 1em;\n  background-color: black;\n  font-family: Arial;\n  height: 100vh;\n  width: 100%;\n  padding: 0; }\n  html body {\n    margin: 0; }\n    html body ul {\n      list-style-type: none;\n      margin: 0;\n      padding: 5px; }\n\n* {\n  border: 1px solid red; }\n", ""]);
 
 	// exports
 

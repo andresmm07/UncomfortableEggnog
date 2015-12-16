@@ -4,25 +4,25 @@ import { Link } from 'react-router';
 export default class Layout extends React.Component {
   render() {
     return (
-      <div className="layout">
+      <div className="navbar row">
         <div className="buttons-group">
-          <div className="button col4">
+          <div className="button col-4" style={{width: "300px"}}>
             <Link to="/">
-              Home
+              <button>Home</button>
             </Link>
           </div>
-          <div className="button col4">
-            <Link to="packages">
-              Packages
+          <div className="button col-4">
+            <Link to="packages" style={{width: "300px"}}>
+              <button>Packages</button>
             </Link>
           </div>
-          <div className="button col4">
+          <div className="button col-4" style={{width: "300px"}}>
             <Link to="settings">
-              Settings
+              <button>Settings</button>
             </Link>
           </div>
         </div>
-        <div>
+        <div className="content">
           {this.props.children}
         </div>
     </div>

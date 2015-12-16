@@ -1,4 +1,5 @@
 import React from 'react';
+require('../stylesheets/main.scss');
 import { Router, Route, Link, IndexRoute } from 'react-router';
 import Layout from './layout/layout';
 import Packages from './packages/packages';
@@ -7,13 +8,6 @@ import Commands from './commands/commands';
 import AddCommand from './addCommand/addCommand';
 import EditCommand from './editCommand/editCommand';
 import Landing from './landing/landing';
-
-
-// class App extends React.Component {
-//   render() {
-//     return (<div>Hello</div>);
-//   }
-// };
 
 export default class AppContainer extends React.Component {
   render() {

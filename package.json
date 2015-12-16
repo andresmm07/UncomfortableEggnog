@@ -24,12 +24,15 @@
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.0.6",
     "body-parser": "^1.14.1",
+    "bootstrap-sass": "^3.3.6",
+    "bootstrap-sass-loader": "^1.0.9",
     "cors": "^2.7.1",
     "css-loader": "^0.23.0",
     "del": "^2.2.0",
     "electron-prebuilt": "^0.35.4",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
+    "file-loader": "^0.8.5",
     "history": "^1.13.1",
     "jquery": "^2.1.4",
     "jsonwebtoken": "^5.4.1",
@@ -48,6 +51,7 @@
     "react-router": "^1.0.2",
     "style-loader": "^0.13.0",
     "underscore": "^1.8.3",
+    "url-loader": "^0.5.7",
     "webpack": "^1.12.9"
   },
   "devDependencies": {
