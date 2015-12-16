@@ -37,6 +37,11 @@ app.on('ready', function () {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600
+    // TODO: lock window size
+    // minWidth: 800,
+    // minHeight: 600,
+    // maxWidth: 800,
+    // maxHeight: 600
   });
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/electron/index.html');
@@ -69,11 +74,6 @@ app.on('ready', function () {
   ipcMain.on('unregisterShortcut', function () {
     globalShortcut.unregister('ctrl+r');
     mainWindow.webContents.send('listening', 'listening');
-  });
-
-  ipcMain.on('async message', function (event, arg) {
-    console.log('Got something from packages');
-    mainWindow.webContents.send('async reply', 'pong');
   });
 
   // Emitted when the window is closed.
