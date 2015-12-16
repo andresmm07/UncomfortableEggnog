@@ -1,5 +1,4 @@
 import React from 'react';
-require('../stylesheets/main.scss');
 import { Router, Route, Link, IndexRoute } from 'react-router';
 import Layout from './layout/layout';
 import Packages from './packages/packages';
