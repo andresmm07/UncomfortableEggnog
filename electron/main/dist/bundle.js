@@ -24618,8 +24618,6 @@
 	};
 
 	module.exports.addCommand = function (command) {
-	  console.log('I GOT A COMMAND FROM THE VIEWS');
-	  console.log(command);
 	  var newCommandsObj = _.extend({}, this.getCommands());
 	  newCommandsObj.rawCommands = lowerCaseProps(_.extend(this.getCommands().rawCommands, command));
 	  newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);

@@ -21,7 +21,6 @@ var lowerCaseProps = function (obj) {
   return newObj;
 };
 
-
 module.exports.saveCommands = function (obj) {
   if (typeof obj === 'object') {
     obj = JSON.stringify(obj);
@@ -42,15 +41,11 @@ module.exports.loadPackage = function (commandsPath) {
   module.exports.saveCommands(commandObj);
 };
 
-
 module.exports.getCommands = function () {
   return get('Commands');
 };
 
-
 module.exports.addCommand = function (command) {
-  console.log('I GOT A COMMAND FROM THE VIEWS');
-  console.log(command);
   var newCommandsObj = _.extend({}, this.getCommands());
   newCommandsObj.rawCommands = lowerCaseProps(_.extend(this.getCommands().rawCommands, command));
   newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);
@@ -60,7 +55,6 @@ module.exports.addCommand = function (command) {
   module.exports.addPhrase(Object.keys(command)[0], Object.keys(command));
 };
 
-
 module.exports.delCommand = function (command) {
   var commandsObj = this.getCommands();
   delete commandsObj.rawCommands[command];
@@ -69,7 +63,6 @@ module.exports.delCommand = function (command) {
   write(commandsObj.commandsPath, commandsObj.rawCommands);
   write(commandsObj.phrasesPath, commandsObj.phrases);
 };
-
 
 module.exports.updateCommand = function (command, action, oldCommand) {
   var commandsObj = this.getCommands();
