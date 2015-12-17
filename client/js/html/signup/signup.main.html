@@ -1,0 +1,135 @@
+<link rel="stylesheet" href="assets/styles/signup/signup.styles.css">
+<div ng-controller="SignUpCtrl as su">
+  <form class="form-horizontal form-signup" name="signupForm" ng-submit="su.validateAndPost()" role="form" novalidate>
+    <fieldset style="width: 50%">
+    <!-- Title -->
+      <legend>Sign Up</legend>
+
+      <!-- Name input-->
+      <div class="form-group">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6" ng-class="{'has-error': su.isInputInvalid(signupForm['first name']),
+                'has-success': su.isInputValid(signupForm['first name'])}">
+              <label class="control-label" for="firstname">First Name*</label>
+              <input type="text" placeholder="First Name" name="first name" class="form-control input-md required"
+              ng-model="su.fields['first name'].value" ng-minlength="1" required ng-blur='su.setPristine(signupForm["first name"])'>
+            </div>
+            <div class="col-md-6" ng-class="{'has-error': su.isInputInvalid(signupForm['last name']),
+                'has-success': su.isInputValid(signupForm['last name'])}">
+              <label class="control-label" for="lastname">Last Name*</label>
+              <input type="text" placeholder="Last Name" name="last name" class="form-control input-md required"
+                ng-model="su.fields['last name'].value"ng-minlength="1" required ng-blur='su.setPristine(signupForm["last name"])'>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Info input -->
+      <div class="form-group">
+        <div class="col-md-12">
+          <div class="row">
+            <!-- Website -->
+            <div class="col-md-8" ng-class="{'has-error' : su.isInputInvalid(signupForm.website)}">
+              <label class="control-label" for="Website">Website</label>
+              <input type="url" name="website" placeholder="http://www.yourwebsite.com" class="form-control input-md"
+                ng-model="su.fields.website.value" ng-blur='su.setPristine(signupForm.website)'/>
+            </div>
+            <!-- Email -->
+            <div class="col-md-4" ng-class="{'has-error' : su.isInputInvalid(signupForm.email)}">
+              <label class="control-label" for="lastname">Email*</label>
+              <input type="email" name="email"  placeholder="Email" class="form-control input-md required"
+                ng-model="su.fields.email.value" required ng-blur='su.setPristine(signupForm.email)'/>
+            </div>
+          </div>
+            <div>
+              <span class="text-danger" ng-show="signupForm.website.$invalid">
+               {{su.errorMessages.website}}</span>
+             <span class="text-danger" ng-show="signupForm.email.$invalid &&
+                signupForm.email.$$lastCommittedViewValue !== ''" style="float:right">
+               {{su.errorMessages.email}}</span>
+            </div>
+        </div>
+      </div>
+
+      <!-- Username input-->
+      <div class="form-group" ng-class="{'has-error': su.isInputInvalid(signupForm.username),
+          'has-success' : su.isInputValid(signupForm.username)}">
+        <div class="col-md-12">
+          <label class="control-label" for="textinput">Username*</label>
+          <input id="textinput" name="username" type="text" placeholder="Enter your desired username"
+            class="form-control input-md required" ng-model="su.fields.username.value"
+            ng-minlength="4" ng-maxlength="12" ng-pattern="/^[A-Za-z0-9_]+$/" / required
+            ng-blur='su.setPristine(signupForm.username)'>
+          <div>
+            <!-- refactor this to warning block directive -->
+          <div role="alert">
+            <div>
+              <span class="text-danger" ng-show="signupForm.username.$error.minlength">
+                {{su.errorMessages.minlength}}</span>
+            </div>
+            <div>
+              <span class="text-danger" ng-show="signupForm.username.$error.maxlength">
+                {{su.errorMessages.maxlength}}.</span>
+            </div>
+            <div>
+              <span class="text-danger" ng-show="signupForm.username.$dirty && signupForm.username.$error.pattern">
+                {{su.errorMessages.pattern}}</span>
+            </div>
+          </div>
+            <span class="help-block alert-danger fade in" data-dismiss="alert">{{su.usernameError}}</span>
+          </div>
+        </div>
+      </div>
+
+    <!-- Password input-->
+      <div class="form-group">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6" ng-class="{'has-error': su.isInputInvalid(signupForm.password),
+                'has-success': su.isInputValid(signupForm.password)}">
+              <label class="control-label" for="passwordinput">Password*</label>
+              <input name="password" type="password"
+                  placeholder="Enter your password" class="form-control input-md required"
+                  ng-model="su.fields.password.value" required ng-blur='su.setPristine(signupForm.password)'>
+              <div class="progress">
+                <div class="progress-bar"
+                role="progressbar"
+                  ng-class="{'progress-bar-success': su.isPassStrengthStrong(),
+                    'progress-bar-warning': su.isPassStrengthGood(), 'progress-bar-danger': su.isPassStrengthWeak() }"
+                  aria-valuenow="{{su.fields.password.strength}}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width:{{ su.fields.password.strength }}%">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" ng-class="{'has-error': su.isInputInvalid(signupForm['password repeat']),
+                'has-success': su.isInputValid(signupForm['password repeat'])}">
+              <label class="control-label" for="passwordinput">Repeat Password</label>
+              <input name="password repeat" type="password"
+                  placeholder="Enter your password" class="form-control input-md"
+                  ng-model="su.fields['password repeat'].value" required ng-blur='su.setPristine(signupForm["password repeat"])'/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3" style="padding-left: 0">
+            <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+          </div>
+          <div class="col-md-7 container error-display-container">
+            <div class="col-md-12" ng-repeat="err in su.errorList">
+              <span class="text-danger">{{err}}</span>
+            </div>
+          </div>
+          <div class="col-md-2" style="padding-right: 0; text-align:right">
+              <span><strong>* required</strong></span>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
+

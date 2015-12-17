@@ -1,0 +1,27 @@
+<nav class="navbar navbar-default" ng-controller="NavCtrl">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ui-sref="main">Jarvis</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+      <form ng-submit="search(term)" class="navbar-form navbar-left" style="width:65%" role="search">
+        <div class="col-md-10 search" style="padding:0;border-radius:0;">
+          <input style="width:75%;margin:0;border-margin:0;" ng-model="term" type="text" placeholder="Search Packages">
+          <button style="width:20%;margin:0;border-margin:0;">Submit</button>
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-hide="isLoggedIn()"><a ui-sref="signup">Sign Up</a></li>
+        <li ng-hide="isLoggedIn()"><a ui-sref="login">login</a></li>
+        <li ng-show="isLoggedIn()"><a ng-click="goToAccount()">My Account</a></li>
+        <li ng-show="isLoggedIn()"><a ng-click="destroySession()" ui-sref="main">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
