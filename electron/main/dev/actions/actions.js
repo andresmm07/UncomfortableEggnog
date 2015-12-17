@@ -17,5 +17,11 @@ export default {
       actionType: Constants.UPDATE_COMMAND,
       command
     });
+  },
+  deleteCommand (index) {
+    dispatch({
+      actionType: Constants.DELETE_COMMAND,
+      index
+    });
   }
 };

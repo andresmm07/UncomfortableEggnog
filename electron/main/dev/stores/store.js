@@ -47,6 +47,13 @@ function _addCommand (initialCommandsArray) {
   });
 }
 
+function _deleteCommand (initialCommandsArray, index) {
+  return [
+    ...initialCommandsArray.slice(0, index),
+    ...initialCommandsArray.slice(index + 1)
+  ];
+}
+
 
 const Store = Object.assign(EventEmitter.prototype, {
   emitChange () {
@@ -77,6 +84,9 @@ const Store = Object.assign(EventEmitter.prototype, {
         break;
       case Constants.UPDATE_COMMAND:
         _updateCommand(action.command);
+        break;
+      case Constants.DELETE_COMMAND:
+        _saveCommands(_deleteCommand(_commands, action.index));
         break;
     }
     Store.emitChange();

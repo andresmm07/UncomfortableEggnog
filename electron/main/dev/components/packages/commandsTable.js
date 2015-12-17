@@ -10,6 +10,13 @@ export default (props) => {
       <tr
         key={i}
       >
+        <td
+          onClick={ e => {
+          AppActions.deleteCommand(i)  
+          }}
+        >
+          x
+        </td>
         <td>
           <input
             type="text"
