@@ -24621,8 +24621,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	var CHANGE_EVENT = 'change';
@@ -24635,7 +24633,7 @@
 	    }
 	    return Object.assign(cmdObj, cmd);
 	  }, {});
-	  _commands = _reloadCommands(rawCommands);
+	  // _commands = _reloadCommands(rawCommands);
 	  (0, _commandsUtil.updateCommands)(rawCommands);
 	}
 
@@ -24660,14 +24658,18 @@
 	  return results;
 	}
 
-	function _addCommand(initialCommandsArray) {
-	  return initialCommandsArray.unshift({
-	    '': ''
+	function _addCommand(commands) {
+	  commands.push({
+	    "": ""
 	  });
+	  console.log(commands);
+	  return commands;
 	}
 
 	function _deleteCommand(initialCommandsArray, index) {
-	  return [].concat(_toConsumableArray(initialCommandsArray.slice(0, index)), _toConsumableArray(initialCommandsArray.slice(index + 1)));
+	  var deletedCommand = initialCommandsArray.splice(index, 1)[0];
+	  (0, _commandsUtil.delCommand)(Object.keys(deletedCommand)[0]);
+	  return initialCommandsArray;
 	}
 
 	var Store = Object.assign(_events.EventEmitter.prototype, {
@@ -24681,7 +24683,7 @@
 	    if (_commands.length === 0) {
 	      _commands = Store.reloadCommands();
 	    }
-	    return _commands;
+	    return _commands.slice();
 	  },
 	  addChangeListener: function addChangeListener(callback) {
 	    this.on(CHANGE_EVENT, callback);
@@ -24696,13 +24698,14 @@
 	        _saveCommands(_commands);
 	        break;
 	      case _constants2.default.ADD_COMMAND:
-	        _addCommand(_commands);
+	        _commands = _addCommand(_commands.slice());
 	        break;
 	      case _constants2.default.UPDATE_COMMAND:
 	        _updateCommand(action.command);
 	        break;
 	      case _constants2.default.DELETE_COMMAND:
-	        _saveCommands(_deleteCommand(_commands, action.index));
+	        // _saveCommands(_deleteCommand(_commands, action.index));
+	        _commands = _deleteCommand(_commands.slice(), action.index);
 	        break;
 	    }
 	    Store.emitChange();
@@ -25082,29 +25085,9 @@
 	var prefixTrie = __webpack_require__(323);
 	var save = __webpack_require__(326).save;
 	var write = __webpack_require__(326).write;
+	var get = __webpack_require__(326).get;
+	var lowerCaseProps = __webpack_require__(326).lowerCaseProps;
 	var parseCommands = __webpack_require__(327).parseCommands;
-
-	var get = function get(name) {
-	  return JSON.parse(localStorage.getItem(name));
-	};
-
-	var lowerCaseProps = function lowerCaseProps(obj) {
-	  var newObj = {};
-	  for (var key in obj) {
-	    newObj[key.toLowerCase()] = obj[key];
-	  }
-	  return newObj;
-	};
-
-	// var readAsync = function (filePath, cb) {
-	//   fs.readFile(filePath, 'utf8', function (err, data) {
-	//     if (err) {
-	//       cb(err);
-	//     } else {
-	//       cb(null, JSON.parse(data));
-	//     }
-	//   })
-	// };
 
 	module.exports.saveCommands = function (obj) {
 	  console.log('SAVING', obj.rawCommands);
@@ -25112,6 +25095,10 @@
 	    obj = JSON.stringify(obj);
 	  }
 	  save('Commands', obj);
+	};
+
+	module.exports.getCommands = function () {
+	  return get('Commands');
 	};
 
 	module.exports.loadPackage = function (commandsPath) {
@@ -25126,42 +25113,7 @@
 	  module.exports.saveCommands(commandObj);
 	};
 
-	// module.exports.loadPackageAsync = function (commandsPath, cb) {
-	//   var commandObj = {};
-	//   readAsync(commandsPath, function (err, data) {
-	//     if (err) {
-	//       cb(err);
-	//     } else {
-	//       var rawCommands = data;
-	//       commandObj.rawCOmmands = rawCommands;
-	//       commandObj.parsedCommands = parseCommands(rawCommands);
-	//       commandObj.commandsPath = commandsPath;
-	//       commandObj.phrasesPath = commandsPath.replace('commands.', 'phrases.');
-	//       commandObj.phrases = loadPhrases(commandObj.phrasesPath, commandObj.rawCommands);
-	//       prefixTrie.build(Object.keys(commandObj.parsedCommands.argCommands));
-	//       module.exports.saveCommands(commandObj);
-	//       cb(null, commandObj);
-	//     }
-	//   })
-	// };
-
-	module.exports.getCommands = function () {
-	  return get('Commands');
-	};
-
-	// module.exports.addCommand = function (command) {
-	//   console.log('I GOT A COMMAND FROM THE VIEWS');
-	//   var newCommandsObj = _.extend({}, module.exports.getCommands());
-	//   newCommandsObj.rawCommands = lowerCaseProps(_.extend(module.exports.getCommands().rawCommands, command));
-	//   newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);
-	//   module.exports.saveCommands(newCommandsObj);
-	//   write(newCommandsObj.commandsPath, newCommandsObj.rawCommands);
-	//   module.exports.addPhrase(Object.keys(command)[0], Object.keys(command)[0]);
-	// };
-	//
-
 	module.exports.updateCommands = function (command) {
-	  console.log('I GOT A COMMAND FROM THE VIEWS');
 	  var newCommandsObj = _.extend({}, module.exports.getCommands());
 	  newCommandsObj.rawCommands = lowerCaseProps(command);
 	  newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);
@@ -25177,20 +25129,6 @@
 	  module.exports.saveCommands(commandsObj);
 	  write(commandsObj.commandsPath, commandsObj.rawCommands);
 	  write(commandsObj.phrasesPath, commandsObj.phrases);
-	};
-
-	module.exports.updateCommand = function (command, action, oldCommand) {
-	  var commandsObj = module.exports.getCommands();
-	  if (oldCommand === command) {
-	    commandsObj.rawCommands[command] = action;
-	  } else {
-	    delete commandsObj.rawCommands[oldCommand];
-	    delete commandsObj.phrases[oldCommand];
-	    module.exports.addPhrase(command, command);
-	    commandsObj.rawCommands[command] = action;
-	  }
-	  module.exports.saveCommands(commandsObj);
-	  write(newCommandsObj.commandsPath, newCommandsObj.rawCommands);
 	};
 
 	module.exports.addPhrase = function (correctCommand, userCommand) {
@@ -40344,6 +40282,18 @@
 
 	module.exports.save = function (name, obj) {
 	  localStorage.setItem(name, obj);
+	};
+
+	module.exports.get = function (name) {
+	  return JSON.parse(localStorage.getItem(name));
+	};
+
+	module.exports.lowerCaseProps = function (obj) {
+	  var newObj = {};
+	  for (var key in obj) {
+	    newObj[key.toLowerCase()] = obj[key];
+	  }
+	  return newObj;
 	};
 
 /***/ },

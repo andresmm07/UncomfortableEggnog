@@ -12,7 +12,7 @@ export default (props) => {
       >
         <td
           onClick={ e => {
-          AppActions.deleteCommand(i)  
+          AppActions.deleteCommand(i)
           }}
         >
           x

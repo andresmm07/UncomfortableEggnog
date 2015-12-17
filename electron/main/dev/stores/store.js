@@ -14,7 +14,7 @@ function _saveCommands (commands) {
     }
     return Object.assign(cmdObj, cmd);
   }, {});
-  _commands = _reloadCommands(rawCommands);
+  // _commands = _reloadCommands(rawCommands);
   updateCommands(rawCommands);
 }
 
@@ -41,17 +41,18 @@ function _reloadCommands (commandsObj) {
   return results;
 }
 
-function _addCommand (initialCommandsArray) {
-  return initialCommandsArray.unshift({
-    '': ''
+function _addCommand (commands) {
+  commands.push({
+    "" : ""
   });
+  console.log(commands);
+  return commands;
 }
 
 function _deleteCommand (initialCommandsArray, index) {
-  return [
-    ...initialCommandsArray.slice(0, index),
-    ...initialCommandsArray.slice(index + 1)
-  ];
+  let deletedCommand = initialCommandsArray.splice(index, 1)[0];
+  delCommand(Object.keys(deletedCommand)[0]);
+  return initialCommandsArray;
 }
 
 
@@ -66,7 +67,7 @@ const Store = Object.assign(EventEmitter.prototype, {
     if (_commands.length === 0) {
       _commands = Store.reloadCommands();
     }
-    return _commands;
+    return _commands.slice();
   },
   addChangeListener ( callback ) {
     this.on( CHANGE_EVENT, callback );
@@ -80,13 +81,14 @@ const Store = Object.assign(EventEmitter.prototype, {
         _saveCommands(_commands);
         break;
       case Constants.ADD_COMMAND:
-        _addCommand(_commands);
+        _commands = _addCommand(_commands.slice());
         break;
       case Constants.UPDATE_COMMAND:
         _updateCommand(action.command);
         break;
       case Constants.DELETE_COMMAND:
-        _saveCommands(_deleteCommand(_commands, action.index));
+        // _saveCommands(_deleteCommand(_commands, action.index));
+        _commands = _deleteCommand(_commands.slice(), action.index);
         break;
     }
     Store.emitChange();
