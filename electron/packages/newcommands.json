@@ -1,4 +1,5 @@
-{"say hello":"say \"hello\"",
+{
+  "say hello":"say \"hello\"",
   "enhance":"osascript -e 'tell application \"System Events\"to repeat 2 times' -e 'key code 24 using {command down}' -e 'delay 0.1' -e 'end repeat'",
   "zoom out":"osascript -e 'tell application \"System Events\" to repeat 2 times' -e 'key code 27 using {command down}' -e 'delay 0.1' -e 'end repeat'",
   "dance for me":"say \"No\"",

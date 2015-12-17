@@ -7,19 +7,23 @@ export default (props) => {
     var cmd = Object.keys(commandObj)[0];
     return (
       <tr key={i}>
-        <td>{cmd}</td>
-        <td>{commandObj[cmd]}</td>
+        <td>
+          <input
+            type="text"
+            defaultValue={cmd}
+          />
+        </td>
+        <td>
+          <input
+            type="text"
+            defaultValue={commandObj[cmd]}
+            />
+        </td>
       </tr>
     );
   });
   return (
     <table className="table">
-      <thead>
-        <tr>
-          <th>Voice Command</th>
-          <th>Action</th>
-        </tr>
-      </thead>
       <tbody>
         {commands}
       </tbody>
