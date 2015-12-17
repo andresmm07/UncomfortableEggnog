@@ -25105,6 +25105,7 @@
 	module.exports.loadPackage = function (commandsPath) {
 	  var commandObj = {};
 	  var rawCommands = lowerCaseProps(JSON.parse(fs.readFileSync(commandsPath, 'utf8')));
+	  // TODO: hide coreutils, don't overwrite new packages
 	  commandObj.rawCommands = _.defaults(coreUtils, rawCommands);
 	  commandObj.parsedCommands = parseCommands(rawCommands); // { exactCommands: {}, argCommands: {}}
 	  commandObj.commandsPath = commandsPath;
