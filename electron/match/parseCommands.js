@@ -40,7 +40,7 @@
  *  always start with the hardcoded string, never an argument).
  *
  */
-var _argSyntax = /<ARG\s*[a-zA-Z+='"_\s\\\/]*\/>/;
+var _argSyntax = /<ARG\s*[a-zA-Z+='"_\s\\\/]*\/>/g;
 var _delSyntax = /del="\s*([^\n\r"]*)"\s* | del='\s*([^\n\r']*)'\s*/;
 var _htmlSyntax = /(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/g;
 
@@ -78,7 +78,7 @@ module.exports = {
       var bash = commandObj[phrase];
       var args = bash.match(_argSyntax);
       phrase = phrase.toLowerCase();
-
+      console.log(args);
       //arguments case: add to argCommands object
       if (args) {
         var argArr = [];
@@ -99,7 +99,7 @@ module.exports = {
         exactCommands[phrase] = bash;
       }
     }
-
+    console.log('we got argument commands!', argCommands);
     return {
       exactCommands: exactCommands,
       argCommands: argCommands

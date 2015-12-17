@@ -17,7 +17,7 @@
 //     "args": [{
 //       "del": "\\ ",
 //       "capitalize": true,
-//       "chain": true,
+//       "chainSync": true,
 //       "chainkey": "and also"
 //       }]
 //   };
@@ -25,7 +25,7 @@
 // var commandsObj =
 //   {
 //     "rawCommands": {
-//       "open": "open /Applications/<ARG del='\\ ' capitalize=true chain=true chainkey='and also'/>.app"
+      // "open": "open /Applications/<ARG del='\\ ' capitalize=true chain=true chainkey='and also'/>.app"
 //     }
 
 //   };
@@ -35,32 +35,42 @@
 //     "commands": ["open ", ".app"],
 //     "args": [{
 //       "del": "\\ ",
+//       "capitalize": true
+//       }]
+//   };
+
+
+
+// var actionObj =
+//   {
+//     "commands": ["open https://www.google.com/maps/dir/ ", "/", "/"],
+//     "args": [{
+//       "del": "+",
 //       "capitalize": true,
-//       "chain": true,
-//       "chainkey": "and also"
+//       "chainkey": "to"
+//       },
+//       {
+//       "del": "+",
+//       "capitalize": true,
+//       "chainkey": "to"
 //       }]
 //   };
 
 // var commandsObj =
 //   {
 //     "rawCommands": {
-//       "open": "open /Applications/<ARG del='\\ ' capitalize=true chain=true chainkey='and also'/>.app"
+//       "open": "open /Applications/<ARG del='\\ ' capitalize=true/>.app",
+//       // "enhance": "osascript -e 'tell application \"System Events\"to repeat <ARG del='' default=2/> times' -e 'key code 24 using {command down}' -e 'delay 0.1' -e 'end repeat",
+//       "directions from": "open https://www.google.com/maps/dir/<ARG del='+' chainkey='to'/>/<ARG del='+' />/"
 //     }
 
 //   };
 
-
-
-
-
-
-
-
-
-
 //===test strings====
 //  phrase = "check the";
 //  variable = "name of US president";
+
+//NOTE: this syntax does NOT have the global (/g) flag!!
 var _argSyntax = /<ARG\s*[a-zA-Z+=_'"\s\\\/]*\/>/;
 
 function buildArgumentSyntax (argStr, argParams) {
@@ -116,24 +126,46 @@ module.exports = function (actionPrefix, actionObj, variable, commandsObj) {
   //TODO: move argument parameter handling to separate module.
 
 
-  //===chain case: process this first for potential extra arguments.
-  if (argParams['chain']) {
-    var varArr = variable.split(argParams['chainkey']);
+  //===chainSync case: process this first for potential extra arguments.
+  //===chainSync allows for command to be executed multiple times with any number of arguments.
+  if (args[0]['chainSync']) {
+    var varArr = variable.split(args[0]['chainkey']);
+    for (var i = 0; i < varArr.length; i++) {
+      var varFragment = buildArgumentSyntax(varArr[i], args[0]);
+      _action += bash.replace(_argSyntax, varFragment) + ';';
+    }
+    return action;
   } else {
 
-  }
+  //==general case (no chainSync):
+    var varArr = variable.split(args)
 
     var _action = '';
-    for (var i = 0; i < varArr.length; i++) {
-      var variable = buildArgumentSyntax(varArr[i], argParams);
-      _action += bash.replace(_argSyntax, variable) + ';';
+    for (var i = 0; i < args.length; i++) {
+  //EX: variable = "Berkeley to Los Angeles" => 2 args
+  // _action += bashStrs[i] || "" + build;
+    if (args[i]['chainkey']) {
+      console.log('found a chainkey');
+  //get keyword to separate next argument.
+      var chainkey = args[i]['chainkey'];
+  //split entire string then extract first element on chain.
+      var varArr = variable.split(chainkey);
+      var varStr = varArr.shift();
+  //reassemble remaining variable string in case split in multiple areas.
+      variable = varArr.join(chainkey);
+    } else {
+      var varStr = variable;
+    }
+    var bashVariable = buildArgumentSyntax(varStr, args[i]);
+    bash = bash.replace(_argSyntax, bashVariable);
+      _action = bash;
+      console.log('remaining variable: ', variable);
     }
     console.log(_action);
     return _action;
+  }
   // } else {
-
-
-  };
+};
 
 
 
