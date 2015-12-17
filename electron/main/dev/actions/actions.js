@@ -3,6 +3,7 @@ import { dispatch, register } from '../dispatchers/dispatcher';
 
 export default {
   addCommand () {
+    console.log('add command');
     dispatch({
       actionType: Constants.ADD_COMMAND
     });

@@ -21,8 +21,19 @@ var lowerCaseProps = function (obj) {
   return newObj;
 };
 
+// var readAsync = function (filePath, cb) {
+//   fs.readFile(filePath, 'utf8', function (err, data) {
+//     if (err) {
+//       cb(err);
+//     } else {
+//       cb(null, JSON.parse(data));
+//     }
+//   })
+// };
+
 
 module.exports.saveCommands = function (obj) {
+  console.log('SAVING', obj.rawCommands);
   if (typeof obj === 'object') {
     obj = JSON.stringify(obj);
   }
@@ -32,8 +43,7 @@ module.exports.saveCommands = function (obj) {
 module.exports.loadPackage = function (commandsPath) {
   var commandObj = {};
   var rawCommands = lowerCaseProps(JSON.parse(fs.readFileSync(commandsPath, 'utf8')));
-  // convert all props to lowerCase
-  commandObj.rawCommands = rawCommands;
+  commandObj.rawCommands = rawCommands; // TODO: import core utils
   commandObj.parsedCommands = parseCommands(rawCommands); // { exactCommands: {}, argCommands: {}}
   commandObj.commandsPath = commandsPath;
   commandObj.phrasesPath = commandsPath.replace('commands.', 'phrases.');
@@ -42,20 +52,48 @@ module.exports.loadPackage = function (commandsPath) {
   module.exports.saveCommands(commandObj);
 };
 
+// module.exports.loadPackageAsync = function (commandsPath, cb) {
+//   var commandObj = {};
+//   readAsync(commandsPath, function (err, data) {
+//     if (err) {
+//       cb(err);
+//     } else {
+//       var rawCommands = data;
+//       commandObj.rawCOmmands = rawCommands;
+//       commandObj.parsedCommands = parseCommands(rawCommands);
+//       commandObj.commandsPath = commandsPath;
+//       commandObj.phrasesPath = commandsPath.replace('commands.', 'phrases.');
+//       commandObj.phrases = loadPhrases(commandObj.phrasesPath, commandObj.rawCommands);
+//       prefixTrie.build(Object.keys(commandObj.parsedCommands.argCommands));
+//       module.exports.saveCommands(commandObj);
+//       cb(null, commandObj);
+//     }
+//   })
+// };
+
 
 module.exports.getCommands = function () {
   return get('Commands');
 };
 
 
-module.exports.addCommand = function (command) {
+// module.exports.addCommand = function (command) {
+//   console.log('I GOT A COMMAND FROM THE VIEWS');
+//   var newCommandsObj = _.extend({}, module.exports.getCommands());
+//   newCommandsObj.rawCommands = lowerCaseProps(_.extend(module.exports.getCommands().rawCommands, command));
+//   newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);
+//   module.exports.saveCommands(newCommandsObj);
+//   write(newCommandsObj.commandsPath, newCommandsObj.rawCommands);
+//   module.exports.addPhrase(Object.keys(command)[0], Object.keys(command)[0]);
+// };
+//
+
+module.exports.updateCommands = function (command) {
   console.log('I GOT A COMMAND FROM THE VIEWS');
-  console.log(command);
   var newCommandsObj = _.extend({}, module.exports.getCommands());
-  newCommandsObj.rawCommands = lowerCaseProps(_.extend(module.exports.getCommands().rawCommands, command));
+  newCommandsObj.rawCommands = lowerCaseProps(command);
   newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);
   module.exports.saveCommands(newCommandsObj);
-  console.log(newCommandsObj.commandsPath);
   write(newCommandsObj.commandsPath, newCommandsObj.rawCommands);
   module.exports.addPhrase(Object.keys(command)[0], Object.keys(command)[0]);
 };

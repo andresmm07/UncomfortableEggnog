@@ -8,7 +8,6 @@ import packageUtil from '../../../../packagesUtil/packagesUtil';
 
 
 function getCommands () {
-  console.log('packages rerendered with new state');
   return {
     commands: Store.getCommands()
   };
@@ -78,21 +77,3 @@ const Packages = (props) => {
 
 
 export default StoreWatchMixin(Packages, getCommands)
-
-
-
-// <div className="col-md-4">
-// </div>
-// <div className="col-md-4">
-// <Link to="addCommand">
-// <button>Add Command</button>
-// </Link>
-// </div>
-// <div className="col-md-4">
-// <Link to="editCommand">
-// <button>Edit Command</button>
-// </Link>
-// </div>
-// <div className="col-md-12">
-// List of Packages
-// </div>

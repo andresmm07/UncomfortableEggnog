@@ -1,7 +1,7 @@
 import { dispatch, register } from '../dispatchers/dispatcher';
 import Constants from '../constants/constants';
 import { EventEmitter } from 'events';
-import { getCommands, addCommand, saveCommands } from '../../../commandsUtil/commandsUtil';
+import { getCommands, updateCommands, saveCommands, delCommand } from '../../../commandsUtil/commandsUtil';
 
 
 const CHANGE_EVENT = 'change';
@@ -15,7 +15,7 @@ function _saveCommands (commands) {
     return Object.assign(cmdObj, cmd);
   }, {});
   _commands = _reloadCommands(rawCommands);
-  addCommand(rawCommands)
+  updateCommands(rawCommands);
 }
 
 function _updateCommand (command) {
