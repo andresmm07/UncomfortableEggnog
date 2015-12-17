@@ -39801,7 +39801,6 @@
 	};
 
 	module.exports.save = function (name, obj) {
-
 	  localStorage.setItem(name, obj);
 	};
 
