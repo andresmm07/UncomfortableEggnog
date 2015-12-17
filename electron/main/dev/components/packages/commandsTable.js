@@ -1,19 +1,14 @@
 import React, {PropTypes} from 'react';
 import Store from '../../stores/store';
-import StoreWatchMixin from '../../mixins/mixins';
+import AppActions from '../../actions/actions';
 
-function getCommands () {
-  return {
-    commands: Store.getCommands()
-  }
-}
-
-const CommandsTable = (props) => {
-  let commands = Object.keys(props.commands).map( (command, i) => {
+export default (props) => {
+  let commands = props.commands.map( (commandObj, i) => {
+    var cmd = Object.keys(commandObj)[0];
     return (
       <tr key={i}>
-        <td>{command}</td>
-        <td>{props.commands[command]}</td>
+        <td>{cmd}</td>
+        <td>{commandObj[cmd]}</td>
       </tr>
     );
   });
@@ -31,5 +26,3 @@ const CommandsTable = (props) => {
     </table>
   );
 }
-
-export default StoreWatchMixin(CommandsTable, getCommands)

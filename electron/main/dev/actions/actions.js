@@ -2,9 +2,9 @@ import Constants from '../constants/constants';
 import { dispatch, register } from '../dispatchers/dispatcher';
 
 export default {
-  addCommand (command) {
+  addCommand () {
     dispatch({
-      actionType: Constants.ADD_COMMAND, command
+      actionType: Constants.ADD_COMMAND
     });
   }
 };

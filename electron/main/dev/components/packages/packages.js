@@ -1,39 +1,43 @@
 import React, {PropTypes} from 'react';
-import { ipcRenderer } from 'electron';
-import { Link } from 'react-router';
 import UploadFile from '../uploadFile/uploadFile';
 import CommandsTable from './commandsTable';
-import { getCommands } from '../../../../commandsUtil/commandsUtil';
 import AppActions from '../../actions/actions';
+import Store from '../../stores/store';
+import StoreWatchMixin from '../../mixins/mixins';
 
-export default class Packages extends React.Component {
-  render() {
-    console.log(AppActions);
-    return (
-      <div className="row">
-        <div className="col-xs-12">
-          <div className="col-xs-4">
-            <h1>Commands</h1>
-            <UploadFile />
-          </div>
-          <div className="col-xs-8">
-            <h2 className="text-right" onClick={() => {
-              AppActions.addCommand({test: 'test'})
-            }}>
-              +
-            </h2>
-          </div>
+
+function getCommands () {
+  console.log('packages rerendered with new state');
+  return {
+    commands: Store.getCommands()
+  };
+}
+
+const Packages = (props) => {
+  return (
+    <div className="row">
+      <div className="col-xs-12">
+        <div className="col-xs-4">
+          <h1>Commands</h1>
+          <UploadFile />
         </div>
-        <div className="col-xs-12 commandtable">
-          <CommandsTable commands={this.getCommands()}/>
+        <div className="col-xs-8">
+          <h2 className="text-right" onClick={() => {
+            AppActions.addCommand();
+          }}>
+            +
+          </h2>
         </div>
       </div>
-      );
-  }
-  getCommands () {
-    return getCommands().rawCommands;
-  }
+      <div className="col-xs-12 commandtable">
+        <CommandsTable commands={props.commands}/>
+      </div>
+    </div>
+    );
 };
+
+
+export default StoreWatchMixin(Packages, getCommands)
 
 
 

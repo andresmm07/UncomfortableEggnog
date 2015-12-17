@@ -24364,8 +24364,6 @@
 
 	'use strict';
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -24373,10 +24371,6 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
-
-	var _electron = __webpack_require__(210);
-
-	var _reactRouter = __webpack_require__(159);
 
 	var _uploadFile = __webpack_require__(211);
 
@@ -24386,80 +24380,65 @@
 
 	var _commandsTable2 = _interopRequireDefault(_commandsTable);
 
-	var _commandsUtil = __webpack_require__(213);
-
 	var _actions = __webpack_require__(332);
 
 	var _actions2 = _interopRequireDefault(_actions);
 
+	var _store = __webpack_require__(325);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _mixins = __webpack_require__(331);
+
+	var _mixins2 = _interopRequireDefault(_mixins);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function getCommands() {
+	  console.log('packages rerendered with new state');
+	  return {
+	    commands: _store2.default.getCommands()
+	  };
+	}
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Packages = (function (_React$Component) {
-	  _inherits(Packages, _React$Component);
-
-	  function Packages() {
-	    _classCallCheck(this, Packages);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Packages).apply(this, arguments));
-	  }
-
-	  _createClass(Packages, [{
-	    key: 'render',
-	    value: function render() {
-	      console.log(_actions2.default);
-	      return _react2.default.createElement(
+	var Packages = function Packages(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'row' },
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'col-xs-12' },
+	      _react2.default.createElement(
 	        'div',
-	        { className: 'row' },
+	        { className: 'col-xs-4' },
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-xs-12' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-xs-4' },
-	            _react2.default.createElement(
-	              'h1',
-	              null,
-	              'Commands'
-	            ),
-	            _react2.default.createElement(_uploadFile2.default, null)
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-xs-8' },
-	            _react2.default.createElement(
-	              'h2',
-	              { className: 'text-right', onClick: function onClick() {
-	                  _actions2.default.addCommand({ test: 'test' });
-	                } },
-	              '+'
-	            )
-	          )
+	          'h1',
+	          null,
+	          'Commands'
 	        ),
+	        _react2.default.createElement(_uploadFile2.default, null)
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-xs-8' },
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-xs-12 commandtable' },
-	          _react2.default.createElement(_commandsTable2.default, { commands: this.getCommands() })
+	          'h2',
+	          { className: 'text-right', onClick: function onClick() {
+	              _actions2.default.addCommand();
+	            } },
+	          '+'
 	        )
-	      );
-	    }
-	  }, {
-	    key: 'getCommands',
-	    value: function getCommands() {
-	      return (0, _commandsUtil.getCommands)().rawCommands;
-	    }
-	  }]);
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'col-xs-12 commandtable' },
+	      _react2.default.createElement(_commandsTable2.default, { commands: props.commands })
+	    )
+	  );
+	};
 
-	  return Packages;
-	})(_react2.default.Component);
-
-	exports.default = Packages;
-	;
+	exports.default = (0, _mixins2.default)(Packages, getCommands);
 
 	// <div className="col-md-4">
 	// </div>
@@ -39959,32 +39938,27 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _mixins = __webpack_require__(331);
+	var _actions = __webpack_require__(332);
 
-	var _mixins2 = _interopRequireDefault(_mixins);
+	var _actions2 = _interopRequireDefault(_actions);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function getCommands() {
-	  return {
-	    commands: _store2.default.getCommands()
-	  };
-	}
-
-	var CommandsTable = function CommandsTable(props) {
-	  var commands = Object.keys(props.commands).map(function (command, i) {
+	exports.default = function (props) {
+	  var commands = props.commands.map(function (commandObj, i) {
+	    var cmd = Object.keys(commandObj)[0];
 	    return _react2.default.createElement(
 	      'tr',
 	      { key: i },
 	      _react2.default.createElement(
 	        'td',
 	        null,
-	        command
+	        cmd
 	      ),
 	      _react2.default.createElement(
 	        'td',
 	        null,
-	        props.commands[command]
+	        commandObj[cmd]
 	      )
 	    );
 	  });
@@ -40017,8 +39991,6 @@
 	  );
 	};
 
-	exports.default = (0, _mixins2.default)(CommandsTable, getCommands);
-
 /***/ },
 /* 325 */
 /***/ function(module, exports, __webpack_require__) {
@@ -40041,19 +40013,41 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var CHANGE_EVENT = 'change';
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	function _addCommand(command) {
-	  console.log('inside store with ', command);
+	var CHANGE_EVENT = 'change';
+	var _commands = [];
+
+	function _saveCommand(command) {
 	  (0, _commandsUtil.addCommand)(command);
+	}
+
+	function _reloadCommands(commandsObj) {
+	  var results = Object.keys(commandsObj['rawCommands']).reduce(function (arr, cmd) {
+	    return arr.concat(_defineProperty({}, cmd, commandsObj['rawCommands'][cmd]));
+	  }, []);
+	  return results;
+	}
+
+	function _addCommand(initialCommandsArray) {
+	  return initialCommandsArray.unshift({
+	    command: 'action'
+	  });
 	}
 
 	var Store = Object.assign(_events.EventEmitter.prototype, {
 	  emitChange: function emitChange() {
 	    this.emit(CHANGE_EVENT);
 	  },
+	  reloadCommands: function reloadCommands() {
+	    return _reloadCommands((0, _commandsUtil.getCommands)());
+	  },
 	  getCommands: function getCommands() {
-	    (0, _commandsUtil.getCommands)().rawCommands;
+	    if (_commands.length === 0) {
+	      _commands = Store.reloadCommands();
+	    }
+	    console.log('inside store getCommands', _commands);
+	    return _commands;
 	  },
 	  addChangeListener: function addChangeListener(callback) {
 	    this.on(CHANGE_EVENT, callback);
@@ -40063,10 +40057,13 @@
 	  },
 
 	  dispatcherIndex: (0, _dispatcher.register)(function (action) {
-	    console.log(action);
 	    switch (action.actionType) {
+	      case _constants2.default.SAVE_COMMAND:
+	        _saveCommand(action.command);
+	        break;
 	      case _constants2.default.ADD_COMMAND:
-	        _addCommand(action.command);
+	        console.log('in store, add command firing');
+	        _addCommand(_commands);
 	        break;
 	    }
 	    Store.emitChange();
@@ -40513,9 +40510,9 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	  addCommand: function addCommand(command) {
+	  addCommand: function addCommand() {
 	    (0, _dispatcher.dispatch)({
-	      actionType: _constants2.default.ADD_COMMAND, command: command
+	      actionType: _constants2.default.ADD_COMMAND
 	    });
 	  }
 	};
