@@ -9,6 +9,7 @@ var write = require('../utils/utils').write;
 var get = require('../utils/utils').get;
 var lowerCaseProps = require('../utils/utils').lowerCaseProps;
 var parseCommands = require('../match/parseCommands').parseCommands;
+var coreUtils = require('../packages/core-utils');
 
 module.exports.saveCommands = function (obj) {
   console.log('SAVING', obj.rawCommands);
@@ -25,7 +26,7 @@ module.exports.getCommands = function () {
 module.exports.loadPackage = function (commandsPath) {
   var commandObj = {};
   var rawCommands = lowerCaseProps(JSON.parse(fs.readFileSync(commandsPath, 'utf8')));
-  commandObj.rawCommands = rawCommands; // TODO: import core utils
+  commandObj.rawCommands = _.defaults(coreUtils, rawCommands);
   commandObj.parsedCommands = parseCommands(rawCommands); // { exactCommands: {}, argCommands: {}}
   commandObj.commandsPath = commandsPath;
   commandObj.phrasesPath = commandsPath.replace('commands.', 'phrases.');
