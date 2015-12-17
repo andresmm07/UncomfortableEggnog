@@ -21,16 +21,16 @@
  *     {
  *      "check the": {
  *        "commands": ["open https//www.google.com/?gws_rd=ssl#q="],
- *        "args": {
+ *        "args": [{
  *          "del": "+"
- *        }
+ *        }]
  *      },
  *      "open": {
  *        "commands": ["open ", ".app"],
- *        "args": {
+ *        "args": [{
  *          "del": "\\ ",
  *          "capitalize": true
- *        }
+ *        }]
  *      }
  *     }
  *
@@ -87,14 +87,13 @@ module.exports = {
           argArr.push(a);
         });
 
-
         var bashStrs = bash.split(_argSyntax).filter(function (el) {
           return el !== "";
         });
 
         argCommands[phrase] = {};
         argCommands[phrase]["commands"] = bashStrs;
-        argCommands[phrase]["args"] = argArr[0];
+        argCommands[phrase]["args"] = argArr;
 
       } else {
         exactCommands[phrase] = bash;

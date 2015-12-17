@@ -10,64 +10,76 @@
    *
 * */
 
-//test commands object ==> need to pass this in
-// var commands = {
-//   "exactCommands":
-//     {
-//       "kyle cho pro tip": "say kyle cho pro tip"
-//     },
-//   "argCommands":
-//     {
-//       "check the": {
-//         "commands": ["open https//www.google.com/?gws_rd=ssl#q="],
-//         "args": [{
-//           "del": "+"
-//           }]
-//         },
-
-//       "open": {
-//         "commands": ["open ", ".app"],
-//         "args": [{
-//           "del": "\\ ",
-//           "capitalize": true
-//           "chain": true,
-//           "chainkey": "and also"
-//           }]
-//         }
-//     }
+//test actionObj ==> need to pass this in
+// var actionObj =
+//   {
+//     "commands": ["open ", ".app"],
+//     "args": [{
+//       "del": "\\ ",
+//       "capitalize": true,
+//       "chain": true,
+//       "chainkey": "and also"
+//       }]
 //   };
+
+// var commandsObj =
+//   {
+//     "rawCommands": {
+//       "open": "open /Applications/<ARG del='\\ ' capitalize=true chain=true chainkey='and also'/>.app"
+//     }
+
+//   };
+
+// var actionObj =
+//   {
+//     "commands": ["open ", ".app"],
+//     "args": [{
+//       "del": "\\ ",
+//       "capitalize": true,
+//       "chain": true,
+//       "chainkey": "and also"
+//       }]
+//   };
+
+// var commandsObj =
+//   {
+//     "rawCommands": {
+//       "open": "open /Applications/<ARG del='\\ ' capitalize=true chain=true chainkey='and also'/>.app"
+//     }
+
+//   };
+
+
+
+
+
+
+
+
+
+
 //===test strings====
 //  phrase = "check the";
 //  variable = "name of US president";
 var _argSyntax = /<ARG\s*[a-zA-Z+=_'"\s\\\/]*\/>/;
 
-module.exports = function (actionPrefix, actionObj, variable, commandsObj) {
-  var bash = commandsObj.rawCommands[actionPrefix]; // open http://.....<args/>
-  console.log(variable);
-  var argParams = actionObj["args"];
-
-  //=========Argument Parameter Handling=======
-  //TODO: move argument parameter handling to separate module.
-  // if (argParams['chain']) {
-
-  // }
+function buildArgumentSyntax (argStr, argParams) {
 
   //===string case====
-
   if (argParams['case'] === 'upper') {
-    variable = variable.toUpperCase();
+    argStr = argStr.toUpperCase();
   } else if (argParams['case'] === 'lower') {
-    variable = variable.toLowerCase();
+    argStr = argStr.toLowerCase();
   } else if (argParams['case'] === 'proper') {
-    variable = variable[0].toUpperCase() + variable.slice(1);
+    argStr = argStr[0].toUpperCase() + argStr.slice(1);
   }
 
   //===wrap quotation marks====
   if (argParams['quotes']) {
-    variable = '"' + variable + '"';
+    argStr = '"' + argStr + '"';
   }
 
-  var varArr = variable.trim().split(' ');
+  var varArr = argStr.trim().split(' ');
   //===capitalize====
   if (argParams['capitalize']) {
     varArr = varArr.map(function (word) {
@@ -81,10 +93,52 @@ module.exports = function (actionPrefix, actionObj, variable, commandsObj) {
   if (del === " ") {
     del = "\\ ";
   }
-  variable = varArr.join(argParams['del']);
-  console.log('GENERATED VARIABLE: ', variable);
 
-  var _action = bash.replace(_argSyntax, variable);
-  console.log("results: ", _action);
-  return _action;
-};
+  argStr = varArr.join(argParams['del']);
+  console.log('GENERATED VARIABLE: ', argStr);
+  return argStr;
+}
+
+
+module.exports = function (actionPrefix, actionObj, variable, commandsObj) {
+  var bash = commandsObj.rawCommands[actionPrefix]; // open http://.....<args/>
+
+
+  var bashStrs = actionObj["commands"];
+  var args = actionObj["args"];
+
+  var argParams = actionObj["args"][0];
+
+  // for (var i = 0; i < args.length; i++) {
+  //   args[i];
+  // var argParams = args[i];
+  //=========Argument Parameter Handling=======
+  //TODO: move argument parameter handling to separate module.
+
+
+  //===chain case: process this first for potential extra arguments.
+  if (argParams['chain']) {
+    var varArr = variable.split(argParams['chainkey']);
+  } else {
+
+  }
+
+    var _action = '';
+    for (var i = 0; i < varArr.length; i++) {
+      var variable = buildArgumentSyntax(varArr[i], argParams);
+      _action += bash.replace(_argSyntax, variable) + ';';
+    }
+    console.log(_action);
+    return _action;
+  // } else {
+
+
+  };
+
+
+
+  // var _action = bash.replace(_argSyntax, variable);
+//   console.log("results: ", _action);
+//   }
+//   return _action;
+// // };
