@@ -39801,6 +39801,7 @@
 	};
 
 	module.exports.save = function (name, obj) {
+
 	  localStorage.setItem(name, obj);
 	};
 
@@ -39938,6 +39939,10 @@
 
 	var _actions2 = _interopRequireDefault(_actions);
 
+	var _constants = __webpack_require__(325);
+
+	var _constants2 = _interopRequireDefault(_constants);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = function (props) {
@@ -39945,13 +39950,25 @@
 	    var cmd = Object.keys(commandObj)[0];
 	    return _react2.default.createElement(
 	      'tr',
-	      { key: i },
+	      {
+	        key: i
+	      },
 	      _react2.default.createElement(
 	        'td',
 	        null,
 	        _react2.default.createElement('input', {
 	          type: 'text',
-	          defaultValue: cmd
+	          defaultValue: cmd,
+	          onChange: function onChange(e) {
+	            _actions2.default.updateCommand({
+	              index: i,
+	              change: e.target.value,
+	              type: _constants2.default.COMMAND
+	            });
+	          },
+	          onBlur: function onBlur(e) {
+	            return _actions2.default.saveCommands();
+	          }
 	        })
 	      ),
 	      _react2.default.createElement(
@@ -39959,7 +39976,17 @@
 	        null,
 	        _react2.default.createElement('input', {
 	          type: 'text',
-	          defaultValue: commandObj[cmd]
+	          defaultValue: commandObj[cmd],
+	          onChange: function onChange(e) {
+	            _actions2.default.updateCommand({
+	              index: i,
+	              change: e.target.value,
+	              type: _constants2.default.ACTION
+	            });
+	          },
+	          onBlur: function onBlur(e) {
+	            return _actions2.default.saveCommands();
+	          }
 	        })
 	      )
 	    );
@@ -39998,6 +40025,17 @@
 	    (0, _dispatcher.dispatch)({
 	      actionType: _constants2.default.ADD_COMMAND
 	    });
+	  },
+	  saveCommands: function saveCommands() {
+	    (0, _dispatcher.dispatch)({
+	      actionType: _constants2.default.SAVE_COMMANDS
+	    });
+	  },
+	  updateCommand: function updateCommand(command) {
+	    (0, _dispatcher.dispatch)({
+	      actionType: _constants2.default.UPDATE_COMMAND,
+	      command: command
+	    });
 	  }
 	};
 
@@ -40013,8 +40051,11 @@
 	exports.default = {
 	  ADD_COMMAND: 'ADD_COMMAND',
 	  DEL_COMMAND: 'DEL_COMMAND',
-	  EDIT_COMMAND: 'EDIT_COMMAND',
-	  LOAD_PACKAGE: 'LOAD_PACKAGE'
+	  SAVE_COMMANDS: 'SAVE_COMMANDS',
+	  UPDATE_COMMAND: 'UPDATE_COMMAND',
+	  LOAD_PACKAGE: 'LOAD_PACKAGE',
+	  COMMAND: 'COMMAND',
+	  ACTION: 'ACTION'
 	};
 
 /***/ },
@@ -40374,20 +40415,41 @@
 	var CHANGE_EVENT = 'change';
 	var _commands = [];
 
-	function _saveCommand(command) {
-	  (0, _commandsUtil.addCommand)(command);
+	function _saveCommands(commands) {
+	  var rawCommands = commands.reduce(function (cmdObj, cmd) {
+	    if (Object.keys(cmd) === '') {
+	      return cmdObj;
+	    }
+	    return Object.assign(cmdObj, cmd);
+	  }, {});
+	  _commands = _reloadCommands(rawCommands);
+	  (0, _commandsUtil.addCommand)(rawCommands);
+	}
+
+	function _updateCommand(command) {
+	  var index = command.index;
+	  var change = command.change;
+	  var type = command.type;
+
+	  var oldCommand = Object.keys(_commands[index])[0];
+	  if (type === _constants2.default.ACTION) {
+	    _commands[index][oldCommand] = change;
+	  } else if (type === _constants2.default.COMMAND) {
+	    var action = _commands[index][oldCommand];
+	    _commands[index] = _defineProperty({}, change, action);
+	  }
 	}
 
 	function _reloadCommands(commandsObj) {
-	  var results = Object.keys(commandsObj['rawCommands']).reduce(function (arr, cmd) {
-	    return arr.concat(_defineProperty({}, cmd, commandsObj['rawCommands'][cmd]));
+	  var results = Object.keys(commandsObj).reduce(function (arr, cmd) {
+	    return arr.concat(_defineProperty({}, cmd, commandsObj[cmd]));
 	  }, []);
 	  return results;
 	}
 
 	function _addCommand(initialCommandsArray) {
 	  return initialCommandsArray.unshift({
-	    command: 'action'
+	    '': ''
 	  });
 	}
 
@@ -40396,13 +40458,12 @@
 	    this.emit(CHANGE_EVENT);
 	  },
 	  reloadCommands: function reloadCommands() {
-	    return _reloadCommands((0, _commandsUtil.getCommands)());
+	    return _reloadCommands((0, _commandsUtil.getCommands)()['rawCommands']);
 	  },
 	  getCommands: function getCommands() {
 	    if (_commands.length === 0) {
 	      _commands = Store.reloadCommands();
 	    }
-	    console.log('inside store getCommands', _commands);
 	    return _commands;
 	  },
 	  addChangeListener: function addChangeListener(callback) {
@@ -40414,12 +40475,14 @@
 
 	  dispatcherIndex: (0, _dispatcher.register)(function (action) {
 	    switch (action.actionType) {
-	      case _constants2.default.SAVE_COMMAND:
-	        _saveCommand(action.command);
+	      case _constants2.default.SAVE_COMMANDS:
+	        _saveCommands(_commands);
 	        break;
 	      case _constants2.default.ADD_COMMAND:
-	        console.log('in store, add command firing');
 	        _addCommand(_commands);
+	        break;
+	      case _constants2.default.UPDATE_COMMAND:
+	        _updateCommand(action.command);
 	        break;
 	    }
 	    Store.emitChange();

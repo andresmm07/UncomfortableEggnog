@@ -8,5 +8,6 @@ module.exports.write = function (filePath, data) {
 };
 
 module.exports.save = function (name, obj) {
+
   localStorage.setItem(name, obj);
 };

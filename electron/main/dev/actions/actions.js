@@ -6,5 +6,16 @@ export default {
     dispatch({
       actionType: Constants.ADD_COMMAND
     });
+  },
+  saveCommands () {
+    dispatch({
+      actionType: Constants.SAVE_COMMANDS
+    });
+  },
+  updateCommand (command) {
+    dispatch({
+      actionType: Constants.UPDATE_COMMAND,
+      command
+    });
   }
 };
