@@ -12,13 +12,14 @@ coreUtils = _.extend(coreUtils, {
 
 
 
-describe('Phrase trie', function (done) {
+xdescribe('Phrase trie', function (done) {
   var phraseTrie;
   before(function (done) {
     phraseTrie = new PhraseTrie();
     for (var command in coreUtils) {
       phraseTrie.addPhrase(command, command);
     }
+    console.log(JSON.stringify(phraseTrie, null, 2));
     done();
   });
   it('should fetch known commands', function (done) {
@@ -29,7 +30,7 @@ describe('Phrase trie', function (done) {
     done();
   });
   it('should add phrases', function (done) {
-    var closeMatches = ['kyk pro dfsa sdaf', 'koko padsfrodfas ol'];
+    var closeMatches = ['kykprodfsasdaf', 'koko padsfrodfas ol'];
     var command = 'kyle cho pro tip';
     for (var i = 0; i < closeMatches.length; i++) {
       phraseTrie.addPhrase(closeMatches[i], command);

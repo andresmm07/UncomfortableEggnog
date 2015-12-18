@@ -26,11 +26,13 @@ PhraseTrie.prototype.addPhrase = function (phrase, command, letters) {
   letters = letters || phrase.replace(/[^0-9a-z]/gi, '').split('');
   var letter = letters[0];
   var nextPhrase = this.hasChild(letter);
+
   if (!(nextPhrase instanceof PhraseTrie)) {
     var tmp = nextPhrase;
     nextPhrase = new PhraseTrie();
     nextPhrase = _.extend(nextPhrase, tmp);
   }
+
   if (letters.length === 0) {
     this.command = command;
     return;

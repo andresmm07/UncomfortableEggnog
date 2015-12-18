@@ -33,6 +33,7 @@ module.exports = function (actionPrefix, variable, commandsObj) {
     }
     return actionObj;
   }
+
   // change to trie
   // var addedPhraseTest = testPhrases(phrases, _actionPrefix);
   var addedPhraseTest = phrases.findCommand(_actionPrefix);
@@ -59,5 +60,6 @@ module.exports = function (actionPrefix, variable, commandsObj) {
     }
 
   }
+
   return actionObj;
 };

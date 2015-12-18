@@ -15,7 +15,7 @@ commandsObj.phrases = phrases;
 var testCases = require('./tmp/matching-test-cases');
 
 
-xdescribe('Matching', function (done) {
+describe('Matching', function (done) {
   it('should match exact commands', function (done) {
     var obj = matching('google', 'hello', commandsObj);
     expect(obj).to.be.an('object');
