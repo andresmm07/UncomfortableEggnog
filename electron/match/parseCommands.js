@@ -40,7 +40,7 @@
  *  always start with the hardcoded string, never an argument).
  *
  */
-var _argSyntax = /<ARG\s*[a-zA-Z+='"_\s\\\/]*\/>/g;
+var _argSyntax = /<ARG\s*[a-zA-Z0-9+='"_\s\\\/]*\/>/g;
 var _delSyntax = /del="\s*([^\n\r"]*)"\s* | del='\s*([^\n\r']*)'\s*/;
 var _htmlSyntax = /(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/g;
 
@@ -59,11 +59,13 @@ var buildArgParams = function (argStr) {
   //may not need this detailed of a test if input is exactly JSON format.
     if (arg[1].length > 1 && arg[1][0] === '\'' && arg[1][arg[1].length - 1] === '\'') {
       value = arg[1].slice(1, -1);
+      console.log('value for', phrase, 'is', arg[1]);
   //assign key/value to argument.
       argParams[key] = value;
     } else {
       argParams[key] = JSON.parse(arg[1]);
     }
+    console.log('argParams for', phrase, 'is', argParams);
   });
   return argParams;
 };

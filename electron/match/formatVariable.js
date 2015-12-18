@@ -71,7 +71,7 @@
 //  variable = "name of US president";
 
 //NOTE: this syntax does NOT have the global (/g) flag!!
-var _argSyntax = /<ARG\s*[a-zA-Z+=_'"\s\\\/]*\/>/;
+var _argSyntax = /<ARG\s*[a-zA-Z0-9+=_'"\s\\\/]*\/>/;
 
 function buildArgumentSyntax (argStr, argParams) {
 
@@ -119,28 +119,26 @@ module.exports = function (actionPrefix, actionObj, variable, commandsObj) {
 
   var argParams = actionObj["args"][0];
 
-  // for (var i = 0; i < args.length; i++) {
-  //   args[i];
-  // var argParams = args[i];
   //=========Argument Parameter Handling=======
   //TODO: move argument parameter handling to separate module.
 
 
-  //===chainSync case: process this first for potential extra arguments.
-  //===chainSync allows for command to be executed multiple times with any number of arguments.
-  if (args[0]['chainSync']) {
+  //===chainsync case: process this first for potential extra arguments.
+  //===chainsync allows for command to be executed multiple times with any number of arguments.
+  var _action = '';
+  if (args[0]['chainsync']) {
     var varArr = variable.split(args[0]['chainkey']);
     for (var i = 0; i < varArr.length; i++) {
       var varFragment = buildArgumentSyntax(varArr[i], args[0]);
       _action += bash.replace(_argSyntax, varFragment) + ';';
+      console.log('chainsynced results:', _action);
     }
-    return action;
+    return _action;
   } else {
 
-  //==general case (no chainSync):
-    var varArr = variable.split(args)
+  //==general case (no chainsync):
+    var varArr = variable.split(args);
 
-    var _action = '';
     for (var i = 0; i < args.length; i++) {
   //EX: variable = "Berkeley to Los Angeles" => 2 args
   // _action += bashStrs[i] || "" + build;
