@@ -14,7 +14,7 @@ if (!('webkitSpeechRecognition' in window)) {
   var prefixRecognition = listeners.getListeners().prefixRecognition;
   prefixRecognition.interimResults = true;
   prefixRecognition.onaudioend = function () {
-    console.log('audio ended, restarting');
+    // console.log('audio ended, restarting');
     this.stop();
   };
   //instance that will listen for the command
