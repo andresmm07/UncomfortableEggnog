@@ -16,8 +16,17 @@ export default class UploadFile extends React.Component {
   }
   render() {
     return (
-      <form encType="multipart/form-data">
-        <input type="file" onChange={this.handleFile.bind(this)} />
+      <form className="uploadButton" encType="multipart/form-data">
+        <button onClick={ e => {document.getElementById('upload').click();}}
+                className="btn btn-success">
+          Add Package
+        </button>
+        <input
+          id="upload"
+          style={{opacity: 0}}
+          type="file"
+          onChange={this.handleFile.bind(this)}
+        />
       </form>
     );
   }
