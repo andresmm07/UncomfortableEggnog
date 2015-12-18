@@ -55,10 +55,9 @@ function _deleteCommand (initialCommandsArray, index) {
   return initialCommandsArray;
 }
 
-
 const Store = Object.assign(EventEmitter.prototype, {
   emitChange () {
-    this.emit( CHANGE_EVENT );
+    this.emit( CHANGE_EVENT ); //'CHANGE'
   },
   reloadCommands () {
     return _reloadCommands(getCommands()['rawCommands']);

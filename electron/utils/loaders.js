@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var fs = require('fs');
+var PhraseTrie = require('./phraseTrie');
 
 var loadPhrases = function (phrasesPath, commands) {
   var phrases = {};
@@ -17,6 +18,9 @@ var loadPhrases = function (phrasesPath, commands) {
       return phrases;
     }, {}));
 
+  var trie = new PhraseTrie();
+
+
   updatePhrases(phrasesPath, phrases);
   return phrases;
 };
@@ -28,7 +32,4 @@ var updatePhrases = function (phrasesPath, phrases) {
 
 module.exports = {
   loadPhrases: loadPhrases
-  // getCommands: function () {
-  //   return JSON.parse(localStorage.getItem('Commands'));
-  // }
 };

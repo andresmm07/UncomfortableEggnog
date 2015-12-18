@@ -24674,7 +24674,7 @@
 
 	var Store = Object.assign(_events.EventEmitter.prototype, {
 	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
+	    this.emit(CHANGE_EVENT); //'CHANGE'
 	  },
 	  reloadCommands: function reloadCommands() {
 	    return _reloadCommands((0, _commandsUtil.getCommands)()['rawCommands']);
@@ -25110,6 +25110,7 @@
 	  commandObj.parsedCommands = parseCommands(rawCommands); // { exactCommands: {}, argCommands: {}}
 	  commandObj.commandsPath = commandsPath;
 	  commandObj.phrasesPath = commandsPath.replace('commands.', 'phrases.');
+	  // here we make the phrases trie
 	  commandObj.phrases = loadPhrases(commandObj.phrasesPath, commandObj.rawCommands);
 	  prefixTrie.build(Object.keys(commandObj.parsedCommands.argCommands));
 	  module.exports.saveCommands(commandObj);
@@ -25155,10 +25156,11 @@
 	  if (prefixArray[0] !== null) {
 	    var actionPrefix = prefixArray[0];
 	    var variable = prefixArray[1].trim();
+	    // can we return right here?
 	  } else {
-	    var actionPrefix = prefixArray[1];
-	    var variable = null;
-	  }
+	      var actionPrefix = prefixArray[1];
+	      var variable = null;
+	    }
 	  return matching(actionPrefix.trim(), variable, commandsObj);
 	};
 
@@ -25202,21 +25204,26 @@
 	    }
 	    return actionObj;
 	  }
-
+	  // change to trie
+	  // phrases.isCommand(_actionPrefix);
 	  var addedPhraseTest = testPhrases(phrases, _actionPrefix);
+
 	  if (addedPhraseTest) {
 	    console.log('added phrase found: ', addedPhraseTest);
 	    actionObj.exact = true;
+
 	    if (variable && argCommands[addedPhraseTest]) {
 	      actionObj.action = formatVariable(argCommands[addedPhraseTest], variable, commandsObj);
 	    } else {
 	      actionObj.action = exactCommands[addedPhraseTest];
 	    }
 	  } else {
+	    // only execute if score is above threshold
 	    var key = getMatchByScore(Object.keys(actions), _actionPrefix);
 	    console.log('guessing ' + key);
 	    actionObj.exact = false;
 	    actionObj.guessedCommand = key;
+
 	    if (variable && argCommands[key]) {
 	      actionObj.action = formatVariable(argCommands[key], variable, commandsObj);
 	    } else {
@@ -40233,6 +40240,7 @@
 
 	var _ = __webpack_require__(272);
 	var fs = __webpack_require__(221);
+	var PhraseTrie = __webpack_require__(343);
 
 	var loadPhrases = function loadPhrases(phrasesPath, commands) {
 	  var phrases = {};
@@ -40249,6 +40257,8 @@
 	    return phrases;
 	  }, {}));
 
+	  var trie = new PhraseTrie();
+
 	  updatePhrases(phrasesPath, phrases);
 	  return phrases;
 	};
@@ -40260,9 +40270,6 @@
 
 	module.exports = {
 	  loadPhrases: loadPhrases
-	  // getCommands: function () {
-	  //   return JSON.parse(localStorage.getItem('Commands'));
-	  // }
 	};
 
 /***/ },
@@ -40442,7 +40449,7 @@
 	  },
 	  updateCommand: function updateCommand(command) {
 	    (0, _dispatcher.dispatch)({
-	      actionType: _constants2.default.UPDATE_COMMAND,
+	      actionType: _constants2.default.UPDATE_COMMAND, //'UPDATE_COMMAND'
 	      command: command
 	    });
 	  },
@@ -41310,6 +41317,53 @@
 	  "volume up": "osascript -e 'set volume 5'",
 	  "volume off": "osascript -e 'set volume 0'"
 	};
+
+/***/ },
+/* 343 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var PhraseTrie = function PhraseTrie(word, command) {
+	  this.word = word || null;
+	  this.command = command || null;
+	  this.children = [];
+	};
+
+	PhraseTrie.prototype.findCommand = function (sentence, words) {
+	  // recurse down and return command if command
+	  words = words || sentence.split(' ');
+	  if (this.command) {
+	    return this.command;
+	  }
+	};
+
+	PhraseTrie.prototype.addPhrase = function (phrase, command, words) {
+	  words = words || phrase.split(' ');
+	  if (words.length === 0) {
+	    this.command = command;
+	    return;
+	  } else if (!nextPhrase) {
+	    var word = words[0];
+	    var nextPhrase = this.hasChild(word);
+	    nextPhrase = new PhraseTrie(word);
+	    this.children.push(nextPhrase);
+	    nextPhrase.addPhrase(phrase, command, words.slice(1));
+	  } else {
+	    nextPhrase.addPhrase(phrase, command, words.slice(1));
+	  }
+	};
+
+	PhraseTrie.prototype.hasChild = function (word) {
+	  for (var i = 0; i < this.children.length; i++) {
+	    if (this.children[i].word === word) {
+	      return this.children[i];
+	    }
+	  }
+	  return null;
+	};
+
+	module.exports = PhraseTrie;
 
 /***/ }
 /******/ ]);

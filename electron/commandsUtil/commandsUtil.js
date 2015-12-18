@@ -31,6 +31,7 @@ module.exports.loadPackage = function (commandsPath) {
   commandObj.parsedCommands = parseCommands(rawCommands); // { exactCommands: {}, argCommands: {}}
   commandObj.commandsPath = commandsPath;
   commandObj.phrasesPath = commandsPath.replace('commands.', 'phrases.');
+  // here we make the phrases trie
   commandObj.phrases = loadPhrases(commandObj.phrasesPath, commandObj.rawCommands);
   prefixTrie.build(Object.keys(commandObj.parsedCommands.argCommands));
   module.exports.saveCommands(commandObj);

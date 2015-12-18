@@ -6,7 +6,6 @@ import Store from '../../stores/store';
 import StoreWatchMixin from '../../mixins/mixins';
 import packageUtil from '../../../../packagesUtil/packagesUtil';
 
-
 function getCommands () {
   return {
     commands: Store.getCommands()
@@ -76,4 +75,4 @@ const Packages = (props) => {
 };
 
 
-export default StoreWatchMixin(Packages, getCommands)
+export default StoreWatchMixin(Packages, getCommands);

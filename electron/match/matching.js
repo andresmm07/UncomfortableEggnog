@@ -32,26 +32,33 @@ module.exports = function (actionPrefix, variable, commandsObj) {
     }
     return actionObj;
   }
-
+  // change to trie
+  // phrases.isCommand(_actionPrefix);
   var addedPhraseTest = testPhrases(phrases, _actionPrefix);
+
   if (addedPhraseTest) {
     console.log('added phrase found: ', addedPhraseTest);
     actionObj.exact = true;
+
     if (variable && argCommands[addedPhraseTest]) {
       actionObj.action = formatVariable(argCommands[addedPhraseTest], variable, commandsObj);
     } else {
       actionObj.action = exactCommands[addedPhraseTest];
     }
+
   } else {
+    // only execute if score is above threshold
     var key = getMatchByScore(Object.keys(actions), _actionPrefix);
     console.log('guessing ' + key);
     actionObj.exact = false;
     actionObj.guessedCommand = key;
+
     if (variable && argCommands[key]) {
       actionObj.action = formatVariable(argCommands[key], variable, commandsObj);
     } else {
       actionObj.action = exactCommands[key];
     }
+
   }
   return actionObj;
 };

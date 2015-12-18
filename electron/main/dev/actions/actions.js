@@ -15,7 +15,7 @@ export default {
   },
   updateCommand (command) {
     dispatch({
-      actionType: Constants.UPDATE_COMMAND,
+      actionType: Constants.UPDATE_COMMAND, //'UPDATE_COMMAND'
       command
     });
   },
