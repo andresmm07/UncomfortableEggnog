@@ -9,7 +9,6 @@ module.exports = function (cb, name, timeout) {
 
   listener.onend = function (event) {
     if (on) {
-      // console.log('restarting', this.name);
       this.start();
     }
   };
@@ -22,14 +21,12 @@ module.exports = function (cb, name, timeout) {
 
   listener.selfDestruct = function () {
     this.timer = window.setTimeout(function () {
-      console.log('self destruct has been kicked off');
       failedCmd.play();
       this.switch();
     }.bind(this), timeout);
   };
 
   listener.killTimer = function () {
-    console.log('self destruct has been disabled');
     window.clearTimeout(this.timer);
   };
 
@@ -42,7 +39,7 @@ module.exports = function (cb, name, timeout) {
   };
 
   listener.switch = function () {
-    console.log('switching to ', listener.switchListener.name);
+    console.log("SWITCH!", listener.switchListener.name);
     on = false;
     listener.abort();
     listener.switchListener.start();

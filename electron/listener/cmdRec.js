@@ -3,31 +3,44 @@ var executeShellComand = require('../cmd/execShellCommand');
 var startCmd = require('../audio/audio').startCmd;
 var failedCmd = require('../audio/audio').failedCmd;
 var match = require('../match/match-util').matchUtil;
-
+var listeners = require('./listeners');
+var ipcRenderer = require('electron').ipcRenderer;
 
 module.exports = function (event) {
   this.killTimer();
   var transcript = event.results[0][0].transcript;
   var confidence = event.results[0][0].confidence;
-  console.log('webspeechapi confidence, ', confidence);
   var userCommand = {
     score: confidence,
     term: transcript
   };
-  console.log('command is ', transcript);
   var matchObj = match(userCommand, commandsUtil.getCommands());
-  console.log('going to exec, ', matchObj.action);
+
   if (matchObj.guessedCommand) {
-    var guessCorrectly = confirm("Did you mean \"" + matchObj.guessedCommand + "\"?");
-    if (guessCorrectly) {
+
+    //var guessCorrectly = confirm("Did you mean \"" + matchObj.guessedCommand + "\"?");
+    executeShellComand("say did you mean" + matchObj.guessedCommand + "?");
+    listeners.getListeners().commandRecognition.link(listeners.getListeners().confirmRecognition);
+    this.switch();
+    ipcRenderer.on('correct', function (event) {
       startCmd.play();
-      executeShellComand(matchObj.action);
-      this.switch();
+      listeners.getListeners().commandRecognition.link(listeners.getListeners().prefixRecognition);
       commandsUtil.addPhrase(matchObj.guessedCommand, matchObj.userCommand);
-    } else {
+      executeShellComand(matchObj.action);
+    });
+    ipcRenderer.on('incorrect', function (event) {
+      listeners.getListeners().commandRecognition.link(listeners.getListeners().prefixRecognition);
       failedCmd.play();
-      this.switch();
-    }
+    });
+    // if (guessCorrectly) {
+    //   startCmd.play();
+    //   executeShellComand(matchObj.action);
+    //   this.switch();
+    //   commandsUtil.addPhrase(matchObj.guessedCommand, matchObj.userCommand);
+    // } else {
+    //   failedCmd.play();
+    //   this.switch();
+    // }
   } else if (matchObj.action) {
     startCmd.play();
     executeShellComand(matchObj.action);

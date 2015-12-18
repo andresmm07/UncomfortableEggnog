@@ -11,6 +11,18 @@ var lowerCaseProps = require('../utils/utils').lowerCaseProps;
 var parseCommands = require('../match/parseCommands').parseCommands;
 var coreUtils = require('../packages/core-utils');
 
+var get = function (name) {
+  return JSON.parse(localStorage.getItem(name));
+};
+
+var lowerCaseProps = function (obj) {
+  var newObj = {};
+  for (var key in obj) {
+    newObj[key.toLowerCase()] = obj[key];
+  }
+  return newObj;
+};
+
 module.exports.saveCommands = function (obj) {
   console.log('SAVING', obj.rawCommands);
   if (typeof obj === 'object') {
@@ -37,15 +49,18 @@ module.exports.loadPackage = function (commandsPath) {
   module.exports.saveCommands(commandObj);
 };
 
-module.exports.updateCommands = function (command) {
-  var newCommandsObj = _.extend({}, module.exports.getCommands());
-  newCommandsObj.rawCommands = lowerCaseProps(command);
+module.exports.getCommands = function () {
+  return get('Commands');
+};
+
+module.exports.addCommand = function (command) {
+  var newCommandsObj = _.extend({}, this.getCommands());
+  newCommandsObj.rawCommands = lowerCaseProps(_.extend(this.getCommands().rawCommands, command));
   newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);
   module.exports.saveCommands(newCommandsObj);
   write(newCommandsObj.commandsPath, newCommandsObj.rawCommands);
   module.exports.addPhrase(Object.keys(command)[0], Object.keys(command)[0]);
 };
-
 
 module.exports.delCommand = function (command) {
   var commandsObj = module.exports.getCommands();

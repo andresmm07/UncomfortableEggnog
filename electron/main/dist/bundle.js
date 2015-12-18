@@ -25116,9 +25116,19 @@
 	  module.exports.saveCommands(commandObj);
 	};
 
+<<<<<<< HEAD
 	module.exports.updateCommands = function (command) {
 	  var newCommandsObj = _.extend({}, module.exports.getCommands());
 	  newCommandsObj.rawCommands = lowerCaseProps(command);
+=======
+	module.exports.getCommands = function () {
+	  return get('Commands');
+	};
+
+	module.exports.addCommand = function (command) {
+	  var newCommandsObj = _.extend({}, this.getCommands());
+	  newCommandsObj.rawCommands = lowerCaseProps(_.extend(this.getCommands().rawCommands, command));
+>>>>>>> electron-master
 	  newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);
 	  module.exports.saveCommands(newCommandsObj);
 	  write(newCommandsObj.commandsPath, newCommandsObj.rawCommands);
@@ -25148,8 +25158,14 @@
 
 	'use strict';
 
+<<<<<<< HEAD
 	var matching = __webpack_require__(220);
 	var prefixTrie = __webpack_require__(323);
+=======
+	var matching = __webpack_require__(215);
+	var prefixTrie = __webpack_require__(319);
+	//var coreUtilObj = require('../coreUtils/coreUtils');
+>>>>>>> electron-master
 
 	module.exports.matchUtil = function (userCommand, commandsObj) {
 	  var prefixArray = prefixTrie.findPrefix(userCommand.term);
@@ -25158,9 +25174,16 @@
 	    var variable = prefixArray[1].trim();
 	    // can we return right here?
 	  } else {
+<<<<<<< HEAD
 	      var actionPrefix = prefixArray[1];
 	      var variable = null;
 	    }
+=======
+	    var actionPrefix = prefixArray[1];
+	    var variable = null;
+	  }
+
+>>>>>>> electron-master
 	  return matching(actionPrefix.trim(), variable, commandsObj);
 	};
 
@@ -25187,7 +25210,7 @@
 	  actionObj.action = '';
 
 	  var exactMatchThreshold = 0.8;
-	  var closeMatchThreshold = 0.6;
+	  var closeMatchThreshold = 0.65;
 
 	  var phrases = commandsObj.phrases;
 	  var actions = commandsObj.rawCommands;
@@ -25195,7 +25218,6 @@
 	  var exactCommands = commandsObj.parsedCommands.exactCommands;
 
 	  if (actions[_actionPrefix] !== undefined) {
-	    console.log('Action exists');
 	    actionObj.exact = true;
 	    if (variable && argCommands[_actionPrefix]) {
 	      actionObj.action = formatVariable(_actionPrefix, argCommands[_actionPrefix], variable, commandsObj);
@@ -25209,7 +25231,6 @@
 	  var addedPhraseTest = testPhrases(phrases, _actionPrefix);
 
 	  if (addedPhraseTest) {
-	    console.log('added phrase found: ', addedPhraseTest);
 	    actionObj.exact = true;
 
 	    if (variable && argCommands[addedPhraseTest]) {
@@ -25220,7 +25241,6 @@
 	  } else {
 	    // only execute if score is above threshold
 	    var key = getMatchByScore(Object.keys(actions), _actionPrefix);
-	    console.log('guessing ' + key);
 	    actionObj.exact = false;
 	    actionObj.guessedCommand = key;
 
@@ -40200,12 +40220,14 @@
 /* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var natural = __webpack_require__(222);
 	var Trie = natural.Trie;
 
 	module.exports.build = function (strings) {
+	  //put in core util functions
+	  console.log("STRINGS: ", strings);
 	  module.exports.trie = new Trie(false);
 	  module.exports.trie.addStrings(strings);
 	};
