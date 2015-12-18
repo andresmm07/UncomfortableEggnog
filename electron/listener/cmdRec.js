@@ -19,7 +19,7 @@ module.exports = function (event) {
   if (matchObj.guessedCommand) {
 
     //var guessCorrectly = confirm("Did you mean \"" + matchObj.guessedCommand + "\"?");
-    executeShellComand("say did you mean" + matchObj.guessedCommand + "?");
+    executeShellCommand("say did you mean" + matchObj.guessedCommand + "?");
     listeners.getListeners().commandRecognition.link(listeners.getListeners().confirmRecognition);
     this.switch();
     ipcRenderer.on('correct', function (event) {
