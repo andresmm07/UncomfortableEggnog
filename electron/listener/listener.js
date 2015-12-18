@@ -2,6 +2,7 @@ var startCmd = require('../audio/audio').startCmd;
 var failedCmd = require('../audio/audio').failedCmd;
 
 module.exports = function (cb, name, timeout) {
+
   var listener = new webkitSpeechRecognition();
   listener.hasTimeout = timeout ? true : false;
   listener.name = name;
@@ -44,5 +45,6 @@ module.exports = function (cb, name, timeout) {
     listener.abort();
     listener.switchListener.start();
   };
+
   return listener;
 };
