@@ -14,7 +14,7 @@ if (!('webkitSpeechRecognition' in window)) {
   var prefixRecognition = listeners.getListeners().prefixRecognition;
   prefixRecognition.interimResults = true;
   prefixRecognition.onaudioend = function () {
-    console.log('audio ended, restarting');
+    // console.log('audio ended, restarting');
     this.stop();
   };
   // var commandRecognition = listener(cmdRec, 'cmd', 5000);

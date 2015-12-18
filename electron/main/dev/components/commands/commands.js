@@ -1,5 +1,5 @@
 import React from 'react';
-import {getCommands} from '../../../../commandsUtil/commandsUtil';
+import Store from '../../stores/store';
 
 export default class Commands extends React.Component {
   handleClick(key) {

@@ -1,4 +1,6 @@
-{"check the":"open https://www.google.com/?gws_rd=ssl#q=<ARG del='+' case='upper' />",
+{
+  "list folders":"ls",
+  "check the":"open https://www.google.com/?gws_rd=ssl#q=<ARG del='+' case='upper' />",
   "kyle cho pro tip":"say kyle cho pro tip: $(cat protips.txt | perl -MList::Util=shuffle -e 'print shuffle(<STDIN>);' | head -n 1)",
   "dim screen":"osascript -e 'tell application \"System Events\" to repeat 10 times' -e 'key code 107' -e 'delay 0.1' -e 'end repeat'",
   "open":"open /Applications/<ARG del='\\ ' capitalize=true chainsync=true chainkey='and'/>.app",
