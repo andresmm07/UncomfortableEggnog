@@ -10,58 +10,86 @@
    *
 * */
 
-//test commands object ==> need to pass this in
-// var commands = {
-//   "exactCommands":
-//     {
-//       "kyle cho pro tip": "say kyle cho pro tip"
-//     },
-//   "argCommands":
-//     {
-//       "check the": {
-//         "commands": ["open https//www.google.com/?gws_rd=ssl#q="],
-//         "args": [{
-//           "del": "+"
-//           }]
-//         },
-//       "open": {
-//         "commands": ["open ", ".app"],
-//         "args": [{
-//           "del": "\\ ",
-//           "capitalize": true
-//           }]
-//         }
-//     }
+//test actionObj ==> need to pass this in
+// var actionObj =
+//   {
+//     "commands": ["open ", ".app"],
+//     "args": [{
+//       "del": "\\ ",
+//       "capitalize": true,
+//       "chainSync": true,
+//       "chainkey": "and also"
+//       }]
 //   };
+
+// var commandsObj =
+//   {
+//     "rawCommands": {
+      // "open": "open /Applications/<ARG del='\\ ' capitalize=true chain=true chainkey='and also'/>.app"
+//     }
+
+//   };
+
+// var actionObj =
+//   {
+//     "commands": ["open ", ".app"],
+//     "args": [{
+//       "del": "\\ ",
+//       "capitalize": true
+//       }]
+//   };
+
+
+
+// var actionObj =
+//   {
+//     "commands": ["open https://www.google.com/maps/dir/ ", "/", "/"],
+//     "args": [{
+//       "del": "+",
+//       "capitalize": true,
+//       "chainkey": "to"
+//       },
+//       {
+//       "del": "+",
+//       "capitalize": true,
+//       "chainkey": "to"
+//       }]
+//   };
+
+// var commandsObj =
+//   {
+//     "rawCommands": {
+//       "open": "open /Applications/<ARG del='\\ ' capitalize=true/>.app",
+//       // "enhance": "osascript -e 'tell application \"System Events\"to repeat <ARG del='' default=2/> times' -e 'key code 24 using {command down}' -e 'delay 0.1' -e 'end repeat",
+//       "directions from": "open https://www.google.com/maps/dir/<ARG del='+' chainkey='to'/>/<ARG del='+' />/"
+//     }
+
+//   };
+
 //===test strings====
 //  phrase = "check the";
 //  variable = "name of US president";
-var _argSyntax = /<ARG\s*[a-zA-Z+=_'"\s\\\/]*\/>/;
 
-module.exports = function (actionPrefix, actionObj, variable, commandsObj) {
-  console.log('INSIDE FORMAT VARIABLE');
-  var bash = commandsObj.rawCommands[actionPrefix]; // open http://.....<args/>
-  console.log(variable);
-  var argParams = actionObj["args"];
+//NOTE: this syntax does NOT have the global (/g) flag!!
+var _argSyntax = /<ARG\s*[a-zA-Z0-9+=_'"\s\\\/]*\/>/;
 
-  //=========Argument Parameter Handling=======
-  //TODO: move argument parameter handling to separate module.
+function buildArgumentSyntax (argStr, argParams) {
 
   //===string case====
   if (argParams['case'] === 'upper') {
-    variable = variable.toUpperCase();
+    argStr = argStr.toUpperCase();
   } else if (argParams['case'] === 'lower') {
-    variable = variable.toLowerCase();
+    argStr = argStr.toLowerCase();
   } else if (argParams['case'] === 'proper') {
-    variable = variable[0].toUpperCase() + variable.slice(1);
+    argStr = argStr[0].toUpperCase() + argStr.slice(1);
   }
 
   //===wrap quotation marks====
   if (argParams['quotes']) {
-    variable = '"' + variable + '"';
+    argStr = '"' + argStr + '"';
   }
 
-  var varArr = variable.trim().split(' ');
+  var varArr = argStr.trim().split(' ');
   //===capitalize====
   if (argParams['capitalize']) {
     varArr = varArr.map(function (word) {
@@ -75,10 +103,72 @@ module.exports = function (actionPrefix, actionObj, variable, commandsObj) {
   if (del === " ") {
     del = "\\ ";
   }
-  variable = varArr.join(argParams['del']);
-  console.log('GENERATED VARIABLE: ', variable);
 
-  var _action = bash.replace(_argSyntax, variable);
-  console.log("results: ", _action);
-  return _action;
+  argStr = varArr.join(argParams['del']);
+  console.log('GENERATED VARIABLE: ', argStr);
+  return argStr;
+}
+
+
+module.exports = function (actionPrefix, actionObj, variable, commandsObj) {
+  var bash = commandsObj.rawCommands[actionPrefix]; // open http://.....<args/>
+
+
+  var bashStrs = actionObj["commands"];
+  var args = actionObj["args"];
+
+  var argParams = actionObj["args"][0];
+
+  //=========Argument Parameter Handling=======
+  //TODO: move argument parameter handling to separate module.
+
+
+  //===chainsync case: process this first for potential extra arguments.
+  //===chainsync allows for command to be executed multiple times with any number of arguments.
+  var _action = '';
+  if (args[0]['chainsync']) {
+    var varArr = variable.split(args[0]['chainkey']);
+    for (var i = 0; i < varArr.length; i++) {
+      var varFragment = buildArgumentSyntax(varArr[i], args[0]);
+      _action += bash.replace(_argSyntax, varFragment) + ';';
+      console.log('chainsynced results:', _action);
+    }
+    return _action;
+  } else {
+
+  //==general case (no chainsync):
+    var varArr = variable.split(args);
+
+    for (var i = 0; i < args.length; i++) {
+  //EX: variable = "Berkeley to Los Angeles" => 2 args
+  // _action += bashStrs[i] || "" + build;
+    if (args[i]['chainkey']) {
+      console.log('found a chainkey');
+  //get keyword to separate next argument.
+      var chainkey = args[i]['chainkey'];
+  //split entire string then extract first element on chain.
+      var varArr = variable.split(chainkey);
+      var varStr = varArr.shift();
+  //reassemble remaining variable string in case split in multiple areas.
+      variable = varArr.join(chainkey);
+    } else {
+      var varStr = variable;
+    }
+    var bashVariable = buildArgumentSyntax(varStr, args[i]);
+    bash = bash.replace(_argSyntax, bashVariable);
+      _action = bash;
+      console.log('remaining variable: ', variable);
+    }
+    console.log(_action);
+    return _action;
+  }
+  // } else {
 };
+
+
+
+  // var _action = bash.replace(_argSyntax, variable);
+//   console.log("results: ", _action);
+//   }
+//   return _action;
+// // };

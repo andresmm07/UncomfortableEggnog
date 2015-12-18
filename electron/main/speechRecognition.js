@@ -17,14 +17,14 @@ if (!('webkitSpeechRecognition' in window)) {
     // console.log('audio ended, restarting');
     this.stop();
   };
-  //instance that will listen for the command
   // var commandRecognition = listener(cmdRec, 'cmd', 5000);
   commandRecognition = listeners.getListeners().commandRecognition;
   // var confirmRecognition = listener(confirmRec, 'confirm');
   confirmRecognition = listeners.getListeners().confirmRecognition;
-  // connect the two so that tdhe prefixRec will stop its process and kick off
-  // it's link
+  // connect the two so that the prefixRec will stop its process and kick off
+  // its link
   //prefix only has to link to command
+
   prefixRecognition.link(commandRecognition);
   //command has to link to prefix or confirm
   commandRecognition.link(prefixRecognition);

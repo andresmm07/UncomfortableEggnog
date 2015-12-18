@@ -6,9 +6,9 @@
  *  Example functionality
  *  input:
  *   {
- *    "check the": "open https//www.google.com/?gws_rd=ssl#q=<ARG del='+' />",
- *    "open": "open <ARG del='\\ ' capitalize=true/>.app",
- *    "kyle cho pro tip": "say kyle cho pro tip"
+ *    "check the": "open https//www.google.com/?gws_rd=ssl#q=<ARG del='+'>",               //single argument command
+ *    "open": "open <ARG del='\\ ' capitalize=true chain=true chainkey='and also'/>.app",  //single argument command with chaining
+ *    "kyle cho pro tip": "say kyle cho pro tip"                                           //exact command
  *   }
  *  output:
  *   {
@@ -21,16 +21,16 @@
  *     {
  *      "check the": {
  *        "commands": ["open https//www.google.com/?gws_rd=ssl#q="],
- *        "args": {
+ *        "args": [{
  *          "del": "+"
- *        }
+ *        }]
  *      },
  *      "open": {
  *        "commands": ["open ", ".app"],
- *        "args": {
+ *        "args": [{
  *          "del": "\\ ",
  *          "capitalize": true
- *        }
+ *        }]
  *      }
  *     }
  *
@@ -40,7 +40,7 @@
  *  always start with the hardcoded string, never an argument).
  *
  */
-var _argSyntax = /<ARG\s*[a-zA-Z+='"_\s\\\/]*\/>/;
+var _argSyntax = /<ARG\s*[a-zA-Z0-9+='"_\s\\\/]*\/>/g;
 var _delSyntax = /del="\s*([^\n\r"]*)"\s* | del='\s*([^\n\r']*)'\s*/;
 var _htmlSyntax = /(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/g;
 
@@ -59,11 +59,13 @@ var buildArgParams = function (argStr) {
   //may not need this detailed of a test if input is exactly JSON format.
     if (arg[1].length > 1 && arg[1][0] === '\'' && arg[1][arg[1].length - 1] === '\'') {
       value = arg[1].slice(1, -1);
+      console.log('value for', phrase, 'is', arg[1]);
   //assign key/value to argument.
       argParams[key] = value;
     } else {
       argParams[key] = JSON.parse(arg[1]);
     }
+    console.log('argParams for', phrase, 'is', argParams);
   });
   return argParams;
 };
@@ -78,7 +80,7 @@ module.exports = {
       var bash = commandObj[phrase];
       var args = bash.match(_argSyntax);
       phrase = phrase.toLowerCase();
-
+      console.log(args);
       //arguments case: add to argCommands object
       if (args) {
         var argArr = [];
@@ -87,20 +89,19 @@ module.exports = {
           argArr.push(a);
         });
 
-
         var bashStrs = bash.split(_argSyntax).filter(function (el) {
           return el !== "";
         });
 
         argCommands[phrase] = {};
         argCommands[phrase]["commands"] = bashStrs;
-        argCommands[phrase]["args"] = argArr[0];
+        argCommands[phrase]["args"] = argArr;
 
       } else {
         exactCommands[phrase] = bash;
       }
     }
-
+    console.log('we got argument commands!', argCommands);
     return {
       exactCommands: exactCommands,
       argCommands: argCommands
