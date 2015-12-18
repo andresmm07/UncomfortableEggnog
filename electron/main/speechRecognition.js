@@ -16,7 +16,8 @@ if (!('webkitSpeechRecognition' in window)) {
     this.stop();
   };
   //instance that will listen for the command
-  var commandRecognition = listener(cmdRec, 'cmd', 5000);
+  //TODO: 5s timeout is too short for commands with 2+ phrases/arguments.  Way to extend during speech input?
+  var commandRecognition = listener(cmdRec, 'cmd', 10000);
   // connect the two so that the prefixRec will stop its process and kick off
   // its link
   prefixRecognition.link(commandRecognition);
