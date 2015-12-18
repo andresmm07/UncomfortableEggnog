@@ -23,6 +23,7 @@ module.exports = function (event) {
     listeners.getListeners().commandRecognition.link(listeners.getListeners().confirmRecognition);
     this.switch();
     ipcRenderer.on('correct', function (event) {
+      console.log("Correct!!", matchObj.guessedCommand);
       startCmd.play();
       listeners.getListeners().commandRecognition.link(listeners.getListeners().prefixRecognition);
       commandsUtil.addPhrase(matchObj.guessedCommand, matchObj.userCommand);
