@@ -56,13 +56,13 @@
 
 	var _appContainer2 = _interopRequireDefault(_appContainer);
 
-	var _ipcRecv = __webpack_require__(329);
+	var _ipcRecv = __webpack_require__(330);
 
 	var _ipcRecv2 = _interopRequireDefault(_ipcRecv);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(330);
+	__webpack_require__(331);
 
 	(0, _reactDom.render)(_react2.default.createElement(_appContainer2.default, null), document.getElementById('app'));
 
@@ -19519,23 +19519,23 @@
 
 	var _packages2 = _interopRequireDefault(_packages);
 
-	var _settings = __webpack_require__(324);
+	var _settings = __webpack_require__(325);
 
 	var _settings2 = _interopRequireDefault(_settings);
 
-	var _commands = __webpack_require__(325);
+	var _commands = __webpack_require__(326);
 
 	var _commands2 = _interopRequireDefault(_commands);
 
-	var _addCommand = __webpack_require__(326);
+	var _addCommand = __webpack_require__(327);
 
 	var _addCommand2 = _interopRequireDefault(_addCommand);
 
-	var _editCommand = __webpack_require__(327);
+	var _editCommand = __webpack_require__(328);
 
 	var _editCommand2 = _interopRequireDefault(_editCommand);
 
-	var _landing = __webpack_require__(328);
+	var _landing = __webpack_require__(329);
 
 	var _landing2 = _interopRequireDefault(_landing);
 
@@ -24382,7 +24382,7 @@
 
 	var _uploadFile2 = _interopRequireDefault(_uploadFile);
 
-	var _commandsTable = __webpack_require__(334);
+	var _commandsTable = __webpack_require__(324);
 
 	var _commandsTable2 = _interopRequireDefault(_commandsTable);
 
@@ -24580,6 +24580,7 @@
 	var save = __webpack_require__(322).save;
 	var write = __webpack_require__(322).write;
 	var parseCommands = __webpack_require__(323).parseCommands;
+	var coreUtils = __webpack_require__(335);
 
 	var get = function get(name) {
 	  return JSON.parse(localStorage.getItem(name));
@@ -24604,7 +24605,7 @@
 	  var commandObj = {};
 	  var rawCommands = lowerCaseProps(JSON.parse(fs.readFileSync(commandsPath, 'utf8')));
 	  // convert all props to lowerCase
-	  commandObj.rawCommands = rawCommands;
+	  commandObj.rawCommands = _.defaults(coreUtils, rawCommands);
 	  commandObj.parsedCommands = parseCommands(rawCommands); // { exactCommands: {}, argCommands: {}}
 	  commandObj.commandsPath = commandsPath;
 	  commandObj.phrasesPath = commandsPath.replace('commands.', 'phrases.');
@@ -24622,7 +24623,6 @@
 	  newCommandsObj.rawCommands = lowerCaseProps(_.extend(this.getCommands().rawCommands, command));
 	  newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);
 	  module.exports.saveCommands(newCommandsObj);
-	  console.log(newCommandsObj.commandsPath);
 	  write(newCommandsObj.commandsPath, newCommandsObj.rawCommands);
 	  module.exports.addPhrase(Object.keys(command)[0], Object.keys(command));
 	};
@@ -24666,6 +24666,7 @@
 
 	var matching = __webpack_require__(215);
 	var prefixTrie = __webpack_require__(319);
+	//var coreUtilObj = require('../coreUtils/coreUtils');
 
 	module.exports.matchUtil = function (userCommand, commandsObj) {
 	  var prefixArray = prefixTrie.findPrefix(userCommand.term);
@@ -24676,6 +24677,7 @@
 	    var actionPrefix = prefixArray[1];
 	    var variable = null;
 	  }
+
 	  return matching(actionPrefix.trim(), variable, commandsObj);
 	};
 
@@ -24702,7 +24704,7 @@
 	  actionObj.action = '';
 
 	  var exactMatchThreshold = 0.8;
-	  var closeMatchThreshold = 0.6;
+	  var closeMatchThreshold = 0.65;
 
 	  var phrases = commandsObj.phrases;
 	  var actions = commandsObj.rawCommands;
@@ -24710,7 +24712,6 @@
 	  var exactCommands = commandsObj.parsedCommands.exactCommands;
 
 	  if (actions[_actionPrefix] !== undefined) {
-	    console.log('Action exists');
 	    actionObj.exact = true;
 	    if (variable && argCommands[_actionPrefix]) {
 	      actionObj.action = formatVariable(_actionPrefix, argCommands[_actionPrefix], variable, commandsObj);
@@ -24722,7 +24723,6 @@
 
 	  var addedPhraseTest = testPhrases(phrases, _actionPrefix);
 	  if (addedPhraseTest) {
-	    console.log('added phrase found: ', addedPhraseTest);
 	    actionObj.exact = true;
 	    if (variable && argCommands[addedPhraseTest]) {
 	      actionObj.action = formatVariable(argCommands[addedPhraseTest], variable, commandsObj);
@@ -24731,7 +24731,6 @@
 	    }
 	  } else {
 	    var key = getMatchByScore(Object.keys(actions), _actionPrefix);
-	    console.log('guessing ' + key);
 	    actionObj.exact = false;
 	    actionObj.guessedCommand = key;
 	    if (variable && argCommands[key]) {
@@ -39716,12 +39715,14 @@
 /* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	var natural = __webpack_require__(217);
 	var Trie = natural.Trie;
 
 	module.exports.build = function (strings) {
+	  //put in core util functions
+	  console.log("STRINGS: ", strings);
 	  module.exports.trie = new Trie(false);
 	  module.exports.trie.addStrings(strings);
 	};
@@ -39921,6 +39922,77 @@
 /* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CommandsTable = (function (_React$Component) {
+	  _inherits(CommandsTable, _React$Component);
+
+	  function CommandsTable(props) {
+	    _classCallCheck(this, CommandsTable);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(CommandsTable).call(this, props));
+	  }
+
+	  _createClass(CommandsTable, [{
+	    key: "render",
+	    value: function render() {
+	      var commands = this.props.commands;
+
+	      return _react2.default.createElement(
+	        "table",
+	        { className: "table" },
+	        _react2.default.createElement(
+	          "thead",
+	          null,
+	          _react2.default.createElement(
+	            "tr",
+	            null,
+	            _react2.default.createElement(
+	              "th",
+	              null,
+	              "Voice Command"
+	            ),
+	            _react2.default.createElement(
+	              "th",
+	              null,
+	              "Action"
+	            )
+	          )
+	        ),
+	        _react2.default.createElement("tbody", null)
+	      );
+	    }
+	  }]);
+
+	  return CommandsTable;
+	})(_react2.default.Component);
+
+	exports.default = CommandsTable;
+
+	CommandsTable.propTypes = {};
+
+/***/ },
+/* 325 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -39967,7 +40039,7 @@
 	exports.default = Settings;
 
 /***/ },
-/* 325 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40038,7 +40110,7 @@
 	;
 
 /***/ },
-/* 326 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40147,7 +40219,7 @@
 	;
 
 /***/ },
-/* 327 */
+/* 328 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40197,7 +40269,7 @@
 	;
 
 /***/ },
-/* 328 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40269,7 +40341,7 @@
 	exports.default = Landing;
 
 /***/ },
-/* 329 */
+/* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40287,16 +40359,16 @@
 	exports.default = _electron.ipcRenderer;
 
 /***/ },
-/* 330 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(331);
+	var content = __webpack_require__(332);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(333)(content, {});
+	var update = __webpack_require__(334)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -40313,10 +40385,10 @@
 	}
 
 /***/ },
-/* 331 */
+/* 332 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(332)();
+	exports = module.exports = __webpack_require__(333)();
 	// imports
 
 
@@ -40327,7 +40399,7 @@
 
 
 /***/ },
-/* 332 */
+/* 333 */
 /***/ function(module, exports) {
 
 	/*
@@ -40383,7 +40455,7 @@
 
 
 /***/ },
-/* 333 */
+/* 334 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -40637,75 +40709,39 @@
 
 
 /***/ },
-/* 334 */
-/***/ function(module, exports, __webpack_require__) {
+/* 335 */
+/***/ function(module, exports) {
 
 	"use strict";
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var CommandsTable = (function (_React$Component) {
-	  _inherits(CommandsTable, _React$Component);
-
-	  function CommandsTable(props) {
-	    _classCallCheck(this, CommandsTable);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(CommandsTable).call(this, props));
-	  }
-
-	  _createClass(CommandsTable, [{
-	    key: "render",
-	    value: function render() {
-	      var commands = this.props.commands;
-
-	      return _react2.default.createElement(
-	        "table",
-	        { className: "table" },
-	        _react2.default.createElement(
-	          "thead",
-	          null,
-	          _react2.default.createElement(
-	            "tr",
-	            null,
-	            _react2.default.createElement(
-	              "th",
-	              null,
-	              "Voice Command"
-	            ),
-	            _react2.default.createElement(
-	              "th",
-	              null,
-	              "Action"
-	            )
-	          )
-	        ),
-	        _react2.default.createElement("tbody", null)
-	      );
-	    }
-	  }]);
-
-	  return CommandsTable;
-	})(_react2.default.Component);
-
-	exports.default = CommandsTable;
-
-	CommandsTable.propTypes = {};
+	module.exports = {
+	  "check the": "open https://www.google.com/?gws_rd=ssl#q=<ARG del='+' case='upper' />",
+	  "kyle cho pro tip": "say kyle cho pro tip: $(cat protips.txt | perl -MList::Util=shuffle -e 'print shuffle(<STDIN>);' | head -n 1)",
+	  "dim screen": "osascript -e 'tell application \"System Events\" to repeat 10 times' -e 'key code 107' -e 'delay 0.1' -e 'end repeat'",
+	  "open": "open /Applications/<ARG del='\\ ' capitalize=true/>.app",
+	  "list folders": "ls",
+	  "volume down": "osascript -e 'set volume 1'",
+	  "volume up": "osascript -e 'set volume 5'",
+	  "volume off": "osascript -e 'set volume 0'",
+	  "shut up": "osascript -e 'set volume with output muted'",
+	  "play": "osascript -e 'display notification \"Playing song...\" with title \"spotify\"'",
+	  "youtube": "open https://www.youtube.com/results?search_query=<ARG del='+' />",
+	  "shutdown": "osascript -e 'display notification \"Shutting down\" with title \"Shutdown\"'",
+	  "google": "open https://www.google.com/?gws_rd=ssl#q=<ARG del='+' />",
+	  "wikipedia": "open https://en.wikipedia.org/wiki/<ARG del='_' />",
+	  "null": "",
+	  "say hello": "say \"hello\"",
+	  "enhance": "osascript -e 'tell application \"System Events\"to repeat 2 times' -e 'key code 24 using {command down}' -e 'delay 0.1' -e 'end repeat'",
+	  "zoom out": "osascript -e 'tell application \"System Events\" to repeat 2 times' -e 'key code 27 using {command down}' -e 'delay 0.1' -e 'end repeat'",
+	  "dance for me": "say \"No\"",
+	  "new command": "say 'got it'",
+	  "old command": "say \"god damn it, really?\"",
+	  "jarvis": "say \"what damn it?\"",
+	  "dehance": "osascript -e 'tell application \"System Events\"to repeat 2 times' -e 'key code 24 using {command down}' -e 'delay 0.1' -e 'end repeat'",
+	  "do awesome things": "say \"I'm afraid I can't do that dave\"",
+	  "free willy": "say \"FREEEEEEDOOOOM\"",
+	  "what time is it": "say $(date)"
+	};
 
 /***/ }
 /******/ ]);
