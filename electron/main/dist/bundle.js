@@ -24580,7 +24580,6 @@
 	var save = __webpack_require__(322).save;
 	var write = __webpack_require__(322).write;
 	var parseCommands = __webpack_require__(323).parseCommands;
-	var coreUtils = __webpack_require__(335);
 
 	var get = function get(name) {
 	  return JSON.parse(localStorage.getItem(name));
@@ -24605,7 +24604,7 @@
 	  var commandObj = {};
 	  var rawCommands = lowerCaseProps(JSON.parse(fs.readFileSync(commandsPath, 'utf8')));
 	  // convert all props to lowerCase
-	  commandObj.rawCommands = _.defaults(coreUtils, rawCommands);
+	  commandObj.rawCommands = rawCommands;
 	  commandObj.parsedCommands = parseCommands(rawCommands); // { exactCommands: {}, argCommands: {}}
 	  commandObj.commandsPath = commandsPath;
 	  commandObj.phrasesPath = commandsPath.replace('commands.', 'phrases.');
@@ -40707,41 +40706,6 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
-
-/***/ },
-/* 335 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	module.exports = {
-	  "check the": "open https://www.google.com/?gws_rd=ssl#q=<ARG del='+' case='upper' />",
-	  "kyle cho pro tip": "say kyle cho pro tip: $(cat protips.txt | perl -MList::Util=shuffle -e 'print shuffle(<STDIN>);' | head -n 1)",
-	  "dim screen": "osascript -e 'tell application \"System Events\" to repeat 10 times' -e 'key code 107' -e 'delay 0.1' -e 'end repeat'",
-	  "open": "open /Applications/<ARG del='\\ ' capitalize=true/>.app",
-	  "list folders": "ls",
-	  "volume down": "osascript -e 'set volume 1'",
-	  "volume up": "osascript -e 'set volume 5'",
-	  "volume off": "osascript -e 'set volume 0'",
-	  "shut up": "osascript -e 'set volume with output muted'",
-	  "play": "osascript -e 'display notification \"Playing song...\" with title \"spotify\"'",
-	  "youtube": "open https://www.youtube.com/results?search_query=<ARG del='+' />",
-	  "shutdown": "osascript -e 'display notification \"Shutting down\" with title \"Shutdown\"'",
-	  "google": "open https://www.google.com/?gws_rd=ssl#q=<ARG del='+' />",
-	  "wikipedia": "open https://en.wikipedia.org/wiki/<ARG del='_' />",
-	  "null": "",
-	  "say hello": "say \"hello\"",
-	  "enhance": "osascript -e 'tell application \"System Events\"to repeat 2 times' -e 'key code 24 using {command down}' -e 'delay 0.1' -e 'end repeat'",
-	  "zoom out": "osascript -e 'tell application \"System Events\" to repeat 2 times' -e 'key code 27 using {command down}' -e 'delay 0.1' -e 'end repeat'",
-	  "dance for me": "say \"No\"",
-	  "new command": "say 'got it'",
-	  "old command": "say \"god damn it, really?\"",
-	  "jarvis": "say \"what damn it?\"",
-	  "dehance": "osascript -e 'tell application \"System Events\"to repeat 2 times' -e 'key code 24 using {command down}' -e 'delay 0.1' -e 'end repeat'",
-	  "do awesome things": "say \"I'm afraid I can't do that dave\"",
-	  "free willy": "say \"FREEEEEEDOOOOM\"",
-	  "what time is it": "say $(date)"
-	};
 
 /***/ }
 /******/ ]);

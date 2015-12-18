@@ -14,9 +14,6 @@ module.exports = function (event) {
     score: confidence,
     term: transcript
   };
-  //first match with coreutils
-  // var coreUtilObj = match(userCommand, coreUtilCmds);
-  //if no match, match with commands
   var matchObj = match(userCommand, commandsUtil.getCommands());
 
   if (matchObj.guessedCommand) {
@@ -27,9 +24,9 @@ module.exports = function (event) {
     this.switch();
     ipcRenderer.on('correct', function (event) {
       startCmd.play();
-      executeShellComand(matchObj.action);
       listeners.getListeners().commandRecognition.link(listeners.getListeners().prefixRecognition);
       commandsUtil.addPhrase(matchObj.guessedCommand, matchObj.userCommand);
+      executeShellComand(matchObj.action);
     });
     ipcRenderer.on('incorrect', function (event) {
       listeners.getListeners().commandRecognition.link(listeners.getListeners().prefixRecognition);

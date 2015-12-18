@@ -7,8 +7,6 @@ var prefixTrie = require('../match/prefixTrie');
 var save = require('../utils/utils').save;
 var write = require('../utils/utils').write;
 var parseCommands = require('../match/parseCommands').parseCommands;
-var coreUtils = require('../match/coreutils');
-
 
 var get = function (name) {
   return JSON.parse(localStorage.getItem(name));
@@ -33,7 +31,7 @@ module.exports.loadPackage = function (commandsPath) {
   var commandObj = {};
   var rawCommands = lowerCaseProps(JSON.parse(fs.readFileSync(commandsPath, 'utf8')));
   // convert all props to lowerCase
-  commandObj.rawCommands = _.defaults(coreUtils, rawCommands);
+  commandObj.rawCommands = rawCommands;
   commandObj.parsedCommands = parseCommands(rawCommands); // { exactCommands: {}, argCommands: {}}
   commandObj.commandsPath = commandsPath;
   commandObj.phrasesPath = commandsPath.replace('commands.', 'phrases.');

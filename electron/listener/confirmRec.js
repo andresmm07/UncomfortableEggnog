@@ -11,11 +11,10 @@ module.exports = function (event) {
   if (phoneticsTest(word, 'yes ') > 0.5) {
     this.switch();
     currentWebContent.send("correct", "correct");
-
     return;
   }
 
   this.switch();
   failedCmd.play();
-  currentWebContent.send("incorrect", "correct");
+  currentWebContent.send("incorrect", "incorrect");
 };
