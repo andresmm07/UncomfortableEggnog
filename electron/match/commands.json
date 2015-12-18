@@ -3,7 +3,8 @@
   "check the":"open https://www.google.com/?gws_rd=ssl#q=<ARG del='+' case='upper' />",
   "kyle cho pro tip":"say kyle cho pro tip: $(cat protips.txt | perl -MList::Util=shuffle -e 'print shuffle(<STDIN>);' | head -n 1)",
   "dim screen":"osascript -e 'tell application \"System Events\" to repeat 10 times' -e 'key code 107' -e 'delay 0.1' -e 'end repeat'",
-  "open":"open /Applications/<ARG del='\\ ' capitalize=true/>.app",
+  "open":"open /Applications/<ARG del='\\ ' capitalize=true chainsync=true chainkey='and'/>.app",
+  "list folders":"ls",
   "volume down":"osascript -e 'set volume 1'",
   "volume up":"osascript -e 'set volume 5'",
   "volume off":"osascript -e 'set volume 0'",
@@ -25,5 +26,6 @@
   "do awesome things":"say \"I'm afraid I can't do that dave\"",
   "free willy":"say \"FREEEEEEDOOOOM\"",
   "what time is it":"say $(date)",
-  "test":"test"
+  "directions from": "open https://www.google.com/maps/dir/<ARG del='+' chainkey='to'/>/<ARG del='+' />/",
+  "bedtime": "osascript -e 'tell application \"Spotify\" to play track \"spotify:track:5uNjMtUMEhoEwJ6HiUTI3h\"' -e 'tell application \"System Events\" to repeat 10 times' -e 'key code 107' -e 'delay 0.1' -e 'end repeat' -e 'set volume 1'"
 }
