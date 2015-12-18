@@ -3,31 +3,24 @@ var fs = require('fs');
 var PhraseTrie = require('./phraseTrie');
 
 var loadPhrases = function (phrasesPath, commands) {
-  var phrases = {};
+  var trie = new PhraseTrie();
   try {
-    phrases = JSON.parse(fs.readFileSync(phrasesPath));
+    var phrases = JSON.parse(fs.readFileSync(phrasesPath));
+    trie = _.extend(trie, phrases);
   } catch (e) {
     console.log('new file');
   }
-  phrases = _.defaults(phrases, Object.keys(commands)
-    .reduce(function (phrases, command) {
-      if (Array.isArray(phrases[commands])) {
-        return phrases;
-      }
-      phrases[command] = [command];
-      return phrases;
-    }, {}));
-
-  var trie = new PhraseTrie();
-
-
-  updatePhrases(phrasesPath, phrases);
-  return phrases;
+  for (var command in commands) {
+    console.log('inserting, ', command);
+    trie.addPhrase(command, command);
+  }
+  updatePhrases(phrasesPath, trie);
+  return trie;
 };
 
 var updatePhrases = function (phrasesPath, phrases) {
   console.log('writing phrase');
-  fs.writeFileSync(phrasesPath, JSON.stringify(phrases));
+  fs.writeFileSync(phrasesPath, JSON.stringify(phrases, null, 2));
 };
 
 module.exports = {

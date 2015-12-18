@@ -1,3 +1,4 @@
+var _ = require('underscore');
 var PhraseTrie = function (letter, command) {
   this.letter = letter || null;
   this.command = command || null;
@@ -7,7 +8,7 @@ var PhraseTrie = function (letter, command) {
 
 PhraseTrie.prototype.findCommand = function (sentence) {
   // recurse down and return command if command
-  var letters = sentence.replace(/[\s]/g, '').split('');
+  var letters = sentence.replace(/[^0-9a-z]/gi, '').split('');
   var command = '';
   function innerFn (trie, chars) {
     if (trie.command) {
@@ -20,34 +21,16 @@ PhraseTrie.prototype.findCommand = function (sentence) {
   innerFn(this, letters);
   return command === '' ? null : command;
 };
-//
-// PhraseTrie.prototype.findCommand = function (sentence, letters, command) {
-//   // recurse down and return command if command
-//   letters = letters || sentence.replace(/[\s]/g).split('');
-//   command = command || null;
-//
-//   if (this.command) {
-//     command = this.command;
-//   }
-//   if (!letters.length) {
-//     return command
-//   }
-//   if (this.children[letters[0]]) {
-//     return this.children[letters[0]]
-//                .findCommand(
-//                  sentence,
-//                  letters.slice(1),
-//                  command
-//                );
-//   }
-//
-//   return command;
-// };
 
 PhraseTrie.prototype.addPhrase = function (phrase, command, letters) {
-  letters = letters || phrase.replace(/[\s]/g, '').split('');
+  letters = letters || phrase.replace(/[^0-9a-z]/gi, '').split('');
   var letter = letters[0];
   var nextPhrase = this.hasChild(letter);
+  if (!(nextPhrase instanceof PhraseTrie)) {
+    var tmp = nextPhrase;
+    nextPhrase = new PhraseTrie();
+    nextPhrase = _.extend(nextPhrase, tmp);
+  }
   if (letters.length === 0) {
     this.command = command;
     return;

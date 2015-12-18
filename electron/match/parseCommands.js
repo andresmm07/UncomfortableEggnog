@@ -1,5 +1,5 @@
 /**
- * parseCommands takes in one object of phrases (key) and bash commands (value), and
+ * parseCommands takes in one object of rawCommand's (key) and bash commands (value), and
  * returns an object with an exact command object and an object that holds commands
  * with parsed arguments and options.
  * ===========
@@ -76,10 +76,10 @@ module.exports = {
     var exactCommands = {};
     var argCommands = {};
 
-    for (var phrase in commandObj) {
-      var bash = commandObj[phrase];
+    for (var rawCommand in commandObj) {
+      var bash = commandObj[rawCommand];
       var args = bash.match(_argSyntax);
-      phrase = phrase.toLowerCase();
+      rawCommand = rawCommand.toLowerCase();
       console.log(args);
       //arguments case: add to argCommands object
       if (args) {
@@ -93,12 +93,12 @@ module.exports = {
           return el !== "";
         });
 
-        argCommands[phrase] = {};
-        argCommands[phrase]["commands"] = bashStrs;
-        argCommands[phrase]["args"] = argArr;
+        argCommands[rawCommand] = {};
+        argCommands[rawCommand]["commands"] = bashStrs;
+        argCommands[rawCommand]["args"] = argArr;
 
       } else {
-        exactCommands[phrase] = bash;
+        exactCommands[rawCommand] = bash;
       }
     }
     console.log('we got argument commands!', argCommands);
