@@ -12,7 +12,6 @@ PhraseTrie.prototype.findCommand = function (sentence) {
   function innerFn (trie, chars) {
     if (trie.command) {
       command = trie.command;
-      console.log(command);
     }
     if (trie.children[chars[0]]) {
       innerFn(trie.children[chars[0]], chars.slice(1));
