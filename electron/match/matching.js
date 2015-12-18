@@ -6,9 +6,6 @@ var getMatchByScore = require('./testers/getMatchByScore');
 var phoneticsTest = require('./testers/phoneticsTest');
 var JWDTest = require('./testers/JWDTest');
 
-var exactMatchThreshold = 0.8;
-var closeMatchThreshold = 0.6;
-
 module.exports = function (actionPrefix, variable, commandsObj) {
   var _actionPrefix = actionPrefix.toLowerCase();
   var actionObj = {};
@@ -17,6 +14,8 @@ module.exports = function (actionPrefix, variable, commandsObj) {
   actionObj.guessedCommand = null;
   actionObj.action = '';
 
+  var exactMatchThreshold = 0.8;
+  var closeMatchThreshold = 0.65;
 
   var phrases = commandsObj.phrases;
   var actions = commandsObj.rawCommands;
@@ -24,7 +23,6 @@ module.exports = function (actionPrefix, variable, commandsObj) {
   var exactCommands = commandsObj.parsedCommands.exactCommands;
 
   if (actions[_actionPrefix] !== undefined) {
-    console.log('Action exists');
     actionObj.exact = true;
     if (variable && argCommands[_actionPrefix]) {
       actionObj.action = formatVariable(_actionPrefix, argCommands[_actionPrefix], variable, commandsObj);
@@ -36,7 +34,6 @@ module.exports = function (actionPrefix, variable, commandsObj) {
 
   var addedPhraseTest = testPhrases(phrases, _actionPrefix);
   if (addedPhraseTest) {
-    console.log('added phrase found: ', addedPhraseTest);
     actionObj.exact = true;
     if (variable && argCommands[addedPhraseTest]) {
       actionObj.action = formatVariable(argCommands[addedPhraseTest], variable, commandsObj);
@@ -45,7 +42,6 @@ module.exports = function (actionPrefix, variable, commandsObj) {
     }
   } else {
     var key = getMatchByScore(Object.keys(actions), _actionPrefix);
-    console.log('guessing ' + key);
     actionObj.exact = false;
     actionObj.guessedCommand = key;
     if (variable && argCommands[key]) {

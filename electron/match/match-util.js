@@ -1,6 +1,7 @@
 'use strict';
 var matching = require('./matching');
 var prefixTrie = require('./prefixTrie');
+//var coreUtilObj = require('../coreUtils/coreUtils');
 
 module.exports.matchUtil = function (userCommand, commandsObj) {
   var prefixArray = prefixTrie.findPrefix(userCommand.term);
@@ -11,5 +12,6 @@ module.exports.matchUtil = function (userCommand, commandsObj) {
     var actionPrefix = prefixArray[1];
     var variable = null;
   }
+
   return matching(actionPrefix.trim(), variable, commandsObj);
 };
