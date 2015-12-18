@@ -42,11 +42,6 @@ ipcRenderer.on('listening', function (event) {
   prefixRecognition.start();
 });
 
-// ipcRenderer.on('test', function (event) {
-//   console.log("confirm!!");
-//   commandRecognition.link(confirmRecognition);
-//   //commandRecognition.switch();
-// });
 // //function to toggle between keypress shortcut and always listening
 // var toggleListen = function (event) {
 //   if (listening) {

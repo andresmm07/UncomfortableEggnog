@@ -8,7 +8,6 @@ module.exports.init = function () {
   prefixRecognition = listener(prefixRec, 'prefix');
   commandRecognition = listener(cmdRec, 'cmd', 5000);
   confirmRecognition = listener(confirmRec, 'confirm', 3000);
-
 };
 
 module.exports.getListeners = function () {
