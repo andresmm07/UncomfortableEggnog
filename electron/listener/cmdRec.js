@@ -16,14 +16,35 @@ module.exports = function (event) {
     score: confidence,
     term: transcript
   };
+
   matchObj = match(userCommand, commandsUtil.getCommands());
   console.log("Match Object: ", matchObj);
-  if (!matchObj.exact) {
-    this.link(listeners.getListeners().confirmRecognition);
-    this.switch();
+  // if (!matchObj.exact) {
+  //   this.link(listeners.getListeners().confirmRecognition);
+  //   this.switch();
+  //   executeShellCommand("say did you mean" + matchObj.guessedCommand + "?");
+  //   // currentWebContent.send("match", matchObj);
+  // } else if (matchObj.exact) {
+
+  var matchObj = match(userCommand, commandsUtil.getCommands());
+
+  if (matchObj.guessedCommand) {
     executeShellCommand("say did you mean" + matchObj.guessedCommand + "?");
-    // currentWebContent.send("match", matchObj);
-  } else if (matchObj.exact) {
+    listeners.getListeners().commandRecognition.link(listeners.getListeners().confirmRecognition);
+    this.switch();
+    // ipcRenderer.on('correct', function (event) {
+    //   console.log("Correct!!", matchObj.guessedCommand);
+    //   startCmd.play();
+
+    //   listeners.getListeners().commandRecognition.link(listeners.getListeners().prefixRecognition);
+    //   commandsUtil.addPhrase(matchObj.guessedCommand, matchObj.userCommand);
+    //   executeShellCommand(matchObj.action);
+    // });
+    // ipcRenderer.on('incorrect', function (event) {
+    //   listeners.getListeners().commandRecognition.link(listeners.getListeners().prefixRecognition);
+    //   failedCmd.play();
+    // });
+  } else if (matchObj.action) {
     startCmd.play();
     executeShellCommand(matchObj.action);
     this.switch();

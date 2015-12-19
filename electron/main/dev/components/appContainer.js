@@ -15,7 +15,7 @@ export default class AppContainer extends React.Component {
         <Route path="/" component={Layout}>
           <IndexRoute component={Landing} />
           <Route path="landing" component={Landing}/>
-          <Route path="packages" saying="hello" component={Packages}/>
+          <Route path="packages" component={Packages}/>
           <Route path="commands" component={Commands}/>
           <Route path="addCommand" component={AddCommand}/>
           <Route path="editCommand" component={EditCommand}/>
