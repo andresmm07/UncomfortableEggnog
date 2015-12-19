@@ -6,15 +6,16 @@ var phoneticsTest = require('../match/testers/phoneticsTest');
 var currentWebContent = require('remote').getCurrentWindow().webContents;
 
 module.exports = function (event) {
+  console.log("callback confirm");
+  var guessed = false;
   var word = event.results[0][0].transcript;
-  console.log("word: ", word);
-  if (phoneticsTest(word, 'yes ') > 0.5) {
-    this.switch();
-    currentWebContent.send("correct", "correct");
-    return;
-  }
-
+  console.log('transcript');
   this.switch();
-  failedCmd.play();
-  currentWebContent.send("incorrect", "incorrect");
+  if (phoneticsTest(word, 'Yes') > 0.6) {
+    console.log("CONFIRM CORRECT!");
+    guessed = true;
+  }
+  console.log('message sent!');
+  currentWebContent.send("match", guessed);
+  guessed = false;
 };
