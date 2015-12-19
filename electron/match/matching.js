@@ -6,6 +6,8 @@ var getMatchByScore = require('./testers/getMatchByScore');
 var phoneticsTest = require('./testers/phoneticsTest');
 var JWDTest = require('./testers/JWDTest');
 
+
+
 module.exports = function (actionPrefix, variable, commandsObj) {
   var _actionPrefix = actionPrefix.toLowerCase();
   var actionObj = {};
@@ -31,9 +33,10 @@ module.exports = function (actionPrefix, variable, commandsObj) {
     }
     return actionObj;
   }
+
   // change to trie
-  // phrases.isCommand(_actionPrefix);
-  var addedPhraseTest = testPhrases(phrases, _actionPrefix);
+  // var addedPhraseTest = testPhrases(phrases, _actionPrefix);
+  var addedPhraseTest = phrases.findCommand(_actionPrefix);
 
   if (addedPhraseTest) {
     actionObj.exact = true;
@@ -57,5 +60,6 @@ module.exports = function (actionPrefix, variable, commandsObj) {
     }
 
   }
+
   return actionObj;
 };

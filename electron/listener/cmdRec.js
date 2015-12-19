@@ -17,8 +17,6 @@ module.exports = function (event) {
   var matchObj = match(userCommand, commandsUtil.getCommands());
 
   if (matchObj.guessedCommand) {
-
-    //var guessCorrectly = confirm("Did you mean \"" + matchObj.guessedCommand + "\"?");
     executeShellCommand("say did you mean" + matchObj.guessedCommand + "?");
     listeners.getListeners().commandRecognition.link(listeners.getListeners().confirmRecognition);
     this.switch();
@@ -28,21 +26,12 @@ module.exports = function (event) {
 
       listeners.getListeners().commandRecognition.link(listeners.getListeners().prefixRecognition);
       commandsUtil.addPhrase(matchObj.guessedCommand, matchObj.userCommand);
-      executeShellComand(matchObj.action);
+      executeShellCommand(matchObj.action);
     });
     ipcRenderer.on('incorrect', function (event) {
       listeners.getListeners().commandRecognition.link(listeners.getListeners().prefixRecognition);
       failedCmd.play();
     });
-    // if (guessCorrectly) {
-    //   startCmd.play();
-    //   executeShellComand(matchObj.action);
-    //   this.switch();
-    //   commandsUtil.addPhrase(matchObj.guessedCommand, matchObj.userCommand);
-    // } else {
-    //   failedCmd.play();
-    //   this.switch();
-    // }
   } else if (matchObj.action) {
     startCmd.play();
     executeShellCommand(matchObj.action);
