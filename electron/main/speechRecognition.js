@@ -25,11 +25,11 @@ if (!('webkitSpeechRecognition' in window)) {
   // its link
   //prefix only has to link to command
 
-  prefixRecognition.link(commandRecognition);
+  //prefixRecognition.link(commandRecognition);
   //command has to link to prefix or confirm
-  commandRecognition.link(prefixRecognition);
+  //commandRecognition.link(prefixRecognition);
   //confirm recognition only has to link to prefix
-  confirmRecognition.link(prefixRecognition);
+  //confirmRecognition.link(prefixRecognition);
 }
 
 //receive event emitted from main process (main.js) to start listening

@@ -40,7 +40,6 @@ module.exports = function (cb, name, timeout) {
   };
 
   listener.switch = function () {
-    console.log("SWITCH!", listener.switchListener.name);
     on = false;
     listener.abort();
     listener.switchListener.start();
