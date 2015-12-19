@@ -80,6 +80,7 @@ app.on('ready', function () {
       app.quit();
     }
   }));
+
   appIcon = new Tray('./electron/icons/rsz_1rsz_jarvis_tiny.png');
   appIcon.on('click', function () {
     mainWindow.toggle();
