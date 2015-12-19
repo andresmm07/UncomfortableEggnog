@@ -8,8 +8,8 @@ var save = require('../utils/utils').save;
 var write = require('../utils/utils').write;
 var get = require('../utils/utils').get;
 var lowerCaseProps = require('../utils/utils').lowerCaseProps;
-var PhraseTrie = require('../utils/phraseTrie').PhraseTrie;
-var objToTrie = require('../utils/phraseTrie').objToTrie;
+var PhraseTrie = require('../utils/phraseTrie');
+var objToTrie = require('../utils/objToTrie');
 var parseCommands = require('../match/parseCommands').parseCommands;
 var coreUtils = require('../packages/core-utils');
 
@@ -52,40 +52,38 @@ module.exports.loadPackage = function (commandsPath) {
   module.exports.saveCommands(commandObj);
 };
 
-
 module.exports.getCommands = function () {
   var commandsObj = get('Commands');
   commandsObj.phrases = objToTrie(commandsObj.phrases);
   return commandsObj;
 };
 
-module.exports.updateCommands = function (commands, cb) {
+module.exports.updateCommands = function (command) {
   var newCommandsObj = _.extend({}, module.exports.getCommands());
-  newCommandsObj.rawCommands = lowerCaseProps(commands);
+  newCommandsObj.rawCommands = lowerCaseProps(_.extend(module.exports.getCommands().rawCommands, command));
   newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);
   module.exports.saveCommands(newCommandsObj);
   write(newCommandsObj.commandsPath, newCommandsObj.rawCommands);
-  module.exports.addPhrase(Object.keys(commands)[0], Object.keys(commands)[0]);
+  module.exports.addPhrase(Object.keys(command)[0], Object.keys(command)[0]);
 
-  cb(newCommandsObj['rawCommands']);
+  return newCommandsObj['rawCommands'];
 };
 
-module.exports.delCommand = function (command, cb) {
+module.exports.delCommand = function (command) {
   var commandsObj = module.exports.getCommands();
   delete commandsObj.rawCommands[command];
   delete commandsObj.phrases[command];
   module.exports.saveCommands(commandsObj);
   write(commandsObj.commandsPath, commandsObj.rawCommands);
   write(commandsObj.phrasesPath, commandsObj.phrases);
-
-  cb(commandsObj['rawCommands']);
+  
+  return commandsObj['rawCommands'];
 };
 
 module.exports.addPhrase = function (correctCommand, userCommand) {
   var commandsObj = module.exports.getCommands();
   commandsObj.phrases = objToTrie(commandsObj.phrases);
   commandsObj.phrases.addPhrase(userCommand, correctCommand);
-
   module.exports.saveCommands(commandsObj);
   write(commandsObj.phrasesPath, commandsObj.phrases);
 };

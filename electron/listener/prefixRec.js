@@ -6,7 +6,7 @@ var regMatch = require('../match/regMatch');
 module.exports = function (event) {
   for (var i = event.resultIndex; i < event.results.length; ++i) {
     var word = event.results[i][0].transcript;
-    console.log(word);
+    // console.log(word);
     if (phoneticsTest(word, 'Jarvis') > 0.8) {
       this.switchListener.hasTimeout = true;
       startCmd.play();

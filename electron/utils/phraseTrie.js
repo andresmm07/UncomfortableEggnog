@@ -1,5 +1,6 @@
 var _ = require('underscore');
-var PhraseTrie = function (letter, command) {
+
+function PhraseTrie (letter, command) {
   this.letter = letter || null;
   this.command = command || null;
   this.children = {};
@@ -7,7 +8,6 @@ var PhraseTrie = function (letter, command) {
 
 
 PhraseTrie.prototype.findCommand = function (sentence) {
-  // recurse down and return command if command
   var letters = sentence.replace(/[^0-9a-z]/gi, '').split('');
   var command = '';
   function innerFn (trie, chars) {
@@ -23,14 +23,14 @@ PhraseTrie.prototype.findCommand = function (sentence) {
 };
 
 PhraseTrie.prototype.addPhrase = function (phrase, command, letters) {
+  console.log('adding', phrase);
   letters = letters || phrase.replace(/[^0-9a-z]/gi, '').split('');
   var letter = letters[0];
   var nextPhrase = this.hasChild(letter);
 
-  if (!(nextPhrase instanceof PhraseTrie)) {
-    var tmp = nextPhrase;
-    nextPhrase = new PhraseTrie();
-    nextPhrase = _.extend(nextPhrase, tmp);
+  if (!(nextPhrase instanceof PhraseTrie) && nextPhrase !== null) {
+    nextPhrase = module.exports.objToTrie(nextPhrase);
+    console.log(nextPhrase instanceof PhraseTrie);
   }
 
   if (letters.length === 0) {
@@ -55,5 +55,10 @@ PhraseTrie.prototype.hasChild = function (letter) {
   return null;
 };
 
+module.exports.objToTrie = function (phrases) {
+  var phraseTrie = new PhraseTrie();
+  phraseTrie = _.extend(phraseTrie, phrases);
+  return phraseTrie;
+};
 
-module.exports = PhraseTrie;
+module.exports.PhraseTrie = PhraseTrie;

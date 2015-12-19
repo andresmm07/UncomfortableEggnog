@@ -1,8 +1,9 @@
 var expect = require('chai').expect;
-var PhraseTrie = require('../utils/phraseTrie');
+var PhraseTrie = require('../utils/phraseTrie').PhraseTrie;
 var fs = require('fs');
 var _ = require('underscore');
-var coreUtils = JSON.parse(fs.readFileSync(__dirname + '/../packages/newcommands.json'));
+// var coreUtils = JSON.parse(fs.readFileSync(__dirname + '/../packages/newcommands.json'));
+var coreUtils = require('../packages/core-utils');
 coreUtils = _.extend(coreUtils, {
   "apple": "aple",
   "apples": "apels",
@@ -12,7 +13,7 @@ coreUtils = _.extend(coreUtils, {
 
 
 
-xdescribe('Phrase trie', function (done) {
+describe('Phrase trie', function (done) {
   var phraseTrie;
   before(function (done) {
     phraseTrie = new PhraseTrie();

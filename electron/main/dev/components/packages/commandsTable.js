@@ -12,7 +12,8 @@ export default (props) => {
       >
         <td
           onClick={ e => {
-          AppActions.deleteCommand(i)
+            console.log('Inside commandsTable, calling AppActions.deleteCommand with ', i);
+            AppActions.deleteCommand(i)
           }}
         >
           x
