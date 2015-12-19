@@ -3,25 +3,31 @@ import { Router, Route, Link, IndexRoute } from 'react-router';
 
 export default class Landing extends React.Component {
   render() {
-    var style = {
-      backgroundColor: "purple",
-      color: "white"
+    var backgroundStyle = {
+      color: "#343D5C",
+      height: "100vh",
+      textAlign: "center",
+      position: "relative",
+      marginTop: 100,
+      fontFamily: '"Courier New", Courier, monospace'
     };
+
+    var titleStyle = {
+      backgroundImage: "url(./assets/img/jarvis-transparent.gif)",
+      backgroundSize: "100% 100%",
+      backgroundRepeat: "no-repeat",
+      height: 200,
+      width: 200,
+      margin: "auto",
+      display: "inline-block"
+    };
+
     return (
-      <div className="row">
-        <div className="col-xs-12" style={style}>
-          <h1>
-            Landing Page
-          </h1>
-        </div>
-        <div className="col-4">
-          <Link to="commands">
-            <button>List of Commands</button>
-          </Link>
-        </div>
+      <div style={backgroundStyle}>
+            <div><h4>Hello, My name is Jarvis</h4></div>
+        <div className="jarvis" style={titleStyle}></div>
+            <div><h4>Please say a command</h4></div>
       </div>
     );
-
   };
-
 }
