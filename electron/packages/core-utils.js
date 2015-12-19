@@ -13,5 +13,9 @@ module.exports = {
   "open": "open /Applications/<ARG del='\\ ' capitalize=true/>.app",
   "volume down": "osascript -e 'set volume 1'",
   "volume up": "osascript -e 'set volume 5'",
-  "volume off": "osascript -e 'set volume 0'"
+  "volume off": "osascript -e 'set volume 0'",
+  "youtube": "open https://www.youtube.com/results?search_query=<ARG del='+' />",
+  "google": "open https://www.google.com/?gws_rd=ssl#q=<ARG del='+' />",
+  "wiki": "open https://en.wikipedia.org/wiki/<ARG del='_' />",
+  "bright screen": "osascript -e 'tell application \"System Events\" to repeat 10 times' -e 'key code 113' -e 'delay 0.1' -e 'end repeat'"
 };

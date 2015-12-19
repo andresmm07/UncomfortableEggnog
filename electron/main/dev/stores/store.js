@@ -54,8 +54,9 @@ const Store = Object.assign(EventEmitter.prototype, {
         Store.emitChange();
         break;
       case Constants.DELETE_COMMAND:
-        _deleteCommand(_commands[action.index], function (commands) {
+        _deleteCommand(_commands.splice(action.index, 1)[0], function (commands) {
           console.log('deleted');
+          console.log(commands[action.index]);
           _commands = commands;
           Store.emitChange();
         });

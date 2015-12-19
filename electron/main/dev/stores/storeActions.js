@@ -32,6 +32,7 @@ export function _updateCommand (cmdObj, command) {
 }
 
 export function _reloadCommands (commandsObj) {
+  console.log('reloadCommands');
   let results = Object.keys(commandsObj)
     .reduce( (arr, cmd) => {
       return arr.concat({
@@ -58,6 +59,7 @@ export function _deleteCommand (command, cb) {
   console.log('_deleteCommand');
   delCommand(Object.keys(command)[0], function (commands) {
     console.log('got callback');
+    console.log(commands);
     cb(_reloadCommands(commands));
   });
 }
