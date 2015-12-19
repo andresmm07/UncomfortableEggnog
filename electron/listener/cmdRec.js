@@ -26,7 +26,7 @@ module.exports = function (event) {
   //   // currentWebContent.send("match", matchObj);
   // } else if (matchObj.exact) {
 
-  var matchObj = match(userCommand, commandsUtil.getCommands());
+  matchObj = match(userCommand, commandsUtil.getCommands());
 
   if (matchObj.guessedCommand) {
     executeShellCommand("say did you mean" + matchObj.guessedCommand + "?");
