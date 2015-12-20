@@ -7,6 +7,7 @@ import Commands from './commands/commands';
 import AddCommand from './addCommand/addCommand';
 import EditCommand from './editCommand/editCommand';
 import Landing from './landing/landing';
+import Contact from './contact/contact';
 
 export default class AppContainer extends React.Component {
   render() {
@@ -20,6 +21,7 @@ export default class AppContainer extends React.Component {
           <Route path="addCommand" component={AddCommand}/>
           <Route path="editCommand" component={EditCommand}/>
           <Route path="settings" component={Settings}/>
+          <Route path="contact" component={Contact}/>
         </Route>
       </Router>
     );
