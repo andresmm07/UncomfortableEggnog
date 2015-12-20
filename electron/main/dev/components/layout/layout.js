@@ -49,7 +49,7 @@ export default class Layout extends React.Component {
                 </Link>
               </div>
               <div id="contact" className='col-xs-4 text-center button-right'>
-                <Link to="settings">
+                <Link to="contact">
                   <img src={contact} className="img-responsive img-icon"/>
                   <p className="nav-text">
                     Contact

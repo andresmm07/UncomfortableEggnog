@@ -3,7 +3,7 @@ import { Router, Route, Link, IndexRoute } from 'react-router';
 
 export default class Landing extends React.Component {
   render() {
-    var backgroundStyle = {
+    const backgroundStyle = {
       color: "#343D5C",
       height: "100vh",
       textAlign: "center",
@@ -12,7 +12,7 @@ export default class Landing extends React.Component {
       fontFamily: '"Courier New", Courier, monospace'
     };
 
-    var titleStyle = {
+    const titleStyle = {
       backgroundImage: "url(./assets/img/jarvis-transparent.gif)",
       backgroundSize: "100% 100%",
       backgroundRepeat: "no-repeat",
