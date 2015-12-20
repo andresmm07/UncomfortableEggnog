@@ -96,7 +96,7 @@ var buildPhrases = function (phrases, commands) {
 */
 
 var saveAndWrite = function (commandsObj, cb) {
-  console.log(commandsObj.packageCommands);
+  console.log('save and write', commandsObj.packageCommands);
   saveCommands(commandsObj);
   fs.writeFile(
     commandsObj.commandPath,
@@ -111,8 +111,8 @@ var saveAndWrite = function (commandsObj, cb) {
           JSON.stringify(commandsObj.phrases),
           'utf8',
           function (err, data) {
-            console.log(commandsObj);
-            cb(null, commandsObj);
+            console.log('save and write callback');
+            cb(null, module.exports.getCommands());
         });
       }
     });
@@ -143,11 +143,6 @@ module.exports.getCommands = function () {
   return commandsObj;
 };
 
-/*
-
-
-
-*/
 
 module.exports.updateCommands = function (commands, cb) {
   var commandsObj = module.exports.getCommands();
@@ -162,14 +157,6 @@ module.exports.updateCommands = function (commands, cb) {
     }
   });
 };
-
-
-
-
-
-
-
-
 
 
 module.exports.delCommand = function (command, cb) {
