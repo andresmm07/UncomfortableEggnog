@@ -5,6 +5,7 @@ var testPhrases = require('./testers/testPhrases');
 var getMatchByScore = require('./testers/getMatchByScore');
 var phoneticsTest = require('./testers/phoneticsTest');
 var JWDTest = require('./testers/JWDTest');
+var findCommand = require('../utils/phraseTrie').findCommand;
 
 
 
@@ -36,7 +37,7 @@ module.exports = function (actionPrefix, variable, commandsObj) {
 
   // change to trie
   // var addedPhraseTest = testPhrases(phrases, _actionPrefix);
-  var addedPhraseTest = phrases.findCommand(_actionPrefix);
+  var addedPhraseTest = findCommand(phrases, _actionPrefix);
 
   if (addedPhraseTest) {
     actionObj.exact = true;

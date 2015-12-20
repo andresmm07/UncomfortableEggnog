@@ -8,10 +8,18 @@ var save = require('../utils/utils').save;
 var write = require('../utils/utils').write;
 var get = require('../utils/utils').get;
 var lowerCaseProps = require('../utils/utils').lowerCaseProps;
-var PhraseTrie = require('../utils/phraseTrie');
-var objToTrie = require('../utils/objToTrie');
+var PhraseTrie = require('../utils/phraseTrie').PhraseTrie;
+var objToTrie = require('../utils/phraseTrie').objToTrie;
 var parseCommands = require('../match/parseCommands').parseCommands;
 var coreUtils = require('../packages/core-utils');
+
+var updateCommandObj = function (packageObj, commandObj) {
+  commandObj = commandObj || {};
+  commandObj.packageCommands = lowerCaseProps(packageObj);
+  commandObj.rawCommands = _.defaults(coreUtils, packageObj);
+  commandObj.parsedCommands = parseCommands(commandObj.rawCommands);
+  return commandObj;
+};
 
 
 var get = function (name) {
@@ -34,23 +42,16 @@ module.exports.saveCommands = function (obj) {
 };
 
 module.exports.loadPackage = function (commandsPath) {
-  var commandObj = {};
-  var rawCommands = lowerCaseProps(JSON.parse(fs.readFileSync(commandsPath, 'utf8')));
-  // Injects coreUtil functionality into any package that is created
-  commandObj.rawCommands = _.defaults(coreUtils, rawCommands);
-  commandObj.parsedCommands = parseCommands(rawCommands); // { exactCommands: {}, argCommands: {}}
-
+  var packageCommands = JSON.parse(fs.readFileSync(commandsPath, 'utf8'));
+  var commandObj = updateCommandObj(packageCommands);
   commandObj.commandsPath = commandsPath;
   commandObj.phrasesPath = commandsPath.replace('commands.', 'phrases.');
-
-  // here we make the phrases trie
   commandObj.phrases = loadPhrases(commandObj.phrasesPath, commandObj.rawCommands);
-
-  // Create prefixTrie with just the argCommands
-    // If prefixTrie returns a prefix, safely assume it is a known command
   prefixTrie.build(Object.keys(commandObj.parsedCommands.argCommands));
   module.exports.saveCommands(commandObj);
+  return commandObj;
 };
+
 
 module.exports.getCommands = function () {
   var commandsObj = get('Commands');
@@ -58,26 +59,25 @@ module.exports.getCommands = function () {
   return commandsObj;
 };
 
-module.exports.updateCommands = function (command) {
-  var newCommandsObj = _.extend({}, module.exports.getCommands());
-  newCommandsObj.rawCommands = lowerCaseProps(_.extend(module.exports.getCommands().rawCommands, command));
-  newCommandsObj.parsedCommands = parseCommands(newCommandsObj.rawCommands);
+module.exports.updateCommands = function (commands, cb) {
+  var commandsObj = module.exports.getCommands();
+  var newCommandsObj = updateCommandObj(commands, commandsObj);
   module.exports.saveCommands(newCommandsObj);
-  write(newCommandsObj.commandsPath, newCommandsObj.rawCommands);
-  module.exports.addPhrase(Object.keys(command)[0], Object.keys(command)[0]);
-
-  return newCommandsObj['rawCommands'];
+  write(newCommandsObj.commandsPath, newCommandsObj.packageCommands);
+  module.exports.addPhrase(Object.keys(commands)[0], Object.keys(commands)[0]);
+  cb(newCommandsObj.packageCommands);
 };
 
-module.exports.delCommand = function (command) {
+module.exports.delCommand = function (command, cb) {
   var commandsObj = module.exports.getCommands();
-  delete commandsObj.rawCommands[command];
-  delete commandsObj.phrases[command];
+  delete commandsObj.packageCommands[command];
+  // TODO: traverse trie
+  // commandsObj.phrases = objToTrie(commandsObj.phrases);
+  // commandsObj.phrases.removeCommand(command);
   module.exports.saveCommands(commandsObj);
-  write(commandsObj.commandsPath, commandsObj.rawCommands);
+  write(commandsObj.commandsPath, commandsObj.packageCommands);
   write(commandsObj.phrasesPath, commandsObj.phrases);
-  
-  return commandsObj['rawCommands'];
+  cb(commandsObj.packageCommands);
 };
 
 module.exports.addPhrase = function (correctCommand, userCommand) {

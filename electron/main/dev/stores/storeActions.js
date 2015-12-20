@@ -2,17 +2,17 @@ import { getCommands, updateCommands, saveCommands, delCommand } from '../../../
 import Constants from '../constants/constants';
 
 export function _getCommands () {
-  return getCommands()['rawCommands'];
+  return getCommands()['packageCommands'];
 }
 
 export function _saveCommands (commands, cb) {
-  let rawCommands = commands.reduce( (cmdObj, cmd) => {
+  let packageCommands = commands.reduce( (cmdObj, cmd) => {
     if (Object.keys(cmd) === '') {
       return cmdObj;
     }
     return Object.assign(cmdObj, cmd);
   }, {});
-  updateCommands(rawCommands, function (cmd) {
+  updateCommands(packageCommands, function (cmd) {
     cb(_reloadCommands(cmd));
   });
 }
@@ -33,6 +33,7 @@ export function _updateCommand (cmdObj, command) {
 
 export function _reloadCommands (commandsObj) {
   console.log('reloadCommands');
+  console.log(commandsObj);
   let results = Object.keys(commandsObj)
     .reduce( (arr, cmd) => {
       return arr.concat({

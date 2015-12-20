@@ -37,9 +37,19 @@ ipcRenderer.on('listening', function (event) {
   console.log("Jarvis is listening!");
   var commandsUtil = require('./commandsUtil/commandsUtil');
   var config = require('./config/config');
-  commandsUtil.loadPackage(config.coreCommandsJSON);
-  console.log(ipcRenderer);
-  prefixRecognition.start();
+  // commandsUtil.loadPackage(config.coreCommandsJSON);
+
+  commandsUtil.loadPackage({
+    commandsPath: config.commandsPath
+  }, function (err, result) {
+    if (err) {
+      console.log('There was an error loading this package');
+    } else {
+      prefixRecognition.start();
+    }
+  });
+
+
 });
 
 // //function to toggle between keypress shortcut and always listening

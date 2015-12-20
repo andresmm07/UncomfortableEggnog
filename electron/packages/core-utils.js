@@ -14,5 +14,6 @@ module.exports = {
   "volume off": "osascript -e 'set volume 0'",
   "youtube": "open https://www.youtube.com/results?search_query=<ARG del='+' />",
   "google": "open https://www.google.com/?gws_rd=ssl#q=<ARG del='+' />",
-  "wiki": "open https://en.wikipedia.org/wiki/<ARG del='_' />"
+  "wiki": "open https://en.wikipedia.org/wiki/<ARG del='_' />",
+  "directions": "open https://www.google.com/maps/dir/<ARG del='+' chainkey='to'/>/<ARG del='+' />/"
 };
