@@ -4,7 +4,7 @@ import { EventEmitter } from 'events';
 
 import {
   _saveCommands,
-  _updateCommand,
+  _liveUpdateCommand,
   _reloadCommands,
   _addCommand,
   _deleteCommand,
@@ -36,30 +36,29 @@ const Store = Object.assign(EventEmitter.prototype, {
   dispatcherIndex: register( function (action) {
     switch (action.actionType) {
       case Constants.SAVE_COMMANDS:
-        _saveCommands(_commands, function (newCMD) {
+        _saveCommands(_commands, function (err, newCMD) {
           _commands = newCMD;
           console.log('saving commands');
           Store.emitChange();
         });
         break;
       case Constants.ADD_COMMAND:
-        _addCommand(_commands.slice(), function (cmd) {
+        _addCommand(_commands.slice(), function (err, cmd) {
           _commands = cmd;
           Store.emitChange();
         });
         break;
       case Constants.UPDATE_COMMAND:
-        _commands = _updateCommand(_commands.slice(), action.command);
+        _commands = _liveUpdateCommand(_commands.slice(), action.command);
         console.log('updating commands');
         Store.emitChange();
         break;
       case Constants.DELETE_COMMAND:
-        var cmd = _commands.splice(action.index, 1)[0];
-        _deleteCommand(cmd, function (commands) {
-          console.log('deleted');
-          console.log(cmd);
+        _commands.splice(action.index, 1)[0];
+        _deleteCommand(_commands.slice(), function (err, commands) {
           _commands = commands;
           Store.emitChange();
+
         });
         break;
     }

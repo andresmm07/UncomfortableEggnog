@@ -22,3 +22,10 @@ module.exports.lowerCaseProps = function (obj) {
   }
   return newObj;
 };
+
+module.exports.saveCommands = function (obj) {
+  if (typeof obj === 'object') {
+    obj = JSON.stringify(obj);
+  }
+  module.exports.save('Commands', obj);
+};
