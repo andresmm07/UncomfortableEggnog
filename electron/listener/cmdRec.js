@@ -20,11 +20,9 @@ module.exports = function (event) {
   matchObj = match(userCommand, commandsUtil.getCommands());
 
   if (matchObj.guessedCommand) {
-    console.log("IF GUESSED");
     executeShellCommand("say did you mean" + matchObj.guessedCommand + "?");
-    listeners.getListeners().commandRecognition.link(listeners.getListeners().confirmRecognition);
+    this.link(listeners.getListeners().confirmRecognition);
     this.switch();
-
   } else if (matchObj.action) {
     startCmd.play();
     executeShellCommand(matchObj.action);
@@ -36,7 +34,6 @@ module.exports = function (event) {
 };
 
 ipcRenderer.on('match', function (event, message) {
-  console.log("MATCH");
   if (message) {
     startCmd.play();
     listeners.getListeners().commandRecognition.link(listeners.getListeners().prefixRecognition);

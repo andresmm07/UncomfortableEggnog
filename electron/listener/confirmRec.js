@@ -10,7 +10,6 @@ module.exports = function (event) {
   var guessed = false;
   var word = event.results[0][0].transcript;
   this.switch();
-  this.on = false;
   if (phoneticsTest(word, 'Yes') > 0.6) {
     guessed = true;
   }

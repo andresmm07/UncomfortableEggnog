@@ -1,8 +1,8 @@
 var listener = require('./listener');
 
-var prefixRecognition;
-var commandRecognition;
-var confirmRecognition;
+var prefixRecognition = null;
+var commandRecognition = null;
+var confirmRecognition = null;
 
 module.exports.init = function () {
   prefixRecognition = listener(prefixRec, 'prefix');

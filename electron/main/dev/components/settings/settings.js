@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import Languages from '../languages/language';
 import openBrowser from '../../../../cmd/execShellCommand';
 import remote from 'remote';
 
@@ -20,11 +21,20 @@ export default class Settings extends React.Component {
   render() {
     return (
       <div>
-        <div className="change">
-          <input placeholder="jarvis" ref="newName" />
-          <button onClick={this.handleSubmit.bind(this)}>Change Name</button>
+        <div className="input-group">
+          <input type="text" className="form-control" placeholder="Jarvis" ref="newName"/>
+          <span className="input-group-btn">
+            <button className="btn btn-success" type="button" onClick={this.handleSubmit.bind(this)}>Change Name</button>
+          </span>
         </div>
-        <button onClick={this.handleClick.bind(this)}>Visit Us</button>
+        <div>
+          <Languages></Languages>
+        </div>
+        <div>
+          <button onClick={this.handleClick.bind(this)} className="btn btn-success">
+            Visit Us
+          </button>
+        </div>
       </div>
     );
   }

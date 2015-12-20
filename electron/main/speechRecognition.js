@@ -38,7 +38,6 @@ ipcRenderer.on('listening', function (event) {
   var commandsUtil = require('./commandsUtil/commandsUtil');
   var config = require('./config/config');
   commandsUtil.loadPackage(config.coreCommandsJSON);
-  console.log(ipcRenderer);
   prefixRecognition.start();
 });
 
