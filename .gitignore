@@ -5,3 +5,4 @@ server/config/authKeys.js
 .DS_Store
 electron/main/dist/bundle.js
 **/bundle.js
+electron/packages/newphrases.json

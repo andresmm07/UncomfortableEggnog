@@ -17,6 +17,15 @@ module.exports = function (event) {
     term: transcript
   };
 
+
+  console.log("Match Object: ", matchObj);
+  // if (!matchObj.exact) {
+  //   this.link(listeners.getListeners().confirmRecognition);
+  //   this.switch();
+  //   executeShellCommand("say did you mean" + matchObj.guessedCommand + "?");
+  //   // currentWebContent.send("match", matchObj);
+  // } else if (matchObj.exact) {
+
   matchObj = match(userCommand, commandsUtil.getCommands());
 
   if (matchObj.guessedCommand) {
