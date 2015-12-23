@@ -11,7 +11,7 @@ var loadPhrases = function (phrasesPath, commands) {
     console.log('new file');
   }
   for (var command in commands) {
-    console.log('inserting, ', command);
+    //console.log('inserting, ', command);
     trie.addPhrase(command, command);
   }
   updatePhrases(phrasesPath, trie);
@@ -19,7 +19,7 @@ var loadPhrases = function (phrasesPath, commands) {
 };
 
 var updatePhrases = function (phrasesPath, phrases) {
-  console.log('writing phrase');
+  //console.log('writing phrase');
   fs.writeFileSync(phrasesPath, JSON.stringify(phrases, null, 2));
 };
 
