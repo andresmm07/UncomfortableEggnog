@@ -20,7 +20,7 @@ var loadPhrases = function (phrasesPath, commands) {
 };
 
 var updatePhrases = function (phrasesPath, phrases) {
-  console.log('writing phrase');
+  //console.log('writing phrase');
   fs.writeFileSync(phrasesPath, JSON.stringify(phrases, null, 2));
 };
 

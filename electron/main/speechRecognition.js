@@ -15,7 +15,23 @@ if (!('webkitSpeechRecognition' in window)) {
   };
   var commandRecognition = listener(cmdRec, 'cmd', 5000);
 
-  prefixRecognition.link(commandRecognition);
-  commandRecognition.link(prefixRecognition);
-  prefixRecognition.start();
+// <<<<<<< HEAD
+//   prefixRecognition.link(commandRecognition);
+//   commandRecognition.link(prefixRecognition);
+// =======
+  //prefixRecognition.link(commandRecognition);
+  //command has to link to prefix or confirm
+  //commandRecognition.link(prefixRecognition);
+  //confirm recognition only has to link to prefix
+  //confirmRecognition.link(prefixRecognition);
 }
+
+//receive event emitted from main process (main.js) to start listening
+ipcRenderer.on('listening', function (event) {
+  console.log("Jarvis is listening!");
+  var commandsUtil = require('./commandsUtil/commandsUtil');
+  var config = require('./config/config');
+  commandsUtil.loadPackage(config.coreCommandsJSON);
+// >>>>>>> electron-master
+  // prefixRecognition.start();
+});

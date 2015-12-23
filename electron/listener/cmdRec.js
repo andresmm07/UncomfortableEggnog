@@ -5,6 +5,8 @@ var failedCmd = require('../audio/audio').failedCmd;
 var match = require('../match/match-util').matchUtil;
 var listener = require('./listener');
 var phoneticsTest = require('../match/testers/phoneticsTest');
+var listeners = require('./listeners');
+var ipcRenderer = require('electron').ipcRenderer;
 var matchObj;
 
 module.exports = function (event) {
@@ -62,3 +64,15 @@ module.exports = function (event) {
     this.switch();
   }
 };
+
+// ipcRenderer.on('match', function (event, message) {
+//   if (message) {
+//     startCmd.play();
+//     listeners.getListeners().commandRecognition.link(listeners.getListeners().prefixRecognition);
+//     commandsUtil.addPhrase(matchObj.guessedCommand, matchObj.userCommand);
+//     executeShellCommand(matchObj.action);
+//   } else {
+//     listeners.getListeners().commandRecognition.link(listeners.getListeners().prefixRecognition);
+//     failedCmd.play();
+//   }
+// });
