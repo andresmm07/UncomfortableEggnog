@@ -52,7 +52,7 @@ module.exports = function (cb, name, timeout) {
   listener.switch = function () {
     on = false;
     listener.abort();
-    console.log(listener);
+    console.log(listener.name, ' has turned off');
     listener.switchListener.start();
   };
 

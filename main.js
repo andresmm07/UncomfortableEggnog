@@ -16,11 +16,6 @@ var appIcon = null;
 var toggle = false;
 var menu = null;
 
-app.on('window-all-closed', function () {
-  if (process.platform != 'darwin') {
-    app.quit();
-  }
-});
 
 app.on('ready', function () {
   mainWindow = new BrowserWindow({
@@ -96,5 +91,10 @@ app.on('ready', function () {
   mainWindow.on('closed', function () {
     globalShortcut.unregister('ctrl+r');
     app.quit();
+  });
+  app.on('window-all-closed', function () {
+    if (process.platform != 'darwin') {
+      app.quit();
+    }
   });
 });

@@ -16,7 +16,6 @@ module.exports = function (event) {
     if (phoneticsTest(word, name) > 0.8) {
       this.switchListener.hasTimeout = true;
       startCmd.play();
-      console.log('prefix switch');
       this.switch();
     }
   }

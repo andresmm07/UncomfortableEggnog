@@ -16,6 +16,7 @@ let _commands = [];
 
 const Store = Object.assign(EventEmitter.prototype, {
   emitChange () {
+    console.log('CHANGE');
     this.emit( CHANGE_EVENT ); //'CHANGE'
   },
   reloadCommands () {
@@ -23,9 +24,12 @@ const Store = Object.assign(EventEmitter.prototype, {
   },
   getCommands () {
     if (_commands.length === 0) {
+      console.log('do I evet get called?');
       _commands = Store.reloadCommands();
     }
+    console.log(_commands.slice());
     return _commands.slice();
+    // return Store.reloadCommands();
   },
   addChangeListener ( callback ) {
     this.on( CHANGE_EVENT, callback );
@@ -54,12 +58,14 @@ const Store = Object.assign(EventEmitter.prototype, {
         Store.emitChange();
         break;
       case Constants.DELETE_COMMAND:
-        _commands.splice(action.index, 1)[0];
-        _deleteCommand(_commands.slice(), function (err, commands) {
-          _commands = commands;
-          Store.emitChange();
-
-        });
+        // var newCommands = _commands.slice(0, action.index)
+        //   .concat(_commands.slice(action.index + 1));
+        // console.log(newCommands);
+        // _deleteCommand(newCommands, function (err, commands) {
+        //   _commands = commands;
+        //   Store.emitChange();
+        // });
+        _commands.splice(action.index, 1);
         break;
     }
   })

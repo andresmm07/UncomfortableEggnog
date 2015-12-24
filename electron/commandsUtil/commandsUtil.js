@@ -4,23 +4,26 @@ when jarvis kicks off, he loads the package on load
 we read the package contents and shove it in a commandsObj
 
 it goes in commandsObj.packageContents
+We do this because we want the user's packages to be separate from our core utils
 
-we create rawCommands which takes the core commands and extends the packageContents
-call this
-commandsObj.rawCommands
+we create rawCommands which takes the core utils and extends the packageContents
+commandsObj.rawCommands.
+This will alow us to match all commands. rawCommands contains both the
+command and action, regardless of arg
 
-rawCommands contains both the command and action, regardless of arg
+we then the rawCommands and then parse them into arg and exact commands.
+This makes parsing arguments easier for us because we can separate an arg into
+it's component pieces
 
-we then the rawCommands and then parse them into arg and exact commands
-
-call this
 commandsObj.parsedCommands
 inside the parsedCommands we have argCommands and exactCommands
 
-we then take the path of the commands and the phrases and build jsons for both
-this SHOULD BE ASYNC.
+We then take the path of the commands and the phrases and write them to disk for
+persistence.
 
-We then have two tries, a prefixTrie that deals with the argCommands and a phraseTrie
+We have two tries, a prefixTrie that deals with the argCommands and a phraseTrie
+
+
 
 the phraseTrie should have outside methods that manipulate it.
 
@@ -111,7 +114,6 @@ var saveAndWrite = function (commandsObj, cb) {
           JSON.stringify(commandsObj.phrases),
           'utf8',
           function (err, data) {
-            console.log('save and write callback');
             cb(null, module.exports.getCommands());
         });
       }
@@ -139,8 +141,7 @@ module.exports.loadPackage = function (configObj, cb) {
 
 
 module.exports.getCommands = function () {
-  var commandsObj = get('Commands');
-  return commandsObj;
+  return get('Commands');
 };
 
 
@@ -153,19 +154,10 @@ module.exports.updateCommands = function (commands, cb) {
     if (err) {
       console.log(err);
     } else {
-      cb(null, data);
+      console.log('SAVE AND WRITE CB ', data['packageCommands']);
+      cb(null, data['packageCommands']);
     }
   });
-};
-
-
-module.exports.delCommand = function (command, cb) {
-  var commandsObj = module.exports.getCommands();
-  delete commandsObj.packageCommands[command];
-  module.exports.saveCommands(commandsObj);
-  write(commandsObj.commandsPath, commandsObj.packageCommands);
-  write(commandsObj.phrasesPath, commandsObj.phrases);
-  cb(commandsObj.packageCommands);
 };
 
 module.exports.addPhrase = function (correctCommand, userCommand, cb) {
