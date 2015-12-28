@@ -58,14 +58,15 @@ const Store = Object.assign(EventEmitter.prototype, {
         Store.emitChange();
         break;
       case Constants.DELETE_COMMAND:
-        // var newCommands = _commands.slice(0, action.index)
-        //   .concat(_commands.slice(action.index + 1));
-        // console.log(newCommands);
-        // _deleteCommand(newCommands, function (err, commands) {
-        //   _commands = commands;
-        //   Store.emitChange();
-        // });
-        _commands.splice(action.index, 1);
+        var newCommands = _commands.slice(0, action.index)
+          .concat(_commands.slice(action.index + 1));
+        console.log(newCommands);
+        _deleteCommand(newCommands, function (err, commands) {
+          _commands = commands;
+          Store.emitChange();
+        });
+        // _commands.splice(action.index, 1);
+        // Store.emitChange();
         break;
     }
   })

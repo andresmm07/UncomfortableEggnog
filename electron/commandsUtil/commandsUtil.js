@@ -98,6 +98,8 @@ var buildPhrases = function (phrases, commands) {
   Saves the command object in localStorage and then fs.writeFiles it.
 */
 
+
+
 var saveAndWrite = function (commandsObj, cb) {
   console.log('save and write', commandsObj.packageCommands);
   saveCommands(commandsObj);
@@ -121,6 +123,7 @@ var saveAndWrite = function (commandsObj, cb) {
 };
 
 module.exports.loadPackage = function (configObj, cb) {
+  console.log('load!');
   var commandsPath = configObj.commandsPath;
   buildCommands(commandsPath, function (err, commandsObj) {
     if (err) {
