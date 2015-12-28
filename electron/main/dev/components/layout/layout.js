@@ -3,11 +3,11 @@ import { Link } from 'react-router';
 
 export default class Layout extends React.Component {
   render() {
-    var home = "./icons/home.png";
-    var settings = './icons/settings.png';
-    var pkg = './icons/package.png';
-    var about = './icons/about.png';
-    var contact = './icons/contactus.png';
+    const home = "./icons/home.png";
+    const settings = './icons/settings.png';
+    const pkg = './icons/package.png';
+    const about = './icons/about.png';
+    const contact = './icons/contactus.png';
 
     return (
       <div>
@@ -49,7 +49,7 @@ export default class Layout extends React.Component {
                 </Link>
               </div>
               <div id="contact" className='col-xs-4 text-center button-right'>
-                <Link to="settings">
+                <Link to="contact">
                   <img src={contact} className="img-responsive img-icon"/>
                   <p className="nav-text">
                     Contact

@@ -10,12 +10,12 @@ ipcRenderer.on('nameChanged', function (event, message) {
 });
 
 module.exports = function (event) {
+  // Should be function call to get name
   for (var i = event.resultIndex; i < event.results.length; ++i) {
     var word = event.results[i][0].transcript;
     if (phoneticsTest(word, name) > 0.8) {
       this.switchListener.hasTimeout = true;
       startCmd.play();
-      console.log('prefix switch');
       this.switch();
     }
   }

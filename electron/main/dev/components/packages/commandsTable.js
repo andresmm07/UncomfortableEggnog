@@ -4,6 +4,7 @@ import AppActions from '../../actions/actions';
 import Constants from '../../constants/constants';
 
 export default (props) => {
+  console.log('NEW PROPS!', props);
   let commands = props.commands.map( (commandObj, i) => {
     var cmd = Object.keys(commandObj)[0];
     return (
@@ -12,7 +13,8 @@ export default (props) => {
       >
         <td
           onClick={ e => {
-          AppActions.deleteCommand(i)
+            console.log('Inside commandsTable, calling AppActions.deleteCommand with ', i);
+            AppActions.deleteCommand(i)
           }}
         >
           x

@@ -59,13 +59,13 @@ var buildArgParams = function (argStr) {
   //may not need this detailed of a test if input is exactly JSON format.
     if (arg[1].length > 1 && arg[1][0] === '\'' && arg[1][arg[1].length - 1] === '\'') {
       value = arg[1].slice(1, -1);
-      console.log('value for', phrase, 'is', arg[1]);
+      // console.log('value for', phrase, 'is', arg[1]);
   //assign key/value to argument.
       argParams[key] = value;
     } else {
       argParams[key] = JSON.parse(arg[1]);
     }
-    console.log('argParams for', phrase, 'is', argParams);
+    // console.log('argParams for', phrase, 'is', argParams);
   });
   return argParams;
 };
@@ -80,7 +80,7 @@ module.exports = {
       var bash = commandObj[rawCommand];
       var args = bash.match(_argSyntax);
       rawCommand = rawCommand.toLowerCase();
-      console.log(args);
+      // console.log(args);
       //arguments case: add to argCommands object
       if (args) {
         var argArr = [];
@@ -101,7 +101,7 @@ module.exports = {
         exactCommands[rawCommand] = bash;
       }
     }
-    console.log('we got argument commands!', argCommands);
+    // console.log('we got argument commands!', argCommands);
     return {
       exactCommands: exactCommands,
       argCommands: argCommands

@@ -1,43 +1,26 @@
-/*
-http://electron.atom.io/docs/latest/tutorial/quick-start/
-npm install electron-prebuilt
-
-If you've installed electron-prebuilt globally with npm, then you will only need to run the
-following in your app's source directory (electron folder):
-
--> electron .
-*/
 var electron = require('electron');
 var app = electron.app;  // Module to control application life.
 var BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
 var globalShortcut = electron.globalShortcut;
 var ipcMain = electron.ipcMain;
+var Tray = electron.Tray;
+var Menu = electron.Menu;
+var MenuItem = electron.MenuItem;
 
-// Report crashes to our server.
 electron.crashReporter.start();
-
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
+var appIcon = null;
+var toggle = false;
+var menu = null;
 
-// Quit when all windows are closed.
-app.on('window-all-closed', function () {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform != 'darwin') {
-    app.quit();
-  }
-});
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
 app.on('ready', function () {
-  // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600
-    // TODO: lock window size
     // minWidth: 800,
     // minHeight: 600,
     // maxWidth: 800,
@@ -49,12 +32,8 @@ app.on('ready', function () {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  //listen only when user uses the shortcut
-  //this line also regisers the shortcut ctrl+r
-
   //start listening when the app starts
   mainWindow.webContents.on('dom-ready', function () {
-    //emitted to renderer process
     mainWindow.webContents.send('listening', 'listening');
   });
 
@@ -76,13 +55,46 @@ app.on('ready', function () {
     mainWindow.webContents.send('listening', 'listening');
   });
 
-  // Emitted when the window is closed.
+  mainWindow.showWindow = false;
+  mainWindow.toggle = function () {
+    if (this.showWindow) {
+      console.log('show');
+      this.show();
+      this.showWindow = !this.showWindow;
+    } else {
+      console.log('hide');
+      this.hide();
+      this.showWindow = !this.showWindow;
+    }
+  };
+
+  menu = new Menu();
+  menu.append(new MenuItem({
+    label: 'Quit',
+    click: function () {
+      app.quit();
+    }
+  }));
+
+  appIcon = new Tray('./electron/icons/rsz_1rsz_jarvis_tiny.png');
+  appIcon.on('click', function () {
+    mainWindow.toggle();
+  });
+  appIcon.on('right-click', function (e) {
+    console.log('right click');
+    this.popUpContextMenu(menu);
+  });
+
+  mainWindow.on('close', function (e) {
+    app.quit();
+  });
   mainWindow.on('closed', function () {
-    //unregister shortcut when window is closed - best practice
     globalShortcut.unregister('ctrl+r');
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
+    app.quit();
+  });
+  app.on('window-all-closed', function () {
+    if (process.platform != 'darwin') {
+      app.quit();
+    }
   });
 });

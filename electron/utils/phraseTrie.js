@@ -1,13 +1,24 @@
 var _ = require('underscore');
-var PhraseTrie = function (letter, command) {
-  this.letter = letter || null;
-  this.command = command || null;
-  this.children = {};
+
+module.exports.PhraseTrie = function (letter, command) {
+  var obj = {};
+  obj.letter = letter || null;
+  obj.command = command || null;
+  obj.children = {};
+  return obj;
+};
+
+var hasChild = function (trie, letter) {
+  for (var key in trie.children) {
+    if (key === letter) {
+      return trie.children[key];
+    }
+  }
+  return null;
 };
 
 
-PhraseTrie.prototype.findCommand = function (sentence) {
-  // recurse down and return command if command
+module.exports.findCommand = function (trie, sentence) {
   var letters = sentence.replace(/[^0-9a-z]/gi, '').split('');
   var command = '';
   function innerFn (trie, chars) {
@@ -18,42 +29,24 @@ PhraseTrie.prototype.findCommand = function (sentence) {
       innerFn(trie.children[chars[0]], chars.slice(1));
     }
   }
-  innerFn(this, letters);
+  innerFn(trie, letters);
   return command === '' ? null : command;
 };
 
-PhraseTrie.prototype.addPhrase = function (phrase, command, letters) {
+module.exports.addPhrase = function (trie, phrase, command, letters) {
   letters = letters || phrase.replace(/[^0-9a-z]/gi, '').split('');
   var letter = letters[0];
-  var nextPhrase = this.hasChild(letter);
-
-  if (!(nextPhrase instanceof PhraseTrie)) {
-    var tmp = nextPhrase;
-    nextPhrase = new PhraseTrie();
-    nextPhrase = _.extend(nextPhrase, tmp);
-  }
+  var nextPhrase = hasChild(trie, letter);
 
   if (letters.length === 0) {
-    this.command = command;
+    trie.command = command;
     return;
   } else if (!nextPhrase) {
-    nextPhrase = new PhraseTrie(letter);
-    this.children[letter] = nextPhrase;
-    nextPhrase.addPhrase(phrase, command, letters.slice(1));
+    nextPhrase = module.exports.PhraseTrie(letter);
+    trie.children[letter] = nextPhrase;
+    module.exports.addPhrase(nextPhrase, phrase, command, letters.slice(1));
   } else {
-    nextPhrase.addPhrase(phrase, command, letters.slice(1));
+    module.exports.addPhrase(nextPhrase, phrase, command, letters.slice(1));
   }
 
 };
-
-PhraseTrie.prototype.hasChild = function (letter) {
-  for (var key in this.children) {
-    if (key === letter) {
-      return this.children[key];
-    }
-  }
-  return null;
-};
-
-
-module.exports = PhraseTrie;

@@ -17,6 +17,12 @@ module.exports = function (cb, name, timeout) {
   };
   listener.onresult = cb;
 
+  listener.pause = function () {
+    console.log(this.name, 'has been paused');
+    on = false;
+    this.stop();
+  };
+
   listener.switchListener;
   listener.link = function (otherListener) {
     listener.switchListener = otherListener;
@@ -34,6 +40,8 @@ module.exports = function (cb, name, timeout) {
   };
 
   listener.onstart = function (e) {
+    console.log(this.name, ' started!');
+    // console.log(this.switchListener.name, ' will start!');
     if (listener.hasTimeout) {
       this.selfDestruct();
       listener.hasTimeout = false;
@@ -44,6 +52,7 @@ module.exports = function (cb, name, timeout) {
   listener.switch = function () {
     on = false;
     listener.abort();
+    console.log(listener.name, ' has turned off');
     listener.switchListener.start();
   };
 
