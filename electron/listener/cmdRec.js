@@ -62,6 +62,7 @@ module.exports = function (event) {
           this.switch();
         }
       }.bind(this), 'confirm', 5000);
+      confirmListener.link(this.switchListener);
       confirmListener.start();
     }.bind(this));
 

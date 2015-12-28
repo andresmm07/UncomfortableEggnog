@@ -6,10 +6,11 @@ import Store from '../../stores/store';
 import StoreWatchMixin from '../../mixins/mixins';
 import packageUtil from '../../../../packagesUtil/packagesUtil';
 
-function getCommands () {
-  return {
-    commands: Store.getCommands()
-  };
+
+function isJSON (fileName) {
+  var splitFN = fileName.split('.');
+  console.log(splitFN[splitFN.length - 1].match(/json/i));
+  return splitFN[splitFN.length - 1].match(/json/i);
 }
 
 function handleFile (e) {
@@ -17,12 +18,12 @@ function handleFile (e) {
   let self = this;
   const reader = new FileReader();
   const file = e.target.files[0];
-  var path = file.path;
+  var filePath = file.path;
   var fileName = file.name;
-  if (fileName.split('.')[1] !== 'json') {
+  if (isJSON(fileName) === null) {
     alert("The package needs to be a JSON file");
   } else {
-    packageUtil.uploadPackage(path, fileName);
+    AppActions.loadPackage(filePath);
   }
 }
 

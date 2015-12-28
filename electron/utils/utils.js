@@ -24,6 +24,7 @@ module.exports.lowerCaseProps = function (obj) {
 };
 
 module.exports.saveCommands = function (obj) {
+  console.log('saving');
   if (typeof obj === 'object') {
     obj = JSON.stringify(obj);
   }
