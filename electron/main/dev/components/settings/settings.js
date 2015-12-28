@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
-// import Languages from '../languages/language';
 import openBrowser from '../../../../cmd/execShellCommand';
-import remote from 'remote';
+import AppActions from '../../actions/actions';
+
 
 export default class Settings extends React.Component {
   constructor(props) {
@@ -26,9 +26,6 @@ export default class Settings extends React.Component {
           <span className="input-group-btn">
             <button className="btn btn-success" type="button" onClick={this.handleSubmit.bind(this)}>Change Name</button>
           </span>
-        </div>
-        <div>
-          <Languages></Languages>
         </div>
         <div>
           <button onClick={this.handleClick.bind(this)} className="btn btn-success">
