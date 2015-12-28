@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import Languages from '../languages/language';
+// import Languages from '../languages/language';
 import openBrowser from '../../../../cmd/execShellCommand';
 import remote from 'remote';
 

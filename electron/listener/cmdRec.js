@@ -5,7 +5,7 @@ var failedCmd = require('../audio/audio').failedCmd;
 var match = require('../match/match-util').matchUtil;
 var listener = require('./listener');
 var phoneticsTest = require('../match/testers/phoneticsTest');
-var listeners = require('./listeners');
+// var listeners = require('./listeners');
 var ipcRenderer = require('electron').ipcRenderer;
 var matchObj;
 

@@ -25,4 +25,4 @@ ipcRenderer.on('listening', function (event) {
   commandsUtil.loadPackage(config, function (err, data) {
     prefixRecognition.start();
   });
- });
+});
