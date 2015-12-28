@@ -3,11 +3,8 @@ var failedCmd = require('../audio/audio').failedCmd;
 var phoneticsTest = require('../match/testers/phoneticsTest');
 var regMatch = require('../match/regMatch');
 var ipcRenderer = require('electron').ipcRenderer;
-var name = "Jarvis";
 
-ipcRenderer.on('nameChanged', function (event, message) {
-  name = message;
-});
+var name = localStorage.getItem('name');
 
 module.exports = function (event) {
   // Should be function call to get name

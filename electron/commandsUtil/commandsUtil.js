@@ -29,7 +29,7 @@ the phraseTrie should have outside methods that manipulate it.
 
 */
 var matchUtil = require('../match/match-util');
-var config = require('../config/config');
+//var config = require('../config/config');
 var fs = require('fs');
 var _ = require('underscore');
 var loadPhrases = require('../utils/loaders').loadPhrases;

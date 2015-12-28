@@ -3,6 +3,8 @@ var listener = require('./listener/listener');
 var prefixRec = require('./listener/prefixRec');
 var cmdRec = require('./listener/cmdRec');
 
+localStorage.setItem('name', 'jarvis');
+
 if (!('webkitSpeechRecognition' in window)) {
   upgrade();
 } else {
