@@ -12,7 +12,6 @@ ipcRenderer.on('nameChanged', function (event, message) {
 module.exports = function (event) {
   for (var i = event.resultIndex; i < event.results.length; ++i) {
     var word = event.results[i][0].transcript;
-    //console.log(word);
     if (phoneticsTest(word, name) > 0.8) {
       this.switchListener.hasTimeout = true;
       startCmd.play();
