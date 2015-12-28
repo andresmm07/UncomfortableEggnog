@@ -10,12 +10,19 @@ if (!('webkitSpeechRecognition' in window)) {
   prefixRecognition.interimResults = true;
 
   prefixRecognition.onaudioend = function () {
-    // console.log('audio ended, restarting');
     this.stop();
   };
   var commandRecognition = listener(cmdRec, 'cmd', 5000);
 
   prefixRecognition.link(commandRecognition);
   commandRecognition.link(prefixRecognition);
-  prefixRecognition.start();
 }
+
+ipcRenderer.on('listening', function (event) {
+  console.log("Jarvis is listening!");
+  var commandsUtil = require('./commandsUtil/commandsUtil');
+  var config = require('./config/config');
+  commandsUtil.loadPackage(config, function (err, data) {
+    prefixRecognition.start();
+  });
+});

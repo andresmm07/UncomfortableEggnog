@@ -3,7 +3,6 @@ import { dispatch, register } from '../dispatchers/dispatcher';
 
 export default {
   addCommand () {
-    console.log('add command');
     dispatch({
       actionType: Constants.ADD_COMMAND
     });
@@ -24,6 +23,12 @@ export default {
     dispatch({
       actionType: Constants.DELETE_COMMAND,
       index
+    });
+  },
+  loadPackage (filePath) {
+    dispatch({
+      actionType: Constants.LOAD_PACKAGE,
+      filePath
     });
   }
 };

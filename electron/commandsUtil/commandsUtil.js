@@ -1,33 +1,7 @@
 /*
-when jarvis kicks off, he loads the package on load
-
-we read the package contents and shove it in a commandsObj
-
-it goes in commandsObj.packageContents
-We do this because we want the user's packages to be separate from our core utils
-
-we create rawCommands which takes the core utils and extends the packageContents
-commandsObj.rawCommands.
-This will alow us to match all commands. rawCommands contains both the
-command and action, regardless of arg
-
-we then the rawCommands and then parse them into arg and exact commands.
-This makes parsing arguments easier for us because we can separate an arg into
-it's component pieces
-
-commandsObj.parsedCommands
-inside the parsedCommands we have argCommands and exactCommands
-
-We then take the path of the commands and the phrases and write them to disk for
-persistence.
-
-We have two tries, a prefixTrie that deals with the argCommands and a phraseTrie
-
-
-
-the phraseTrie should have outside methods that manipulate it.
-
+  commandsUtil creates the object where command and phrases are defined
 */
+
 var matchUtil = require('../match/match-util');
 var config = require('../config/config');
 var fs = require('fs');
@@ -94,12 +68,12 @@ var buildPhrases = function (phrases, commands) {
   }
   return phrases;
 };
+
 /*
   Saves the command object in localStorage and then fs.writeFiles it.
 */
 
 var saveAndWrite = function (commandsObj, cb) {
-  console.log('save and write', commandsObj.packageCommands);
   saveCommands(commandsObj);
   fs.writeFile(
     commandsObj.commandPath,
@@ -131,7 +105,6 @@ module.exports.loadPackage = function (configObj, cb) {
         if (err) {
           cb(err);
         } else {
-          console.log(data);
           cb(null, data);
         }
       });
