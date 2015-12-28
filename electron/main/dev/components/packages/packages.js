@@ -51,7 +51,7 @@ const Packages = (props) => {
           </thead>
         </table>
         <div className="commandtable">
-          <CommandsTable commands={props.commands}/>
+          <CommandsTable />
         </div>
       </div>
       <div className="row">
@@ -75,4 +75,4 @@ const Packages = (props) => {
 };
 
 
-export default StoreWatchMixin(Packages, getCommands);
+export default Packages;

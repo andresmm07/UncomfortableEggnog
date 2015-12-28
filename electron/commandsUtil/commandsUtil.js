@@ -101,8 +101,6 @@ var buildPhrases = function (phrases, commands) {
 
 
 var saveAndWrite = function (commandsObj, cb) {
-  console.log('save and write', commandsObj.packageCommands);
-  saveCommands(commandsObj);
   fs.writeFile(
     commandsObj.commandPath,
     JSON.stringify(commandsObj.packageCommands),
@@ -116,6 +114,7 @@ var saveAndWrite = function (commandsObj, cb) {
           JSON.stringify(commandsObj.phrases),
           'utf8',
           function (err, data) {
+            saveCommands(commandsObj);
             cb(null, module.exports.getCommands());
         });
       }
@@ -134,7 +133,6 @@ module.exports.loadPackage = function (configObj, cb) {
         if (err) {
           cb(err);
         } else {
-          console.log(data);
           cb(null, data);
         }
       });

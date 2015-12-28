@@ -2,19 +2,28 @@ import React, {PropTypes} from 'react';
 import Store from '../../stores/store';
 import AppActions from '../../actions/actions';
 import Constants from '../../constants/constants';
+import StoreWatchMixin from '../../mixins/mixins';
 
-export default (props) => {
-  console.log('NEW PROPS!', props);
+function getCommands () {
+  return {
+    commands: Store.getCommands()
+  };
+}
+
+// NOTE: NEVER USE DEFAULTVALUE.
+
+
+const CommandsTable = (props) => {
+  let { commands } = props;
   return (
     <table className="table">
       <tbody>
-        {props.commands.map( (commandObj, i) => {
+        {commands.map( (commandObj, i) => {
           var cmd = Object.keys(commandObj)[0];
           return (
             <tr key={i}>
               <td
                 onClick={ e => {
-                  console.log('Inside commandsTable, calling AppActions.deleteCommand with ', i);
                   AppActions.deleteCommand(i)
                 }}
               >
@@ -23,7 +32,7 @@ export default (props) => {
               <td>
                 <input
                   type="text"
-                  defaultValue={cmd}
+                  value={cmd}
                   onChange={e => {
                     AppActions.updateCommand({
                       index: i,
@@ -37,7 +46,7 @@ export default (props) => {
               <td>
                 <input
                   type="text"
-                  defaultValue={commandObj[cmd]}
+                  value={commandObj[cmd]}
                   onChange={e => {
                     AppActions.updateCommand({
                       index: i,
@@ -55,3 +64,5 @@ export default (props) => {
     </table>
   );
 }
+
+export default StoreWatchMixin(CommandsTable, getCommands)
