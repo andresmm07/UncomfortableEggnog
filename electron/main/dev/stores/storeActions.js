@@ -1,4 +1,10 @@
-import { getCommands, updateCommands, saveCommands, delCommand } from '../../../commandsUtil/commandsUtil';
+import {
+  getCommands,
+  updateCommands,
+  saveCommands,
+  delCommand,
+  loadPackage
+} from '../../../commandsUtil/commandsUtil';
 import Constants from '../constants/constants';
 
 export function _getCommands () {
@@ -76,6 +82,13 @@ export function _addCommand (commands, cb) {
   _saveCommands(commands, function (err, cmd) {
     cb(null, cmd);
   });
+}
+
+export function _loadPackage (filePath, cb) {
+  //TODO: update config
+  loadPackage({
+    commandsPath: filePath
+  }, cb);
 }
 
 

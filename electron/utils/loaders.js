@@ -2,7 +2,6 @@ var _ = require('underscore');
 var fs = require('fs');
 var PhraseTrie = require('./phraseTrie').PhraseTrie;
 
-console.log('inside loader', PhraseTrie);
 
 var loadPhrases = function (phrasesPath, commands) {
   var trie = new PhraseTrie();
