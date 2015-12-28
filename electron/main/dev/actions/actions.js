@@ -15,11 +15,12 @@ export default {
   },
   updateCommand (command) {
     dispatch({
-      actionType: Constants.UPDATE_COMMAND, //'UPDATE_COMMAND'
+      actionType: Constants.UPDATE_COMMAND,
       command
     });
   },
   deleteCommand (index) {
+    console.log('Inside actions, passing store, ', index);
     dispatch({
       actionType: Constants.DELETE_COMMAND,
       index

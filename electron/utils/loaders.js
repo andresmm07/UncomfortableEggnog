@@ -1,6 +1,8 @@
 var _ = require('underscore');
 var fs = require('fs');
-var PhraseTrie = require('./phraseTrie');
+var PhraseTrie = require('./phraseTrie').PhraseTrie;
+
+console.log('inside loader', PhraseTrie);
 
 var loadPhrases = function (phrasesPath, commands) {
   var trie = new PhraseTrie();
@@ -11,7 +13,6 @@ var loadPhrases = function (phrasesPath, commands) {
     console.log('new file');
   }
   for (var command in commands) {
-    //console.log('inserting, ', command);
     trie.addPhrase(command, command);
   }
   updatePhrases(phrasesPath, trie);
