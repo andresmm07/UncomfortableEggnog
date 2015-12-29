@@ -1,6 +1,6 @@
 var commandsUtil = require('../commandsCTRL/commandsCTRL');
 var getCommands = require('../utils/utils').getCommands;
-var executeShellCommand = require('../bash/execShellCommand');
+var executeShellCommand = require('../bashCTRL/execShellCommand');
 var startCmd = require('../audioCTRL/audio').startCmd;
 var failedCmd = require('../audioCTRL/audio').failedCmd;
 var match = require('../matchCTRL/matchCtrl').matchUtil;

@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 var commandsUtil = require('../app/commandsCTRL/commandsCTRL');
-var config = require('../app/config/config');
+var config = require('../app/configCTRL/config');
 
 var fs = require('fs');
 var del = require('del');

@@ -3,7 +3,7 @@ var failedCmd = require('../audioCTRL/audio').failedCmd;
 var phoneticsTest = require('../matchCTRL/testers/phoneticsTest');
 var regMatch = require('../matchCTRL/regMatch');
 var ipcRenderer = require('electron').ipcRenderer;
-var configUtils = require('../config/configUtils');
+var configUtils = require('../configCTRL/configUtils');
 
 module.exports = function (event) {
   var name = localStorage.getItem('name');

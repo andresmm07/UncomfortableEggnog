@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route, Link, IndexRoute } from 'react-router';
-import openBrowser from '../../../../bash/execShellCommand';
+import openBrowser from '../../../../bashCTRL/execShellCommand';
 
 
 export default class Contact extends React.Component {

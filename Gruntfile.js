@@ -23,7 +23,7 @@ module.exports = function (grunt) {
         stderr: false
       },
       target: {
-        command: 'webpack .; electron .'
+        command: 'electron .'
       }
     }
   });
@@ -40,7 +40,7 @@ module.exports = function (grunt) {
     'docco'
   ]);
 
-  grunt.registerTask('default', [
+  grunt.registerTask('start', [
     'shell'
   ]);
 };

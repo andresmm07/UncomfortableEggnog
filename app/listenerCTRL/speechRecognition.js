@@ -1,7 +1,7 @@
 var ipcRenderer = require('electron').ipcRenderer;
-var listener = require('./listener/listener');
-var prefixRec = require('./listener/prefixRec');
-var cmdRec = require('./listener/cmdRec');
+var listener = require('./listenerCTRL/listener');
+var prefixRec = require('./listenerCTRL/prefixRec');
+var cmdRec = require('./listenerCTRL/cmdRec');
 
 
 if (!('webkitSpeechRecognition' in window)) {
@@ -21,7 +21,7 @@ if (!('webkitSpeechRecognition' in window)) {
 
 ipcRenderer.on('listening', function (event) {
   var commandsUtil = require('./commandsCTRL/commandsCTRL');
-  var configUtils = require('./config/configUtils');
+  var configUtils = require('./configCTRL/configUtils');
   configUtils.getConfig(function (err, data) {
     var config = JSON.parse(data);
     commandsUtil.loadPackage(JSON.parse(data), function (err, data) {
@@ -29,5 +29,4 @@ ipcRenderer.on('listening', function (event) {
       prefixRecognition.start();
     });
   });
-
 });

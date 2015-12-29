@@ -4,7 +4,7 @@ import {
   delCommand,
   loadPackage
 } from '../../../commandsCTRL/commandsCTRL';
-import { writeConfig, getConfig } from '../../../config/configUtils';
+import { writeConfig, getConfig } from '../../../configCTRL/configUtils';
 import Constants from '../constants/constants';
 import { getCommands, get } from '../../../utils/utils';
 import _ from 'underscore';
