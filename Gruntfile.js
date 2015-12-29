@@ -7,7 +7,7 @@ module.exports = function (grunt) {
         options: {
           reporter: 'nyan'
         },
-        src: ['electron/test/**/*.js']
+        src: ['test/**/*.js']
       }
     },
     docco: {

@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "directories": {
-    "test": "./electron/test"
+    "test": "./test"
   },
   "scripts": {
     "test": "grunt test",

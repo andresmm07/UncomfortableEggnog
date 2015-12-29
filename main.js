@@ -27,7 +27,7 @@ app.on('ready', function () {
     // maxHeight: 600
   });
   // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/electron/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/app/index.html');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
@@ -76,7 +76,7 @@ app.on('ready', function () {
     }
   }));
 
-  appIcon = new Tray('./electron/assets/icons/rsz_1rsz_jarvis_tiny.png');
+  appIcon = new Tray('./app/assets/icons/rsz_1rsz_jarvis_tiny.png');
   appIcon.on('click', function () {
     mainWindow.toggle();
   });

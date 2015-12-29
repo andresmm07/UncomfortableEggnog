@@ -1,1 +1,0 @@
-{"dance":"say \"weeee\"","open the pod bay doors":"say \"I'm sorry dave, I'm afraid I can't do that\"","kyle cho pro tip":"say kyle cho pro tip: $(cat protips.txt | perl -MList::Util=shuffle -e 'print shuffle(<STDIN>);' | head -n 1)","directions to":"open https://www.google.com/maps/dir/<ARG del='+' chainkey='to'/>/<ARG del='+' />/","take the wheel":"say \"ay ay captain\""}
