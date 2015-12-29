@@ -36,7 +36,6 @@ module.exports = function (actionPrefix, variable, commandsObj) {
   }
 
   // change to trie
-  // var addedPhraseTest = testPhrases(phrases, _actionPrefix);
   var addedPhraseTest = findCommand(phrases, _actionPrefix);
 
   if (addedPhraseTest) {

@@ -12,7 +12,8 @@ import {
   _addCommand,
   _deleteCommand,
   _getCommands,
-  _loadPackage
+  _loadPackage,
+  _changeConfig
 } from './storeActions';
 
 const CHANGE_EVENT = 'change';
@@ -37,16 +38,16 @@ const Store = Object.assign(EventEmitter.prototype, {
   removeChangeListener ( callback ) {
     this.removeListener( CHANGE_EVENT, callback);
   },
-  dispatcherIndex: register( function (action) {
+  dispatcherIndex: register( (action) => {
     switch (action.actionType) {
       case Constants.SAVE_COMMANDS:
-        _saveCommands(_commands, function (err, newCMD) {
+        _saveCommands(_commands, (err, newCMD) => {
           _commands = newCMD;
           Store.emitChange();
         });
         break;
       case Constants.ADD_COMMAND:
-        _addCommand(_commands.slice(), function (err, cmd) {
+        _addCommand(_commands.slice(), (err, cmd) => {
           _commands = cmd;
           Store.emitChange();
         });
@@ -58,7 +59,7 @@ const Store = Object.assign(EventEmitter.prototype, {
       case Constants.DELETE_COMMAND:
         var newCommands = _commands.slice(0, action.index)
           .concat(_commands.slice(action.index + 1));
-        _deleteCommand(newCommands, function (err, commands) {
+        _deleteCommand(newCommands, (err, commands) => {
           _commands = commands;
           Store.emitChange();
         });
@@ -70,6 +71,12 @@ const Store = Object.assign(EventEmitter.prototype, {
           console.log(data);
           Store.emitChange();
         })
+        break;
+      case Constants.CHANGE_CONFIG:
+        _changeConfig(action.config, (err, data) => {
+          console.log(data);
+          Store.emitChange();
+        });
         break;
     }
   })

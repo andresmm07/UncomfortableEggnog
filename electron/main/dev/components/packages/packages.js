@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-// import UploadFile from '../uploadFile/uploadFile';
 import CommandsTable from './commandsTable';
 import AppActions from '../../actions/actions';
 import Store from '../../stores/store';
@@ -60,7 +59,7 @@ const Packages = (props) => {
           <form className="uploadButton" encType="multipart/form-data">
             <button onClick={ e => {document.getElementById('upload').click();}}
                     className="btn btn-success">
-              Add Package
+              Load Package
             </button>
             <input
               id="upload"

@@ -1,1 +1,0 @@
-{"dance":"say \"Cha cha cha\"","do awesome things":"say \"I'm afraid I can't do that dave\"","free willy":"say \"FREEEEEEDOOOOM\"","kyle cho pro tip":"say kyle cho pro tip: $(cat protips.txt | perl -MList::Util=shuffle -e 'print shuffle(<STDIN>);' | head -n 1)","directions to":"open https://www.google.com/maps/dir/<ARG del='+' chainkey='to'/>/<ARG del='+' />/"}

@@ -1,11 +1,11 @@
 var commandsUtil = require('../commandsUtil/commandsUtil');
+var getCommands = require('../utils/utils').getCommands;
 var executeShellCommand = require('../cmd/execShellCommand');
 var startCmd = require('../audio/audio').startCmd;
 var failedCmd = require('../audio/audio').failedCmd;
 var match = require('../match/match-util').matchUtil;
 var listener = require('./listener');
 var phoneticsTest = require('../match/testers/phoneticsTest');
-// var listeners = require('./listeners');
 var ipcRenderer = require('electron').ipcRenderer;
 var matchObj;
 
@@ -18,7 +18,7 @@ module.exports = function (event) {
     term: transcript
   };
   console.log('inside cmdRec with ', transcript);
-  matchObj = match(userCommand, commandsUtil.getCommands());
+  matchObj = match(userCommand, getCommands());
 
   // If there is an action, that means we have an exact match
   if (matchObj.action && !matchObj.guessedCommand) {
@@ -35,7 +35,6 @@ module.exports = function (event) {
     executeShellCommand("say did you mean" + matchObj.guessedCommand + "?", function () {
       this.pause();
 
-      // confirmListener is why I love javascript.
       // By keeping this function within this scope,
       // it retains access to the commandsUtils object,
       // the matchObj and the executeShellCommand function.
