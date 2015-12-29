@@ -1,12 +1,11 @@
 import {
-  getCommands,
   updateCommands,
   saveCommands,
   delCommand,
   loadPackage
 } from '../../../commandsUtil/commandsUtil';
 import Constants from '../constants/constants';
-
+import { getCommands } from '../../../utils/utils'; 
 export function _getCommands () {
   return getCommands()['packageCommands'];
 }
@@ -91,13 +90,12 @@ export function _loadPackage (filePath, cb) {
   }, cb);
 }
 
+export function _changeConfig (config, cb) {
+  console.log('changing config in storeActions');
+  cb(null, config);
+}
+
 
 export function _deleteCommand (command, cb) {
-  // console.log('_deleteCommand');
-  // delCommand(Object.keys(command)[0], function (commands) {
-  //   console.log('got callback');
-  //   console.log(commands);
-  //   cb(_reloadCommands(commands));
-  // });
   _saveCommands(command, cb);
 }

@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-// import UploadFile from '../uploadFile/uploadFile';
 import CommandsTable from './commandsTable';
 import AppActions from '../../actions/actions';
 import Store from '../../stores/store';

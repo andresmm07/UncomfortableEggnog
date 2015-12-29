@@ -3,11 +3,11 @@ import { Link } from 'react-router';
 
 export default class Layout extends React.Component {
   render() {
-    const home = "./icons/home.png";
-    const settings = './icons/settings.png';
-    const pkg = './icons/package.png';
-    const about = './icons/about.png';
-    const contact = './icons/contactus.png';
+    const home = "./assets/icons/home.png";
+    const settings = './assets/icons/settings.png';
+    const pkg = './assets/icons/package.png';
+    const about = './assets/icons/about.png';
+    const contact = './assets/icons/contactus.png';
 
     return (
       <div>

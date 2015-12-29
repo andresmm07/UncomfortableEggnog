@@ -30,5 +30,11 @@ export default {
       actionType: Constants.LOAD_PACKAGE,
       filePath
     });
+  },
+  changeConfig (config) {
+    dispatch({
+      actionType: Constants.CHANGE_CONFIG,
+      config
+    });
   }
 };

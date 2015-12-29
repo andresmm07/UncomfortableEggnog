@@ -3,8 +3,8 @@
 module.exports = {
   // corePhrasesJSON: __dirname + '/../match/phrases.json',
   // coreCommandsJSON: __dirname + '/../match/commands.json',
-  phrasesPath: __dirname + '/../packages/newphrases.json',
-  commandsPath: __dirname + '/../packages/newcommands.json',
+  phrasesPath: __dirname + '/../packages/phrases.json',
+  commandsPath: __dirname + '/../packages/commands.json',
   name: 'Jarvis'
 };
 

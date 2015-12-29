@@ -76,7 +76,7 @@ app.on('ready', function () {
     }
   }));
 
-  appIcon = new Tray('./electron/icons/rsz_1rsz_jarvis_tiny.png');
+  appIcon = new Tray('./electron/assets/icons/rsz_1rsz_jarvis_tiny.png');
   appIcon.on('click', function () {
     mainWindow.toggle();
   });

@@ -8,7 +8,6 @@ module.exports = {
   "check the": "open https://www.google.com/?gws_rd=ssl#q=<ARG del='+' case='upper' />",
   "dim screen": "osascript -e 'tell application \"System Events\" to repeat 10 times' -e 'key code 107' -e 'delay 0.1' -e 'end repeat'",
   "bright screen": "osascript -e 'tell application \"System Events\" to repeat 10 times' -e 'key code 113' -e 'delay 0.1' -e 'end repeat'",
-  "open": "open /Applications/<ARG del='\\ ' capitalize=true/>.app",
   "volume down": "osascript -e 'set volume 1'",
   "volume up": "osascript -e 'set volume 5'",
   "volume off": "osascript -e 'set volume 0'",
