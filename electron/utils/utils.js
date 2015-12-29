@@ -7,6 +7,12 @@ module.exports.write = function (filePath, data) {
   fs.writeFileSync(filePath, data);
 };
 
+module.exports.read = function (filePath, cb) {
+  fs.readFile(filePath, 'utf8', function (err, data) {
+    cb(err, JSON.parse(data));
+  });
+};
+
 module.exports.save = function (name, obj) {
   localStorage.setItem(name, obj);
 };
@@ -29,4 +35,8 @@ module.exports.saveCommands = function (obj) {
     obj = JSON.stringify(obj);
   }
   module.exports.save('Commands', obj);
+};
+
+module.exports.getCommands = function () {
+  return module.exports.get('Commands');
 };
