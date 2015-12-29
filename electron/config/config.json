@@ -1,1 +1,1 @@
-{"phrasesPath":"/Users/Yilen/Desktop/hackreactor/thesis/electron/packages/newphrases.back.json","commandsPath":"/Users/Yilen/Desktop/hackreactor/thesis/electron/packages/newcommands.back.json","exactMatchThreshold":0.63,"closeMatchThreshold":0.65,"name":"Jarvis"}
+{"phrasesPath":"/Users/Yilen/Desktop/hackreactor/thesis/electron/packages/newphrases.back.json","commandsPath":"/Users/Yilen/Desktop/hackreactor/thesis/electron/packages/newcommands.back.json","exactMatchThreshold":"0.71","closeMatchThreshold":0.65,"name":"Jarvis"}
