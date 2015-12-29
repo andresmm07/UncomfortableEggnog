@@ -76,21 +76,16 @@ const Store = Object.assign(EventEmitter.prototype, {
       case Constants.LOAD_PACKAGE:
         _commands = [];
         _loadPackage(action.filePath, (err, data) => {
-          console.log('LOADED');
-          console.log(data);
           Store.emitChange();
         })
         break;
       case Constants.SAVE_CONFIG:
         _saveConfig( _config, (err, data) => {
-          console.log(data);
           Store.emitChange();
         });
         break;
       case Constants.CHANGE_CONFIG:
-        console.log(action);
         _config = _updateConfig( _config, action.config );
-        console.log(_config);
         Store.emitChange();
         break;
 

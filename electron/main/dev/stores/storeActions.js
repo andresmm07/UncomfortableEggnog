@@ -102,7 +102,6 @@ export function _saveConfig (config, cb) {
 
 export function _getConfig () {
   let name = localStorage.getItem('name');
-  console.log(name);
   let exactMatchThreshold = parseFloat(localStorage.getItem('exactMatchThreshold'));
   let closeMatchThreshold = parseFloat(localStorage.getItem('closeMatchThreshold'));
   return {
