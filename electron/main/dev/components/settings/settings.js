@@ -11,7 +11,11 @@ function getConfig () {
 }
 
 const Settings = (props) => {
-  let {name, exactMatchThreshold, closeMatchThreshold} = props.config;
+  let {
+    name,
+    exactMatchThreshold,
+    closeMatchThreshold
+  } = props.config;
   return (
     <div className="text-center settings">
       <h1> Settings </h1>
