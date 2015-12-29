@@ -7,7 +7,6 @@ module.exports = function (cb, name, timeout) {
   var listener = new webkitSpeechRecognition();
   listener.hasTimeout = timeout ? true : false;
   listener.name = name;
-  listener.lang = "en-US";
   var on;
 
   listener.onend = function (event) {

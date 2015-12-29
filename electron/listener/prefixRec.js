@@ -3,13 +3,10 @@ var failedCmd = require('../audio/audio').failedCmd;
 var phoneticsTest = require('../match/testers/phoneticsTest');
 var regMatch = require('../match/regMatch');
 var ipcRenderer = require('electron').ipcRenderer;
-var name = "Jarvis";
-
-ipcRenderer.on('nameChanged', function (event, message) {
-  name = message;
-});
+var configUtils = require('../config/configUtils');
 
 module.exports = function (event) {
+  var name = localStorage.getItem('name');
   // Should be function call to get name
   for (var i = event.resultIndex; i < event.results.length; ++i) {
     var word = event.results[i][0].transcript;

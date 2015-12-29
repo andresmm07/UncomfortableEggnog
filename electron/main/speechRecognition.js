@@ -3,6 +3,7 @@ var listener = require('./listener/listener');
 var prefixRec = require('./listener/prefixRec');
 var cmdRec = require('./listener/cmdRec');
 
+
 if (!('webkitSpeechRecognition' in window)) {
   upgrade();
 } else {
@@ -22,7 +23,14 @@ ipcRenderer.on('listening', function (event) {
   console.log("Jarvis is listening!");
   var commandsUtil = require('./commandsUtil/commandsUtil');
   var config = require('./config/config');
-  commandsUtil.loadPackage(config, function (err, data) {
-    prefixRecognition.start();
+  require('./config/configUtils').get(function (err, data) {
+    // load name into localStorage
+    console.log('data1: ', JSON.parse(data));
+    console.log('data2: ', config);
+    localStorage.setItem('name', 'jarvis');
+    commandsUtil.loadPackage(JSON.parse(data), function (err, data) {
+      prefixRecognition.start();
+    });
   });
+
 });
