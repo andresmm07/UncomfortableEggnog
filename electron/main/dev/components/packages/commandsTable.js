@@ -15,6 +15,7 @@ function getCommands () {
 
 const CommandsTable = (props) => {
   let { commands } = props;
+  console.log(commands);
   return (
     <table className="table">
       <tbody>
