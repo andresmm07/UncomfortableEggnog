@@ -4,7 +4,6 @@ var getCommands = require('../utils/utils').getCommands;
 
 
 module.exports = function (commandsObj, cb) {
-  console.log('save and write', commandsObj);
   saveCommands(commandsObj);
   fs.writeFile(
     commandsObj.commandPath,

@@ -13,7 +13,6 @@ var read = require('../utils/utils').read;
 
 
 var newPhrases = function (rawCommands) {
-  console.log('initPhrases');
   var commands = Object.keys(rawCommands);
   var initTrie = PhraseTrie();
   for (var i = 0; i < commands.length; i++) {
@@ -23,7 +22,6 @@ var newPhrases = function (rawCommands) {
 };
 
 var initPhrases = function (commandsObj, cb) {
-  console.log('INITPHRASES', commandsObj.phrasesPath);
   read(commandsObj.phrasesPath, function (err, phrases) {
     if (err) {
       commandsObj.phrases = newPhrases(commandsObj.rawCommands);

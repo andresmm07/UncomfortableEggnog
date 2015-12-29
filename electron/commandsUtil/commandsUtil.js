@@ -38,7 +38,6 @@ module.exports.loadPackage = function (configObj, cb) {
 
 module.exports.updateCommands = function (commands, cb) {
   var commandsObj = getCommands();
-  console.log('inside update commands with,', commandsObj);
   var newCommandsObj = updateCommandObj(commands, commandsObj);
   newCommandsObj.phrases = buildPhrases(newCommandsObj.phrases, commands);
   saveAndWrite(newCommandsObj, function (err, data) {

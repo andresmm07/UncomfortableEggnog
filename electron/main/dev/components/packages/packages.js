@@ -59,7 +59,7 @@ const Packages = (props) => {
           <form className="uploadButton" encType="multipart/form-data">
             <button onClick={ e => {document.getElementById('upload').click();}}
                     className="btn btn-success">
-              Add Package
+              Load Package
             </button>
             <input
               id="upload"
