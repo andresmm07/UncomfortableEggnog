@@ -4,8 +4,9 @@ import {
   delCommand,
   loadPackage
 } from '../../../commandsUtil/commandsUtil';
+import { writeConfig } from '../../../config/configUtils';
 import Constants from '../constants/constants';
-import { getCommands } from '../../../utils/utils'; 
+import { getCommands } from '../../../utils/utils';
 export function _getCommands () {
   return getCommands()['packageCommands'];
 }
@@ -91,8 +92,12 @@ export function _loadPackage (filePath, cb) {
 }
 
 export function _changeConfig (config, cb) {
-  console.log('changing config in storeActions');
-  cb(null, config);
+  // console.log('changing config in storeActions');
+  // console.log(writeConfig);
+  // cb(null, config);
+  writeConfig(config, function (err, data) {
+    cb(err, data);
+  });
 }
 
 

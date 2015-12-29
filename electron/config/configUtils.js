@@ -1,13 +1,9 @@
 // Paths to find the commands.json, language type, etc.
 var fs = require('fs');
 var utils = require('../utils/utils');
+var _ = require('underscore');
 
-// module.exports = {
-//   phrasesPath: __dirname + '/../packages/newphrases.json',
-//   commandsPath: __dirname + '/../packages/newcommands.json'
-// };
-
-var get = function (cb) {
+var getConfig = function (cb) {
   fs.readFile('./electron/config/config.json', 'utf8', function (err, data) {
     if (err) {
       cb(err);
@@ -17,15 +13,20 @@ var get = function (cb) {
   });
 };
 
-var write = function (property, value, cb) {
-  get(function (err, data) {
-    data = JSON.parse(data);
-    data[property] = value;
+var saveConfig = function (obj) {
+  for (var property in obj) {
+    utils.save(property, obj[property]);
+  }
+};
+
+var writeConfig = function (config, cb) {
+  getConfig(function (err, data) {
+    data = _.extend(JSON.parse(data), config);
     fs.writeFile('./electron/config/config.json', JSON.stringify(data), 'utf8', function (err) {
       if (err) {
         cb(err);
       } else {
-        utils.save(property, value);
+        saveConfig(data);
         cb(null, data);
       }
     });
@@ -33,6 +34,6 @@ var write = function (property, value, cb) {
 };
 
 module.exports = {
-  get: get,
-  write: write
+  getConfig: getConfig,
+  writeConfig: writeConfig
 };

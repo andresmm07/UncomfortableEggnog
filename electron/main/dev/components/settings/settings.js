@@ -8,14 +8,20 @@ export default class Settings extends React.Component {
     return (
       <div>
         <div className="input-group">
-          <input type="text" className="form-control" placeholder="Jarvis" ref="newName"/>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Jarvis"
+            ref="newName"
+          />
           <span className="input-group-btn">
             <button
               className="btn btn-success"
               type="button"
-              onClick={e => {
+              onClick={ e => {
                 //TODO: if we want to chane anything else in the config, we do it here
-                AppActions.changeConfig(this.refs.newName.value);
+                let name = this.refs.newName.value;
+                AppActions.changeConfig({ name });
               }}
             >
               Change Name</button>
@@ -23,7 +29,7 @@ export default class Settings extends React.Component {
         </div>
         <div>
           <button
-            onClick={e => {
+            onClick={ e => {
               openBrowser('open http://voicecommand.herokuapp.com')
             }}
             className="btn btn-success"
