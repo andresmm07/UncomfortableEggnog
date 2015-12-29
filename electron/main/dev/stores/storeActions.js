@@ -92,9 +92,6 @@ export function _loadPackage (filePath, cb) {
 }
 
 export function _changeConfig (config, cb) {
-  // console.log('changing config in storeActions');
-  // console.log(writeConfig);
-  // cb(null, config);
   writeConfig(config, function (err, data) {
     cb(err, data);
   });
