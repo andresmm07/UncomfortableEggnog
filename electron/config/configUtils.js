@@ -2,13 +2,13 @@
 var fs = require('fs');
 var utils = require('../utils/utils');
 
-module.exports = {
-  phrasesPath: __dirname + '/../packages/newphrases.json',
-  commandsPath: __dirname + '/../packages/newcommands.json'
-};
+// module.exports = {
+//   phrasesPath: __dirname + '/../packages/newphrases.json',
+//   commandsPath: __dirname + '/../packages/newcommands.json'
+// };
 
 var get = function (cb) {
-  fs.readFile('./electron/config/config.json', function (err, data) {
+  fs.readFile('./electron/config/config.json', 'utf8', function (err, data) {
     if (err) {
       cb(err);
     } else {
@@ -19,8 +19,9 @@ var get = function (cb) {
 
 var write = function (property, value, cb) {
   get(function (err, data) {
+    data = JSON.parse(data);
     data[property] = value;
-    fs.writeFile('./electron/config/config.json', data, function (err) {
+    fs.writeFile('./electron/config/config.json', JSON.stringify(data), 'utf8', function (err) {
       if (err) {
         cb(err);
       } else {
@@ -29,4 +30,9 @@ var write = function (property, value, cb) {
       }
     });
   });
+};
+
+module.exports = {
+  get: get,
+  write: write
 };

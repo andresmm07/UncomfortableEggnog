@@ -1,6 +1,5 @@
 {
-  "phrasesPath": "",
-  "commandsPath": "",
-  "name": "Jarvis"
+  "phrasesPath":"./electron/packages/newphrases.json",
+  "commandsPath":"./electron/packages/newcommands.json",
+  "name":"jarvis"
 }
-

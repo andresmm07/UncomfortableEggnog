@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import openBrowser from '../../../../cmd/execShellCommand';
 import AppActions from '../../actions/actions';
+import configUtils from '../../../../config/configUtils';
 
 
 export default class Settings extends React.Component {
@@ -14,9 +15,12 @@ export default class Settings extends React.Component {
     openBrowser('open http://voicecommand.herokuapp.com');
   }
   handleSubmit(evt){
-    const webContent = remote.getCurrentWindow().webContents;
-    webContent.send('nameChanged', this.refs.newName.value);
-    this.refs.newName.value="";
+    configUtils.write("name", this.refs.newName.value, function (err, data) {
+      console.log(data);
+    });
+    // const webContent = remote.getCurrentWindow().webContents;
+    // webContent.send('nameChanged', this.refs.newName.value);
+    // this.refs.newName.value="";
   }
   render() {
     return (

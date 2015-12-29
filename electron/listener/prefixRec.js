@@ -3,6 +3,7 @@ var failedCmd = require('../audio/audio').failedCmd;
 var phoneticsTest = require('../match/testers/phoneticsTest');
 var regMatch = require('../match/regMatch');
 var ipcRenderer = require('electron').ipcRenderer;
+var configUtils = require('../config/configUtils');
 
 var name = localStorage.getItem('name');
 
