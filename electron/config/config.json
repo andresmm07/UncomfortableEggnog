@@ -1,5 +1,5 @@
 {
-  "phrasesPath":"./electron/packages/newphrases.json",
-  "commandsPath":"./electron/packages/newcommands.json",
+  "phrasesPath":"./electron/packages/phrases.json",
+  "commandsPath":"./electron/packages/commands.json",
   "name":"jarvis"
 }

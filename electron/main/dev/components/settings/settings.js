@@ -3,7 +3,6 @@ import openBrowser from '../../../../cmd/execShellCommand';
 import AppActions from '../../actions/actions';
 import configUtils from '../../../../config/configUtils';
 
-
 export default class Settings extends React.Component {
   constructor(props) {
     super(props);
