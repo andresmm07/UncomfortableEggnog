@@ -34,6 +34,7 @@ const CommandsTable = (props) => {
                   type="text"
                   value={cmd}
                   onChange={e => {
+                    e.preventDefault();
                     AppActions.updateCommand({
                       index: i,
                       change: e.target.value,
@@ -48,6 +49,7 @@ const CommandsTable = (props) => {
                   type="text"
                   value={commandObj[cmd]}
                   onChange={e => {
+                    e.preventDefault();
                     AppActions.updateCommand({
                       index: i,
                       change: e.target.value,

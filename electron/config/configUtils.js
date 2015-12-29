@@ -1,4 +1,3 @@
-// Paths to find the commands.json, language type, etc.
 var fs = require('fs');
 var utils = require('../utils/utils');
 var _ = require('underscore');
@@ -35,5 +34,6 @@ var writeConfig = function (config, cb) {
 
 module.exports = {
   getConfig: getConfig,
-  writeConfig: writeConfig
+  writeConfig: writeConfig,
+  saveConfig: saveConfig
 };

@@ -6,6 +6,7 @@ var getMatchByScore = require('./testers/getMatchByScore');
 var phoneticsTest = require('./testers/phoneticsTest');
 var JWDTest = require('./testers/JWDTest');
 var findCommand = require('../utils/phraseTrie').findCommand;
+var utils = require('../utils/utils');
 
 
 
@@ -16,9 +17,8 @@ module.exports = function (actionPrefix, variable, commandsObj) {
   actionObj.userCommand = actionPrefix;
   actionObj.guessedCommand = null;
   actionObj.action = '';
-
-  var exactMatchThreshold = 0.8;
-  var closeMatchThreshold = 0.65;
+  var exactMatchThreshold = parseFloat(utils.get('exactMatchThreshold'));
+  var closeMatchThreshold = parseFloat(utils.get('closeMatchThreshold'));
 
   var phrases = commandsObj.phrases;
   var actions = commandsObj.rawCommands;

@@ -34,9 +34,12 @@ const Packages = (props) => {
           <h1>Commands</h1>
         </div>
         <div className="col-xs-8">
-          <h2 className="text-right" onClick={() => {
-            AppActions.addCommand();
-          }}>
+          <h2
+            className="text-right"
+            onClick={() => {
+              AppActions.addCommand();
+            }}
+          >
             +
           </h2>
         </div>
@@ -56,9 +59,16 @@ const Packages = (props) => {
       </div>
       <div className="row">
         <div className="col-xs-3 pull-right">
-          <form className="uploadButton" encType="multipart/form-data">
-            <button onClick={ e => {document.getElementById('upload').click();}}
-                    className="btn btn-success">
+          <form
+            className="uploadButton"
+            encType="multipart/form-data"
+          >
+            <button
+              onClick={ e => {
+                document.getElementById('upload').click();
+              }}
+              className="btn btn-success"
+            >
               Load Package
             </button>
             <input

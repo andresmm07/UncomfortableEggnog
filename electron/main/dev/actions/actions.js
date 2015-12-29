@@ -36,5 +36,11 @@ export default {
       actionType: Constants.CHANGE_CONFIG,
       config
     });
+  },
+  saveConfig (config) {
+    dispatch({
+      actionType: Constants.SAVE_CONFIG,
+      config
+    });
   }
 };

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Router, Route, Link, IndexRoute } from 'react-router';
+import openBrowser from '../../../../cmd/execShellCommand';
+
 
 export default class Contact extends React.Component {
   render() {
@@ -13,7 +15,17 @@ export default class Contact extends React.Component {
 
     return (
         <div style={email}>
-         <a href="mailto:UncomfortableEggnog@gmail.com">UncomfortableEggnog@gmail.com</a>
+          <a href="mailto:UncomfortableEggnog@gmail.com">UncomfortableEggnog@gmail.com</a>
+          <div>
+            <button
+              onClick={ e => {
+                openBrowser('open http://voicecommand.herokuapp.com')
+              }}
+              className="btn btn-success"
+            >
+              Visit Us
+            </button>
+          </div>
         </div>
     );
   };

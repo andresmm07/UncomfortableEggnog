@@ -4,9 +4,10 @@ import {
   delCommand,
   loadPackage
 } from '../../../commandsUtil/commandsUtil';
-import { writeConfig } from '../../../config/configUtils';
+import { writeConfig, getConfig } from '../../../config/configUtils';
 import Constants from '../constants/constants';
-import { getCommands } from '../../../utils/utils';
+import { getCommands, get } from '../../../utils/utils';
+
 export function _getCommands () {
   return getCommands()['packageCommands'];
 }
@@ -85,16 +86,30 @@ export function _addCommand (commands, cb) {
 }
 
 export function _loadPackage (filePath, cb) {
-  //TODO: update config
-  loadPackage({
-    commandsPath: filePath
-  }, cb);
+  writeConfig({
+    commandsPath: filePath,
+    phrasesPath: filePath.replace('commands.', 'phrases.')
+  }, function (err, data) {
+    loadPackage(data, cb);
+  });
 }
 
-export function _changeConfig (config, cb) {
+export function _saveConfig (config, cb) {
   writeConfig(config, function (err, data) {
     cb(err, data);
   });
+}
+
+export function _getConfig () {
+  let name = localStorage.getItem('name');
+  console.log(name);
+  let exactMatchThreshold = get('exactMatchThreshold');
+  let closeMatchThreshold = get('closeMatchThreshold');
+  return {
+    name,
+    exactMatchThreshold,
+    closeMatchThreshold
+  };
 }
 
 

@@ -13,11 +13,13 @@ import {
   _deleteCommand,
   _getCommands,
   _loadPackage,
-  _changeConfig
+  _saveConfig,
+  _getConfig
 } from './storeActions';
 
 const CHANGE_EVENT = 'change';
 let _commands = [];
+let _config = {};
 
 const Store = Object.assign(EventEmitter.prototype, {
   emitChange () {
@@ -31,6 +33,9 @@ const Store = Object.assign(EventEmitter.prototype, {
       _commands = Store.reloadCommands();
     }
     return _commands.slice();
+  },
+  getConfig () {
+    return _config;
   },
   addChangeListener ( callback ) {
     this.on( CHANGE_EVENT, callback );
@@ -72,12 +77,13 @@ const Store = Object.assign(EventEmitter.prototype, {
           Store.emitChange();
         })
         break;
-      case Constants.CHANGE_CONFIG:
-        _changeConfig(action.config, (err, data) => {
+      case Constants.SAVE_CONFIG:
+        _saveConfig( _config, (err, data) => {
           console.log(data);
           Store.emitChange();
         });
         break;
+
     }
   })
 });
