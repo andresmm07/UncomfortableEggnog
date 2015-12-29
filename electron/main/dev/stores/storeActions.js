@@ -7,7 +7,7 @@ import {
 import { writeConfig, getConfig } from '../../../config/configUtils';
 import Constants from '../constants/constants';
 import { getCommands, get } from '../../../utils/utils';
-
+import _ from 'underscore';
 export function _getCommands () {
   return getCommands()['packageCommands'];
 }
@@ -103,8 +103,8 @@ export function _saveConfig (config, cb) {
 export function _getConfig () {
   let name = localStorage.getItem('name');
   console.log(name);
-  let exactMatchThreshold = get('exactMatchThreshold');
-  let closeMatchThreshold = get('closeMatchThreshold');
+  let exactMatchThreshold = parseFloat(localStorage.getItem('exactMatchThreshold'));
+  let closeMatchThreshold = parseFloat(localStorage.getItem('closeMatchThreshold'));
   return {
     name,
     exactMatchThreshold,
@@ -115,4 +115,8 @@ export function _getConfig () {
 
 export function _deleteCommand (command, cb) {
   _saveCommands(command, cb);
+}
+
+export function _updateConfig (oldConfig, newConfig) {
+  return _.extend(oldConfig, newConfig);
 }

@@ -14,7 +14,8 @@ import {
   _getCommands,
   _loadPackage,
   _saveConfig,
-  _getConfig
+  _getConfig,
+  _updateConfig
 } from './storeActions';
 
 const CHANGE_EVENT = 'change';
@@ -35,6 +36,9 @@ const Store = Object.assign(EventEmitter.prototype, {
     return _commands.slice();
   },
   getConfig () {
+    if (!_config.hasOwnProperty('name')) {
+      _config = _getConfig();
+    }
     return _config;
   },
   addChangeListener ( callback ) {
@@ -82,6 +86,12 @@ const Store = Object.assign(EventEmitter.prototype, {
           console.log(data);
           Store.emitChange();
         });
+        break;
+      case Constants.CHANGE_CONFIG:
+        console.log(action);
+        _config = _updateConfig( _config, action.config );
+        console.log(_config);
+        Store.emitChange();
         break;
 
     }
