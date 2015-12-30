@@ -1,9 +1,9 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 
 export default class Layout extends React.Component {
   render() {
-    const home = "./assets/icons/home.png";
+    const home = './assets/icons/home.png';
     const settings = './assets/icons/settings.png';
     const pkg = './assets/icons/package.png';
     const about = './assets/icons/about.png';
@@ -14,7 +14,7 @@ export default class Layout extends React.Component {
         <div className="navbar row">
           <div className="buttons-group">
             <div className="col-xs-4 pull-left buttons">
-              <div id="home" className='col-xs-4 text-center'>
+              <div id="home" className="col-xs-4 text-center">
                 <Link className="link" to="/">
                   <img src={home} className="img-responsive img-icon"/>
                   <p className="nav-text">
@@ -22,7 +22,7 @@ export default class Layout extends React.Component {
                   </p>
                 </Link>
               </div>
-              <div id="packages" className='col-xs-4 text-center'>
+              <div id="packages" className="col-xs-4 text-center">
                 <Link to="packages">
                   <img src={pkg} className="img-responsive img-icon"/>
                   <p className="nav-text">
@@ -30,7 +30,7 @@ export default class Layout extends React.Component {
                   </p>
                 </Link>
               </div>
-              <div id="settings" className='col-xs-4 text-center'>
+              <div id="settings" className="col-xs-4 text-center">
                 <Link to="settings">
                   <img src={settings} className="img-responsive img-icon"/>
                   <p className="nav-text">
@@ -40,7 +40,7 @@ export default class Layout extends React.Component {
               </div>
             </div>
             <div className="col-xs-4 pull-right buttons">
-              <div id="about" className='col-xs-4 text-center button-right'>
+              <div id="about" className="col-xs-4 text-center button-right">
                 <Link to="settings">
                   <img src={about} className="img-responsive img-icon"/>
                   <p className="nav-text">
@@ -48,7 +48,7 @@ export default class Layout extends React.Component {
                   </p>
                 </Link>
               </div>
-              <div id="contact" className='col-xs-4 text-center button-right'>
+              <div id="contact" className="col-xs-4 text-center button-right">
                 <Link to="contact">
                   <img src={contact} className="img-responsive img-icon"/>
                   <p className="nav-text">
@@ -65,6 +65,8 @@ export default class Layout extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
-};
+}
+
+Layout.propTypes = { children: React.PropTypes.element.isRequired };

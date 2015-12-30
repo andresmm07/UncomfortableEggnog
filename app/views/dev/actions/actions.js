@@ -1,46 +1,38 @@
 import Constants from '../constants/constants';
-import { dispatch, register } from '../dispatchers/dispatcher';
+import { dispatch } from '../dispatchers/dispatcher';
 
 export default {
-  addCommand () {
-    dispatch({
-      actionType: Constants.ADD_COMMAND
-    });
+  addCommand() {
+    dispatch({ actionType: Constants.ADD_COMMAND });
   },
-  saveCommands () {
-    dispatch({
-      actionType: Constants.SAVE_COMMANDS
-    });
+  saveCommands() {
+    dispatch({ actionType: Constants.SAVE_COMMANDS });
   },
-  updateCommand (command) {
+  updateCommand(command) {
     dispatch({
       actionType: Constants.UPDATE_COMMAND,
-      command
-    });
+      command });
   },
-  deleteCommand (index) {
-    console.log('Inside actions, passing store, ', index);
+  deleteCommand(index) {
     dispatch({
       actionType: Constants.DELETE_COMMAND,
-      index
-    });
+      index });
   },
-  loadPackage (filePath) {
+  loadPackage(filePath) {
     dispatch({
       actionType: Constants.LOAD_PACKAGE,
-      filePath
-    });
+      filePath });
   },
-  changeConfig (config) {
+  changeConfig(config) {
+    console.log('change!');
     dispatch({
       actionType: Constants.CHANGE_CONFIG,
-      config
-    });
+      config });
   },
-  saveConfig (config) {
+  saveConfig(config) {
+    console.log('save!');
     dispatch({
       actionType: Constants.SAVE_CONFIG,
-      config
-    });
-  }
+      config });
+  },
 };

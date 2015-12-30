@@ -1,21 +1,20 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import AppActions from '../../actions/actions';
 import Store from '../../stores/store';
-import StoreWatchMixin from '../../mixins/mixins';
+import storeWatchMixin from '../../mixins/mixins';
 
 
-function getConfig () {
+function getConfig() {
   return {
-    config: Store.getConfig()
-  };
+    config: Store.getConfig() };
 }
 
 const Settings = (props) => {
+  const { config } = props;
   let {
     name,
     exactMatchThreshold,
-    closeMatchThreshold
-  } = props.config;
+    closeMatchThreshold } = config;
   return (
     <div className="text-center settings">
       <h1> Settings </h1>
@@ -32,8 +31,7 @@ const Settings = (props) => {
               onChange={ e => {
                 name = e.target.value;
                 AppActions.changeConfig({
-                  name
-                });
+                  name });
               }}
             />
           </div>
@@ -52,8 +50,7 @@ const Settings = (props) => {
               onChange={ e => {
                 exactMatchThreshold = e.target.value;
                 AppActions.changeConfig({
-                  exactMatchThreshold
-                });
+                  exactMatchThreshold });
               }}
             />
             <p className="pull-right">{exactMatchThreshold}</p>
@@ -73,8 +70,7 @@ const Settings = (props) => {
               onChange={ e => {
                 closeMatchThreshold = e.target.value;
                 AppActions.changeConfig({
-                  closeMatchThreshold
-                });
+                  closeMatchThreshold });
               }}
             />
             <p className="pull-right">{closeMatchThreshold}</p>
@@ -82,7 +78,7 @@ const Settings = (props) => {
         </div>
         <button
           className="btn btn-success pull-right"
-          onClick={ e => {
+          onClick={ () => {
             AppActions.saveConfig();
           }}
         >
@@ -91,6 +87,8 @@ const Settings = (props) => {
       </div>
     </div>
   );
-}
+};
 
-export default StoreWatchMixin(Settings, getConfig);
+Settings.propTypes = { config: React.PropTypes.object };
+
+export default storeWatchMixin(Settings, getConfig);

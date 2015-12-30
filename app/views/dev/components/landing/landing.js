@@ -1,26 +1,23 @@
 import React from 'react';
-import { Router, Route, Link, IndexRoute } from 'react-router';
 
 export default class Landing extends React.Component {
   render() {
     const backgroundStyle = {
-      color: "#343D5C",
-      height: "100vh",
-      textAlign: "center",
-      position: "relative",
+      color: '#343D5C',
+      height: '100vh',
+      textAlign: 'center',
+      position: 'relative',
       marginTop: 100,
-      fontFamily: '"Courier New", Courier, monospace'
-    };
+      fontFamily: '"Courier New", Courier, monospace' };
 
     const titleStyle = {
-      backgroundImage: "url(./assets/img/jarvis-transparent.gif)",
-      backgroundSize: "100% 100%",
-      backgroundRepeat: "no-repeat",
+      backgroundImage: 'url(./assets/img/jarvis-transparent.gif)',
+      backgroundSize: '100% 100%',
+      backgroundRepeat: 'no-repeat',
       height: 200,
       width: 200,
-      margin: "auto",
-      display: "inline-block"
-    };
+      margin: 'auto',
+      display: 'inline-block' };
 
     return (
       <div style={backgroundStyle}>
@@ -29,5 +26,5 @@ export default class Landing extends React.Component {
             <div><h4>Please say a command</h4></div>
       </div>
     );
-  };
+  }
 }

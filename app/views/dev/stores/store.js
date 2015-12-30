@@ -1,7 +1,4 @@
-import {
-  dispatch,
-  register
-} from '../dispatchers/dispatcher';
+import { register } from '../dispatchers/dispatcher';
 import Constants from '../constants/constants';
 import { EventEmitter } from 'events';
 
@@ -15,39 +12,38 @@ import {
   _loadPackage,
   _saveConfig,
   _getConfig,
-  _updateConfig
-} from './storeActions';
+  _updateConfig } from './storeActions';
 
 const CHANGE_EVENT = 'change';
 let _commands = [];
 let _config = {};
 
 const Store = Object.assign(EventEmitter.prototype, {
-  emitChange () {
-    this.emit( CHANGE_EVENT ); //'CHANGE'
+  emitChange() {
+    this.emit(CHANGE_EVENT);
   },
-  reloadCommands () {
+  reloadCommands() {
     return _reloadCommands(_getCommands());
   },
-  getCommands () {
+  getCommands() {
     if (_commands.length === 0) {
       _commands = Store.reloadCommands();
     }
     return _commands.slice();
   },
-  getConfig () {
+  getConfig() {
     if (!_config.hasOwnProperty('name')) {
       _config = _getConfig();
     }
     return _config;
   },
-  addChangeListener ( callback ) {
-    this.on( CHANGE_EVENT, callback );
+  addChangeListener(callback) {
+    this.on(CHANGE_EVENT, callback);
   },
-  removeChangeListener ( callback ) {
-    this.removeListener( CHANGE_EVENT, callback);
+  removeChangeListener(callback) {
+    this.removeListener(CHANGE_EVENT, callback);
   },
-  dispatcherIndex: register( (action) => {
+  dispatcherIndex: register((action) => {
     switch (action.actionType) {
       case Constants.SAVE_COMMANDS:
         _saveCommands(_commands, (err, newCMD) => {
@@ -66,7 +62,7 @@ const Store = Object.assign(EventEmitter.prototype, {
         Store.emitChange();
         break;
       case Constants.DELETE_COMMAND:
-        var newCommands = _commands.slice(0, action.index)
+        const newCommands = _commands.slice(0, action.index)
           .concat(_commands.slice(action.index + 1));
         _deleteCommand(newCommands, (err, commands) => {
           _commands = commands;
@@ -75,22 +71,22 @@ const Store = Object.assign(EventEmitter.prototype, {
         break;
       case Constants.LOAD_PACKAGE:
         _commands = [];
-        _loadPackage(action.filePath, (err, data) => {
+        _loadPackage(action.filePath, () => {
           Store.emitChange();
-        })
+        });
         break;
       case Constants.SAVE_CONFIG:
-        _saveConfig( _config, (err, data) => {
+        _saveConfig(_config, () => {
           Store.emitChange();
         });
         break;
       case Constants.CHANGE_CONFIG:
-        _config = _updateConfig( _config, action.config );
+        _config = _updateConfig(_config, action.config);
         Store.emitChange();
         break;
-
-    }
-  })
+      default:
+        Store.emitChange();
+        break; }}),
 });
 
 export default Store;

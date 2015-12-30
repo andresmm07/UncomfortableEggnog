@@ -10,7 +10,7 @@
     "test": "NODE_ENV=test grunt test",
     "start": "electron .",
     "view": "webpack --watch",
-    "lint": "jscs ./"
+    "lint": "jscs ./; eslint ./app/views/dev"
   },
   "pre-commit": "lint",
   "author": "",
@@ -56,11 +56,16 @@
     "webpack": "^1.12.9"
   },
   "devDependencies": {
+    "babel-eslint": "^5.0.0-beta6",
     "chai": "^3.4.1",
     "del": "^2.2.0",
     "electron-prebuilt": "^0.35.4",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^2.1.1",
+    "eslint-plugin-react": "^3.13.1",
     "grunt": "^0.4.5",
     "grunt-docco": "^0.4.0",
+    "grunt-electron": "^2.0.1",
     "grunt-mocha-test": "^0.12.7",
     "grunt-nodemon": "^0.4.1",
     "grunt-shell": "^1.1.2",

@@ -1,34 +1,10 @@
-import {
-  updateCommands,
-  saveCommands,
-  delCommand,
-  loadPackage
-} from '../../../commandsCTRL/commandsCTRL';
-import { writeConfig, getConfig } from '../../../configCTRL/configUtils';
+import { updateCommands, loadPackage } from '../../../commandsCTRL/commandsCTRL';
+import { writeConfig } from '../../../configCTRL/configUtils';
 import Constants from '../constants/constants';
-import { getCommands, get } from '../../../utils/utils';
+import { getCommands } from '../../../utils/utils';
 import _ from 'underscore';
-export function _getCommands () {
-  return getCommands()['packageCommands'];
-}
-
-/*
-  _saveCommands takes the _commands array from the store and
-  reduces it back into one commandsObj. It is then shipped off
-  to updateCommands in the commandsUtils where the updated commands
-  are merged into the commandsObj, saved and written
-*/
-
-export function _saveCommands (commands, cb) {
-  let packageCommands = commands.reduce( (cmdObj, cmd) => {
-    if (Object.keys(cmd) === '') {
-      return cmdObj;
-    }
-    return Object.assign(cmdObj, cmd);
-  }, {});
-  updateCommands(packageCommands, function (err, cmd) {
-    cb(null, _reloadCommands(cmd));
-  });
+export function _getCommands() {
+  return getCommands().packageCommands;
 }
 
 /*
@@ -44,16 +20,15 @@ export function _saveCommands (commands, cb) {
   changes the object live.
 */
 
-export function _liveUpdateCommand (_commands, command) {
-  let {index, change, type} = command;
-  let oldCommand = Object.keys(_commands[index])[0];
+export function _liveUpdateCommand(_commands, command) {
+  const { index, change, type } = command;
+  const oldCommand = Object.keys(_commands[index])[0];
   if (type === Constants.ACTION) {
     _commands[index][oldCommand] = change;
   } else if (type === Constants.COMMAND) {
-    let action = _commands[index][oldCommand];
+    const action = _commands[index][oldCommand];
     _commands[index] = {
-      [change] : action
-    };
+      [change]: action };
   }
   return _commands;
 }
@@ -62,60 +37,75 @@ export function _liveUpdateCommand (_commands, command) {
   takes the commands object from commandsUtil and converts it to an array
 */
 
-export function _reloadCommands (commandsObj) {
-  let results = Object.keys(commandsObj)
-    .reduce( (arr, cmd) => {
+export function _reloadCommands(commandsObj) {
+  const results = Object.keys(commandsObj)
+    .reduce((arr, cmd) => {
       return arr.concat({
-        [cmd]: commandsObj[cmd]
-      });
+        [cmd]: commandsObj[cmd] });
     }, []);
   return results;
+}
+
+/*
+_saveCommands takes the _commands array from the store and
+reduces it back into one commandsObj. It is then shipped off
+to updateCommands in the commandsUtils where the updated commands
+are merged into the commandsObj, saved and written
+*/
+
+export function _saveCommands(commands, cb) {
+  const packageCommands = commands.reduce((cmdObj, cmd) => {
+    if (Object.keys(cmd) === '') {
+      return cmdObj;
+    }
+    return Object.assign(cmdObj, cmd);
+  }, {});
+  updateCommands(packageCommands, (err, cmd) => {
+    cb(null, _reloadCommands(cmd));
+  });
 }
 
 /*
   adds an empty object into a field, then saves
   the changes in the commandsUtil
 */
-export function _addCommand (commands, cb) {
+export function _addCommand(commands, cb) {
   commands.push({
-    "command" : "action"
-  });
-  _saveCommands(commands, function (err, cmd) {
+    'command': 'action' });
+  _saveCommands(commands, (err, cmd) => {
     cb(null, cmd);
   });
 }
 
-export function _loadPackage (filePath, cb) {
+export function _loadPackage(filePath, cb) {
   writeConfig({
     commandsPath: filePath,
-    phrasesPath: filePath.replace('commands.', 'phrases.')
-  }, function (err, data) {
+    phrasesPath: filePath.replace('commands.', 'phrases.') }, (err, data) => {
     loadPackage(data, cb);
   });
 }
 
-export function _saveConfig (config, cb) {
-  writeConfig(config, function (err, data) {
+export function _saveConfig(config, cb) {
+  writeConfig(config, (err, data) => {
     cb(err, data);
   });
 }
 
-export function _getConfig () {
-  let name = localStorage.getItem('name');
-  let exactMatchThreshold = parseFloat(localStorage.getItem('exactMatchThreshold'));
-  let closeMatchThreshold = parseFloat(localStorage.getItem('closeMatchThreshold'));
+export function _getConfig() {
+  const name = localStorage.getItem('name');
+  const exactMatchThreshold = parseFloat(localStorage.getItem('exactMatchThreshold'));
+  const closeMatchThreshold = parseFloat(localStorage.getItem('closeMatchThreshold'));
   return {
     name,
     exactMatchThreshold,
-    closeMatchThreshold
-  };
+    closeMatchThreshold };
 }
 
 
-export function _deleteCommand (command, cb) {
+export function _deleteCommand(command, cb) {
   _saveCommands(command, cb);
 }
 
-export function _updateConfig (oldConfig, newConfig) {
+export function _updateConfig(oldConfig, newConfig) {
   return _.extend(oldConfig, newConfig);
 }

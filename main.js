@@ -1,8 +1,7 @@
 var electron = require('electron');
-var app = electron.app;  // Module to control application life.
-var BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
+var app = electron.app; // Module to control application life.
+var BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
 var globalShortcut = electron.globalShortcut;
-var ipcMain = electron.ipcMain;
 var Tray = electron.Tray;
 var Menu = electron.Menu;
 var MenuItem = electron.MenuItem;
@@ -19,16 +18,18 @@ var menu = null;
 
 app.on('ready', function () {
   mainWindow = new BrowserWindow({
-    minWidth: 800,
-    minHeight: 600,
-    maxWidth: 800,
-    maxHeight: 600
+    width: 800,
+    height: 600
+    // minWidth: 800,
+    // minHeight: 600,
+    // maxWidth: 800,
+    // maxHeight: 600
   });
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/app/index.html');
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   //start listening when the app starts
   mainWindow.webContents.on('dom-ready', function () {
@@ -59,7 +60,6 @@ app.on('ready', function () {
     mainWindow.toggle();
   });
   appIcon.on('right-click', function (e) {
-    console.log('right click');
     this.popUpContextMenu(menu);
   });
 

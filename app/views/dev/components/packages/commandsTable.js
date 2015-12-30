@@ -1,32 +1,27 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import Store from '../../stores/store';
 import AppActions from '../../actions/actions';
 import Constants from '../../constants/constants';
-import StoreWatchMixin from '../../mixins/mixins';
+import storeWatchMixin from '../../mixins/mixins';
 
-function getCommands () {
-  return {
-    commands: Store.getCommands()
-  };
+function getCommands() {
+  return { commands: Store.getCommands() };
 }
 
 // NOTE: NEVER USE DEFAULTVALUE.
 
 
 const CommandsTable = (props) => {
-  let { commands } = props;
-  console.log(commands);
+  const { commands } = props;
   return (
     <table className="table">
       <tbody>
-        {commands.map( (commandObj, i) => {
-          var cmd = Object.keys(commandObj)[0];
+        { commands.map((commandObj, i) => {
+          const cmd = Object.keys(commandObj)[0];
           return (
             <tr key={i}>
               <td
-                onClick={ e => {
-                  AppActions.deleteCommand(i)
-                }}
+                onClick={ () => AppActions.deleteCommand(i) }
               >
                 x
               </td>
@@ -39,10 +34,9 @@ const CommandsTable = (props) => {
                     AppActions.updateCommand({
                       index: i,
                       change: e.target.value,
-                      type: Constants.COMMAND
-                    });
+                      type: Constants.COMMAND });
                   }}
-                  onBlur={e => AppActions.saveCommands()}
+                  onBlur={() => AppActions.saveCommands()}
                 />
               </td>
               <td>
@@ -54,11 +48,10 @@ const CommandsTable = (props) => {
                     AppActions.updateCommand({
                       index: i,
                       change: e.target.value,
-                      type: Constants.ACTION
-                    });
+                      type: Constants.ACTION });
                   }}
-                  onBlur={e => AppActions.saveCommands()}
-                  />
+                  onBlur={ () => AppActions.saveCommands() }
+                />
               </td>
             </tr>
           );
@@ -66,6 +59,9 @@ const CommandsTable = (props) => {
       </tbody>
     </table>
   );
-}
+};
 
-export default StoreWatchMixin(CommandsTable, getCommands)
+CommandsTable.propTypes = {
+  commands: React.PropTypes.array };
+
+export default storeWatchMixin(CommandsTable, getCommands);

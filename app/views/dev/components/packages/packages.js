@@ -1,32 +1,26 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import CommandsTable from './commandsTable';
 import AppActions from '../../actions/actions';
-import Store from '../../stores/store';
-import StoreWatchMixin from '../../mixins/mixins';
-import packageUtil from '../../../../packagesUtil/packagesUtil';
 
 
-function isJSON (fileName) {
-  var splitFN = fileName.split('.');
-  console.log(splitFN[splitFN.length - 1].match(/json/i));
+function isJSON(fileName) {
+  const splitFN = fileName.split('.');
   return splitFN[splitFN.length - 1].match(/json/i);
 }
 
-function handleFile (e) {
+function handleFile(e) {
   e.preventDefault();
-  let self = this;
-  const reader = new FileReader();
   const file = e.target.files[0];
-  var filePath = file.path;
-  var fileName = file.name;
+  const filePath = file.path;
+  const fileName = file.name;
   if (isJSON(fileName) === null) {
-    alert("The package needs to be a JSON file");
+    alert('The package needs to be a JSON file');
   } else {
     AppActions.loadPackage(filePath);
   }
 }
 
-const Packages = (props) => {
+const Packages = () => {
   return (
     <div className="row packages">
       <div className="col-xs-12">
@@ -64,7 +58,7 @@ const Packages = (props) => {
             encType="multipart/form-data"
           >
             <button
-              onClick={ e => {
+              onClick={ () => {
                 document.getElementById('upload').click();
               }}
               className="btn btn-success"
@@ -73,7 +67,7 @@ const Packages = (props) => {
             </button>
             <input
               id="upload"
-              style={{opacity: 0}}
+              style={{ opacity: 0 }}
               type="file"
               onChange={handleFile.bind(this)}
             />

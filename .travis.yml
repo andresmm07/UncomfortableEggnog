@@ -3,11 +3,5 @@ node_js:
   - "4.1"
 before_install: npm install -g grunt-cli mocha
 
-services: mongodb
-
-branches:
-    only:
-      master
-
 install:
   - npm install
