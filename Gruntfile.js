@@ -23,7 +23,7 @@ module.exports = function (grunt) {
         stderr: false
       },
       target: {
-        command: 'electron-packager . Jarvis --platform=darwin --arch=x64 --version=0.35.4 --overwrite --icon=' + __dirname + '/app/assets/icons/jarvis.png'
+        command: 'electron-packager . Jarvis --platform=darwin --arch=x64 --version=0.35.4 --icon=./app/assets/icons/jarvis.icns --overwrite; cp ./app/assets/icons/jarvis.icns ./Jarvis-darwin-x64/Jarvis.app/Contents/Resources/atom.icns'
       }
     }
   });

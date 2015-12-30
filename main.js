@@ -19,18 +19,16 @@ var menu = null;
 
 app.on('ready', function () {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600
-    // minWidth: 800,
-    // minHeight: 600,
-    // maxWidth: 800,
-    // maxHeight: 600
+    minWidth: 800,
+    minHeight: 600,
+    maxWidth: 800,
+    maxHeight: 600
   });
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/app/index.html');
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   //start listening when the app starts
   mainWindow.webContents.on('dom-ready', function () {
