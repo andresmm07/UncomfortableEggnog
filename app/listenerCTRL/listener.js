@@ -38,7 +38,7 @@ module.exports = function (cb, name, timeout) {
   };
 
   listener.onstart = function (e) {
-    console.log('listening');
+    console.log(this.name, ' is listening');
     if (listener.hasTimeout) {
       this.selfDestruct();
       listener.hasTimeout = false;
@@ -49,6 +49,7 @@ module.exports = function (cb, name, timeout) {
   listener.switch = function () {
     on = false;
     listener.abort();
+    console.log(this.name, ' is stopping');
     listener.switchListener.start();
   };
 
