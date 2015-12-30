@@ -10,7 +10,8 @@
     "test": "NODE_ENV=test grunt test",
     "start": "electron .",
     "view": "webpack --watch",
-    "lint": "jscs ./; eslint ./app/views/dev"
+    "lint": "jscs ./; eslint ./app/views/dev",
+    "build": "electron-packager $(pwd) Jarvis --all --version=0.34.5 --out=./releases --overwrite"
   },
   "pre-commit": "lint",
   "author": "",
@@ -59,6 +60,7 @@
     "babel-eslint": "^5.0.0-beta6",
     "chai": "^3.4.1",
     "del": "^2.2.0",
+    "electron-packager": "^5.2.0",
     "electron-prebuilt": "^0.35.4",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^2.1.1",

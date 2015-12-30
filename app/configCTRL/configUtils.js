@@ -2,9 +2,12 @@ var fs = require('fs');
 var utils = require('../utils/utils');
 var _ = require('underscore');
 var path = require('path');
-var configPath = path.resolve('./app/configCTRL/') + '/config.json';
+var rootPath = (function () {return __dirname; })();
+var configPath = rootPath + '/config.json';
 
 var getConfig = function (cb) {
+  // console.log('process.resourcesPath ', );
+  console.log('configPath, ', configPath);
   fs.readFile(configPath, 'utf8', function (err, data) {
     if (err) {
       cb(err);

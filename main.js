@@ -55,7 +55,7 @@ app.on('ready', function () {
     }
   }));
 
-  appIcon = new Tray('./app/assets/icons/rsz_1rsz_jarvis_tiny.png');
+  appIcon = new Tray(__dirname + '/app/assets/icons/rsz_1rsz_jarvis_tiny.png');
   appIcon.on('click', function () {
     mainWindow.toggle();
   });

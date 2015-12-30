@@ -20,9 +20,11 @@ if (!('webkitSpeechRecognition' in window)) {
 }
 
 ipcRenderer.on('listening', function (event) {
+  localStorage.clear();
   var commandsUtil = require('./commandsCTRL/commandsCTRL');
   var configUtils = require('./configCTRL/configUtils');
   configUtils.getConfig(function (err, data) {
+    if (err) { console.log(err);}
     var config = JSON.parse(data);
     commandsUtil.loadPackage(JSON.parse(data), function (err, data) {
       configUtils.saveConfig(config);

@@ -10,6 +10,8 @@ var buildCommands = require('./buildCommands');
 var getCommands = require('../utils/utils').getCommands;
 var saveAndWrite = require('./saveAndWrite');
 var addPhrase = require('../utils/phraseTrie').addPhrase;
+var rootPath = (function () {return __dirname; })();
+
 
 /*
   Saves the command object in localStorage and then fs.writeFiles it.
@@ -17,6 +19,7 @@ var addPhrase = require('../utils/phraseTrie').addPhrase;
 
 
 module.exports.loadPackage = function (configObj, cb) {
+  configObj.commandsPath = rootPath + configObj.commandsPath;
   var commandsPath = configObj.commandsPath;
   buildCommands(commandsPath, function (err, commandsObj) {
     console.log(commandsObj);
