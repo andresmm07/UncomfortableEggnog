@@ -23,27 +23,14 @@ module.exports = function (grunt) {
         stderr: false
       },
       target: {
-        command: 'electron .'
+        command: 'electron-packager . Jarvis --platform=darwin --arch=x64 --version=0.35.4 --overwrite --icon=./app/assets/icons/jarvis.png'
       }
-    },
-    electron: {
-        osxBuild: {
-            options: {
-                name: 'Jarvis',
-                dir: '.',
-                out: 'build',
-                version: '0.25.3',
-                platform: 'darwin',
-                arch: 'x64'
-            }
-        }
     }
   });
 
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-docco');
   grunt.loadNpmTasks('grunt-shell');
-  grunt.loadNpmTasks('grunt-electron');
 
   grunt.registerTask('test', [
     'mochaTest'
@@ -53,11 +40,9 @@ module.exports = function (grunt) {
     'docco'
   ]);
 
-  grunt.registerTask('start', [
+  grunt.registerTask('build', [
     'shell'
   ]);
 
-  grunt.registerTask('build', [
-    'electron'
-  ]);
+
 };

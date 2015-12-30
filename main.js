@@ -5,6 +5,7 @@ var globalShortcut = electron.globalShortcut;
 var Tray = electron.Tray;
 var Menu = electron.Menu;
 var MenuItem = electron.MenuItem;
+var ipcMain = electron.ipcMain;
 
 electron.crashReporter.start();
 
@@ -34,6 +35,11 @@ app.on('ready', function () {
   //start listening when the app starts
   mainWindow.webContents.on('dom-ready', function () {
     mainWindow.webContents.send('listening', 'listening');
+  });
+  
+  var appPath = app.getAppPath();
+  ipcMain.on('getPath', function (event, arg) {
+    event.sender.send('sendPath', appPath);
   });
 
   mainWindow.showWindow = false;
