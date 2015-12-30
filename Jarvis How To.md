@@ -68,7 +68,7 @@ Jarvis provides the option to manually add new voice commands with its correspon
 
 2. Navigate to the **Packages** section of the application by clicking the **Packages **button. ![packages button](https://www.dropbox.com/s/jl4bdr4ih67itp2/Screen%20Shot%202015-12-29%20at%203.13.43%20PM.png?dl=1)
 
-3. Once you’re in the **Packages** section, click the **+ **symbol on the top right corner. ![plus button](https://www.dropbox.com/s/0ts2ld6d5yen23b/Screen%20Shot%202015-12-29%20at%203.16.07%20PM.png?dl=1)
+3. Once you’re in the **Packages** section, click the **+** symbol on the top right corner. ![plus button](https://www.dropbox.com/s/0ts2ld6d5yen23b/Screen%20Shot%202015-12-29%20at%203.16.07%20PM.png?dl=1)
 
 4. After you click the **+ **symbol, you’ll see a new empty field added at the end of the **Commands **table. Add the **voice command **in the **command **field and the **bash command **in the **action **field. ![add command field](https://www.dropbox.com/s/7gqtkqfvyxydwkl/Screen%20Shot%202015-12-29%20at%203.54.24%20PM.png?dl=1) 
 
