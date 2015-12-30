@@ -1,6 +1,6 @@
 ##**Overview**
 
-Quick description of what Jarvis does. Maybe this can be copied from the ReadMe
+Jarvis is an assistant that enables users to speak natural voice commands to their computer in order to help them with a number of common tasks to increase their productivity.
 
 ##**Taking a look at Jarvis’ features** 
 
