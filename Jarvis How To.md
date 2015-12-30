@@ -16,6 +16,7 @@ Start giving voice commands to Jarvis to get started.
 
 Find a list of existing voice commands and the corresponding command that will be executed. You’ll also find that Jarvis provides incredible flexibility which allows you to customize the existing commands, add new commands and add new packages.
 
+
 Take a look at the [Packages and Commands](#packages) section for more details.
 
 ###**Settings**
@@ -56,6 +57,7 @@ Jarvis comes with a list of default voice commands. Take a look at Appendix A fo
 
 Now that you’ve browsed Jarvis’ features, you can start customizing Jarvis using these guides and tutorials
 
+
 #**Commands and Packages** <a id="packages"></a>
 
 ###**Add a command** <a id="addCommand"></a>
@@ -69,8 +71,9 @@ Jarvis provides the option to manually add new voice commands with its correspon
 3. Once you’re in the **Packages** section, click the **+ **symbol on the top right corner. ![plus button](https://www.dropbox.com/s/0ts2ld6d5yen23b/Screen%20Shot%202015-12-29%20at%203.16.07%20PM.png?dl=1)
 
 4. After you click the **+ **symbol, you’ll see a new empty field added at the end of the **Commands **table. Add the **voice command **in the **command **field and the **bash command **in the **action **field. ![add command field](https://www.dropbox.com/s/7gqtkqfvyxydwkl/Screen%20Shot%202015-12-29%20at%203.54.24%20PM.png?dl=1) 
-Below you can find an example of how this would look like:
-![new command](https://www.dropbox.com/s/75bv011gxd1g9ns/Screen%20Shot%202015-12-29%20at%203.57.47%20PM.png?dl=1)
+
+  Below you can find an example of how this would look like:
+  ![new command](https://www.dropbox.com/s/75bv011gxd1g9ns/Screen%20Shot%202015-12-29%20at%203.57.47%20PM.png?dl=1)
 
 ###**Delete a command**
 
