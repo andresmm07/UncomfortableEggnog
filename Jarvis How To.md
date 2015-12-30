@@ -16,11 +16,11 @@ Start giving voice commands to Jarvis to get started.
 
 Find a list of existing voice commands and the corresponding command that will be executed. You’ll also find that Jarvis provides incredible flexibility which allows you to customize the existing commands, add new commands and add new packages.
 
-Take a look at the Packages section for more details.
+Take a look at the [Packages and Commands](#packages) section for more details.
 
 ###**Settings**
 
-Customize Jarvis’ default configuration to match your preferences. Take a look at the Settings section for more details about each option.
+Customize Jarvis’ default configuration to match your preferences. Take a look at the [Settings and Configuration](#settings) section for more details about each option.
 
 ###**Contact**
 
@@ -30,7 +30,7 @@ Here you can find how to contact us if you have any suggestions to improve the a
 
 If you want to know more about us, visit the About section.
 
-##Getting Started with Jarvis
+##Getting Started with Jarvis <a id="gettingStarted"></a>
 
 Welcome! You’ve installed Jarvis in your computer. Now it’s time for Jarvis to help you with a number of tasks you do on a regular basis. 
 
@@ -56,13 +56,13 @@ Jarvis comes with a list of default voice commands. Take a look at Appendix A fo
 
 Now that you’ve browsed Jarvis’ features, you can start customizing Jarvis using these guides and tutorials
 
-#**Commands and Packages**
+#**Commands and Packages** <a id="packages"></a>
 
-###**Add a command**
+###**Add a command** <a id="addCommand"></a>
 
 Jarvis provides the option to manually add new voice commands with its corresponding bash command to the application. To do this, follow the steps below: 
 
-1. Launch the application. Refer to the **Getting Started** section for more information.
+1. Launch the application. Refer to the **[Getting Started](#gettingStarted)** section for more information.
 
 2. Navigate to the **Packages** section of the application by clicking the **Packages **button. ![packages button](https://www.dropbox.com/s/jl4bdr4ih67itp2/Screen%20Shot%202015-12-29%20at%203.13.43%20PM.png?dl=1)
 
@@ -76,9 +76,9 @@ Below you can find an example of how this would look like:
 
 If a command is no longer useful for you, you can delete it from the list of commands by following these steps:
 
-1. Launch the application. Refer to the **Getting Started** section for more information.
+1. Launch the application. Refer to the **[Getting Started](#gettingStarted)** section for more information.
 
-2. Navigate to the **Packages** section of the application by clicking the **Packages** button as explained in the **Add a command** section.
+2. Navigate to the **Packages** section of the application by clicking the **Packages** button as explained in the **[Add a command](#addCommand)** section.
 
 3. Click the **X** icon next to the command you want to delete.
 ![delete](https://www.dropbox.com/s/c5u386ces5fh9cz/Screen%20Shot%202015-12-29%20at%203.31.59%20PM.png?dl=1)
@@ -91,9 +91,9 @@ A **package** is a JSON file that contains the voice command and its correspondi
 
 To load a package to the application, follow these steps:
 
-1. Launch the application. Refer to the **Getting Started** section for more information.
+1. Launch the application. Refer to the **[Getting Started](#gettingStarted)** section for more information.
 
-2. Navigate to the **Packages** section of the application by clicking the **Packages** button as explained in the **Add a command** section.
+2. Navigate to the **Packages** section of the application by clicking the **Packages** button as explained in the **[Add a command](#addCommand)** section.
 
 3. Click the **Load Package** button on the bottom right corner of the **Packages** section. ![load package button](https://www.dropbox.com/s/jtjzi2hhieey8dm/Screen%20Shot%202015-12-29%20at%203.47.52%20PM.png?dl=1)
 
@@ -101,7 +101,7 @@ To load a package to the application, follow these steps:
 
 **NOTE:** The commands in the JSON file won't be displayed in the **Commands** table.
 
-#**Settings and Configuration**
+#**Settings and Configuration** <a id="settings"></a>
 
 Jarvis' settings allow you to customize the default configuration to match your needs.
 
@@ -109,7 +109,7 @@ Jarvis' settings allow you to customize the default configuration to match your 
 
 The default name the application responds to is **Jarvis**. However, this can be customized to any name you want. To do this, follow these steps:
 
-1. Launch the application. Refer to the **Getting Started** section for more information.
+1. Launch the application. Refer to the **[Getting Started](#gettingStarted)** section for more information.
 
 2. Navigate to the **Settings** section of the application by clicking the **Settings** button. ![settings button](https://www.dropbox.com/s/s5b0aznpzrcmsfn/Screen%20Shot%202015-12-30%20at%2010.30.24%20AM.png?dl=1)
 
@@ -129,7 +129,7 @@ In the **Settings** section, you'll find two thresholds:
 
 To change these thresholds follow the steps below:
 
-1. Launch the application. Refer to the **Getting Started** section for more information.
+1. Launch the application. Refer to the **[Getting Started](#gettingStarted)** section for more information.
 
 2. Navigate to the **Settings** section of the application by clicking the **Settings** button. ![settings button](https://www.dropbox.com/s/s5b0aznpzrcmsfn/Screen%20Shot%202015-12-30%20at%2010.30.24%20AM.png?dl=1)
 
