@@ -28,7 +28,7 @@ app.on('ready', function () {
   mainWindow.loadURL('file://' + __dirname + '/app/index.html');
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   //start listening when the app starts
   mainWindow.webContents.on('dom-ready', function () {
@@ -59,7 +59,7 @@ app.on('ready', function () {
     }
   }));
 
-  appIcon = new Tray(__dirname + '/app/assets/icons/rsz_1rsz_jarvis_tiny.png');
+  appIcon = new Tray(appPath + '/app/assets/icons/rsz_1rsz_jarvis_tiny.png');
   appIcon.on('click', function () {
     mainWindow.toggle();
   });
