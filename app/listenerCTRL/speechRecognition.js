@@ -21,6 +21,12 @@ if (!('webkitSpeechRecognition' in window)) {
 
 ipcRenderer.on('listening', function (event) {
   localStorage.clear();
+  ipcRenderer.send('getPath');
+});
+
+ipcRenderer.on('sendPath', function (event, arg) {
+  console.log('sendpath', arg);
+  localStorage.setItem('appPath', arg);
   var commandsUtil = require('./commandsCTRL/commandsCTRL');
   var configUtils = require('./configCTRL/configUtils');
   configUtils.getConfig(function (err, data) {
