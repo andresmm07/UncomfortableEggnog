@@ -10,7 +10,9 @@ var buildCommands = require('./buildCommands');
 var getCommands = require('../utils/utils').getCommands;
 var saveAndWrite = require('./saveAndWrite');
 var addPhrase = require('../utils/phraseTrie').addPhrase;
-var rootPath = (function () {return __dirname; })();
+var rootPath = (function () {
+  return __dirname;
+})();
 
 
 /*

@@ -2,7 +2,9 @@ var fs = require('fs');
 var utils = require('../utils/utils');
 var _ = require('underscore');
 var path = require('path');
-var rootPath = (function () {return __dirname; })();
+var rootPath = (function () {
+  return __dirname;
+})();
 var configPath = rootPath + '/config.json';
 
 var getConfig = function (cb) {
