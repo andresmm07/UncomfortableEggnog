@@ -18,15 +18,17 @@ var rootPath = localStorage.getItem('appPath');
 
 
 module.exports.loadPackage = function (configObj, cb) {
-  configObj.commandsPath = rootPath + configObj.commandsPath;
   var commandsPath = configObj.commandsPath;
-  console.log('commandsPath ', commandsPath);
   buildCommands(commandsPath, function (err, commandsObj) {
-    console.log(commandsObj);
     if (err) {
+      console.log('error in buildCommands');
       cb(err);
     } else {
+      console.log('got commandsObj, ', commandsObj);
       initPhrases(commandsObj, function (err, commandsObj) {
+        if (err) {
+          console.log('error in initPhrases');
+        }
         saveAndWrite(commandsObj, function (err, data) {
           if (err) {
             cb(err);

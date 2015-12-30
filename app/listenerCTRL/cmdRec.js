@@ -10,6 +10,7 @@ var matchObj;
 
 module.exports = function (event) {
   this.killTimer();
+  this.pause();
   var transcript = event.results[0][0].transcript;
   var confidence = event.results[0][0].confidence;
   var userCommand = {
@@ -19,28 +20,28 @@ module.exports = function (event) {
   console.log('inside cmdRec with ', transcript);
   matchObj = match(userCommand, getCommands());
 
-  // If there is an action, that means we have an exact match
+  // If there is an action and no guessedCommand, that means we have an exact match
   if (matchObj.action && !matchObj.guessedCommand) {
     startCmd.play();
-    // also passed execShellCommand a cb here
     executeShellCommand(matchObj.action, function (err) {
       this.switch();
     }.bind(this));
 
   } else if (matchObj.guessedCommand) {
     console.log('guessing ', matchObj.guessedCommand);
-    // passed executeShellCommand a CB because the function is async, and
-    // confirm listener was recording the last few words of 'did you mean?'
+    /*
+      passed executeShellCommand a CB because the function is async, and
+      confirm listener was recording the last few words of 'did you mean?'
+    */
     executeShellCommand("say did you mean" + matchObj.guessedCommand + "?", function () {
-      this.pause();
+    /*
+      By keeping this function within this scope,
+      it retains access to the commandsUtils object,
+      the matchObj and the executeShellCommand function.
 
-      // By keeping this function within this scope,
-      // it retains access to the commandsUtils object,
-      // the matchObj and the executeShellCommand function.
-
-      // we can switch the current context by binding the callback
-      // to the current context
-
+      we can switch the current context by binding the callback
+      to the current context
+    */
       var confirmListener = listener(function (event) {
         confirmListener.pause();
         confirmListener.killTimer();
