@@ -1,6 +1,6 @@
 var electron = require('electron');
-var app = electron.app; // Module to control application life.
-var BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
+var app = electron.app;
+var BrowserWindow = electron.BrowserWindow;
 var globalShortcut = electron.globalShortcut;
 var Tray = electron.Tray;
 var Menu = electron.Menu;
