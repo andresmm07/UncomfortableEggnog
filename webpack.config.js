@@ -1,9 +1,9 @@
 var webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 
 var options = {
-  entry: './electron/main/dev/main.js',
+  entry: './app/views/dev/main.js',
   output: {
-    path: './electron/main/dist/',
+    path: './app/views/dist/',
     filename: 'bundle.js'
   },
   module: {
