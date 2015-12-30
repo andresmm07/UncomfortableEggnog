@@ -9,7 +9,11 @@ module.exports.write = function (filePath, data) {
 
 module.exports.read = function (filePath, cb) {
   fs.readFile(filePath, 'utf8', function (err, data) {
-    cb(err, JSON.parse(data));
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, JSON.parse(data));
+    }
   });
 };
 
@@ -30,7 +34,6 @@ module.exports.lowerCaseProps = function (obj) {
 };
 
 module.exports.saveCommands = function (obj) {
-  console.log('saving');
   if (typeof obj === 'object') {
     obj = JSON.stringify(obj);
   }

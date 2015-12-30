@@ -37,7 +37,7 @@ app.on('ready', function () {
 
   var appPath = app.getAppPath();
   ipcMain.on('getPath', function (event, arg) {
-    event.sender.send('sendPath', appPath);
+    event.returnValue = appPath;
   });
 
   mainWindow.showWindow = false;

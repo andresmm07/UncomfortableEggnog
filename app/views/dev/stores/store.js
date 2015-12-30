@@ -26,6 +26,7 @@ const Store = Object.assign(EventEmitter.prototype, {
     return _reloadCommands(_getCommands());
   },
   getCommands() {
+    console.log('getCommands called');
     if (_commands.length === 0) {
       _commands = Store.reloadCommands();
     }
