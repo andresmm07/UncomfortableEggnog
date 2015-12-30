@@ -17,6 +17,9 @@ module.exports = function (actionPrefix, variable, commandsObj) {
   actionObj.userCommand = actionPrefix;
   actionObj.guessedCommand = null;
   actionObj.action = '';
+  /*
+    Mocking localStorage when in test env.
+  */
   if (process.env.NODE_ENV !== 'test') {
     var exactMatchThreshold = parseFloat(utils.get('exactMatchThreshold'));
     var closeMatchThreshold = parseFloat(utils.get('closeMatchThreshold'));
@@ -26,6 +29,9 @@ module.exports = function (actionPrefix, variable, commandsObj) {
     var closeMatchThreshold = 0.65;
   }
 
+  /*
+    Destructuring the commandsObj
+  */
   var phrases = commandsObj.phrases;
   var actions = commandsObj.rawCommands;
   var argCommands = commandsObj.parsedCommands.argCommands;
@@ -41,7 +47,6 @@ module.exports = function (actionPrefix, variable, commandsObj) {
     return actionObj;
   }
 
-  // change to trie
   var addedPhraseTest = findCommand(phrases, _actionPrefix);
 
   if (addedPhraseTest) {
@@ -54,7 +59,6 @@ module.exports = function (actionPrefix, variable, commandsObj) {
     }
 
   } else {
-    // only execute if score is above threshold
     var key = getMatchByScore(Object.keys(actions), _actionPrefix);
     actionObj.exact = false;
     actionObj.guessedCommand = key;

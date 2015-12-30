@@ -3,6 +3,7 @@ import { writeConfig } from '../../../configCTRL/configUtils';
 import Constants from '../constants/constants';
 import { getCommands } from '../../../utils/utils';
 import _ from 'underscore';
+
 export function _getCommands() {
   return getCommands().packageCommands;
 }
