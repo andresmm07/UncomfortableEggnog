@@ -16,7 +16,7 @@ Start giving voice commands to Jarvis to get started.
 
 Find a list of existing voice commands and the corresponding command that will be executed. You’ll also find that Jarvis provides incredible flexibility which allows you to customize the existing commands, add new commands and add new packages.
 
-Take a look at the [Commands and Packages](#Commands-and-Packages) section for more details.
+Take a look at the [Commands and Packages](#packages) section for more details.
 
 ###**Settings**
 
@@ -56,7 +56,7 @@ Jarvis comes with a list of default voice commands. Take a look at Appendix A fo
 
 Now that you’ve browsed Jarvis’ features, you can start customizing Jarvis using these guides and tutorials
 
-#**Commands and Packages**
+#Commands and Packages <a name="packages"></a>
 
 ###**Add a command**
 
