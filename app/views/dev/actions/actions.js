@@ -24,13 +24,11 @@ export default {
       filePath });
   },
   changeConfig(config) {
-    console.log('change!');
     dispatch({
       actionType: Constants.CHANGE_CONFIG,
       config });
   },
   saveConfig(config) {
-    console.log('save!');
     dispatch({
       actionType: Constants.SAVE_CONFIG,
       config });
