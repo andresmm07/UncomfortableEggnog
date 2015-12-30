@@ -40,7 +40,7 @@
  *  always start with the hardcoded string, never an argument).
  *
  */
-var _argSyntax = /<ARG\s*[a-zA-Z0-9+='"_\s\\\/]*\/>/g;
+var _argSyntax = /<ARG\s*[a-zA-Z0-9+='"_\s\\\/%]*\/>/g;
 var _delSyntax = /del="\s*([^\n\r"]*)"\s* | del='\s*([^\n\r']*)'\s*/;
 var _htmlSyntax = /(\S+)=["']?((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?/g;
 
