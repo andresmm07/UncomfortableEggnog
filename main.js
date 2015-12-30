@@ -36,7 +36,7 @@ app.on('ready', function () {
   mainWindow.webContents.on('dom-ready', function () {
     mainWindow.webContents.send('listening', 'listening');
   });
-  
+
   var appPath = app.getAppPath();
   ipcMain.on('getPath', function (event, arg) {
     event.sender.send('sendPath', appPath);
