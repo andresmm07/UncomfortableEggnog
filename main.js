@@ -1,8 +1,7 @@
 var electron = require('electron');
-var app = electron.app;  // Module to control application life.
-var BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
+var app = electron.app; // Module to control application life.
+var BrowserWindow = electron.BrowserWindow; // Module to create native browser window.
 var globalShortcut = electron.globalShortcut;
-var ipcMain = electron.ipcMain;
 var Tray = electron.Tray;
 var Menu = electron.Menu;
 var MenuItem = electron.MenuItem;
@@ -27,7 +26,7 @@ app.on('ready', function () {
     // maxHeight: 600
   });
   // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/electron/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/app/index.html');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
@@ -37,32 +36,12 @@ app.on('ready', function () {
     mainWindow.webContents.send('listening', 'listening');
   });
 
-  //user doesn't want app to be always listening
-  //register shortcut for listening
-  ipcMain.on('registerShortcut', function () {
-    console.log('registerShortcut');
-    var startRecording = globalShortcut.register('ctrl+r', function () {
-      //emitted to renderer process (speechRecognition and other js files loaded
-      //when index.html loads) to start recording
-      mainWindow.webContents.send('listening', 'shortcutListening');
-    });
-  });
-
-  //user wants app to be always listening
-  //unregister shortcut to avoid errors and start loop on renderer
-  ipcMain.on('unregisterShortcut', function () {
-    globalShortcut.unregister('ctrl+r');
-    mainWindow.webContents.send('listening', 'listening');
-  });
-
   mainWindow.showWindow = false;
   mainWindow.toggle = function () {
     if (this.showWindow) {
-      console.log('show');
       this.show();
       this.showWindow = !this.showWindow;
     } else {
-      console.log('hide');
       this.hide();
       this.showWindow = !this.showWindow;
     }
@@ -76,12 +55,11 @@ app.on('ready', function () {
     }
   }));
 
-  appIcon = new Tray('./electron/assets/icons/rsz_1rsz_jarvis_tiny.png');
+  appIcon = new Tray(__dirname + '/app/assets/icons/rsz_1rsz_jarvis_tiny.png');
   appIcon.on('click', function () {
     mainWindow.toggle();
   });
   appIcon.on('right-click', function (e) {
-    console.log('right click');
     this.popUpContextMenu(menu);
   });
 

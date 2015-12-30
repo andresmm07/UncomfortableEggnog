@@ -7,7 +7,7 @@ module.exports = function (grunt) {
         options: {
           reporter: 'nyan'
         },
-        src: ['electron/test/**/*.js']
+        src: ['test/**/*.js']
       }
     },
     docco: {
@@ -23,14 +23,27 @@ module.exports = function (grunt) {
         stderr: false
       },
       target: {
-        command: 'webpack .; electron .'
+        command: 'electron .'
       }
+    },
+    electron: {
+        osxBuild: {
+            options: {
+                name: 'Jarvis',
+                dir: '.',
+                out: 'build',
+                version: '0.25.3',
+                platform: 'darwin',
+                arch: 'x64'
+            }
+        }
     }
   });
 
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-docco');
   grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-electron');
 
   grunt.registerTask('test', [
     'mochaTest'
@@ -40,7 +53,11 @@ module.exports = function (grunt) {
     'docco'
   ]);
 
-  grunt.registerTask('default', [
+  grunt.registerTask('start', [
     'shell'
+  ]);
+
+  grunt.registerTask('build', [
+    'electron'
   ]);
 };

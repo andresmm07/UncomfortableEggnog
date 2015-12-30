@@ -4,13 +4,14 @@
   "description": "",
   "main": "main.js",
   "directories": {
-    "test": "./electron/test"
+    "test": "./test"
   },
   "scripts": {
-    "test": "grunt test",
-    "start": "grunt",
+    "test": "NODE_ENV=test grunt test",
+    "start": "electron .",
     "view": "webpack --watch",
-    "lint": "jscs ./"
+    "lint": "jscs ./; eslint ./app/views/dev",
+    "build": "electron-packager $(pwd) Jarvis --all --version=0.34.5 --out=./releases --overwrite"
   },
   "pre-commit": "lint",
   "author": "",
@@ -56,15 +57,22 @@
     "webpack": "^1.12.9"
   },
   "devDependencies": {
+    "babel-eslint": "^5.0.0-beta6",
     "chai": "^3.4.1",
     "del": "^2.2.0",
-    "electron-prebuilt": "https://registry.npmjs.org/electron-prebuilt/-/electron-prebuilt-0.35.4.tgz",
+    "electron-packager": "^5.2.0",
+    "electron-prebuilt": "^0.35.4",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^2.1.1",
+    "eslint-plugin-react": "^3.13.1",
     "grunt": "^0.4.5",
     "grunt-docco": "^0.4.0",
+    "grunt-electron": "^2.0.1",
     "grunt-mocha-test": "^0.12.7",
     "grunt-nodemon": "^0.4.1",
     "grunt-shell": "^1.1.2",
     "mocha": "^2.3.4",
+    "mock-localstorage": "^0.1.3",
     "node-sass": "^3.4.2",
     "node-stopwatch": "0.0.1",
     "sass-loader": "^3.1.2",
