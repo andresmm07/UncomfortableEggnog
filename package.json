@@ -8,10 +8,8 @@
   },
   "scripts": {
     "test": "NODE_ENV=test grunt test",
-    "start": "electron .",
     "view": "webpack --watch",
-    "lint": "jscs ./; eslint ./app/views/dev",
-    "build": "electron-packager $(pwd) Jarvis --all --version=0.34.5 --out=./releases --overwrite"
+    "lint": "jscs ./; eslint ./app/views/dev"
   },
   "pre-commit": "lint",
   "author": "",

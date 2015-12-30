@@ -1,5 +1,6 @@
 module.exports = function (grunt) {
 
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     mochaTest: {
@@ -22,8 +23,11 @@ module.exports = function (grunt) {
       options: {
         stderr: false
       },
-      target: {
+      build: {
         command: 'electron-packager . Jarvis --platform=darwin --arch=x64 --version=0.35.4 --icon=./app/assets/icons/jarvis.icns --overwrite; cp ./app/assets/icons/jarvis.icns ./Jarvis-darwin-x64/Jarvis.app/Contents/Resources/atom.icns'
+      },
+      dev: {
+        command: 'NODE_ENV=DEV electron .'
       }
     }
   });
@@ -41,7 +45,10 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'shell'
+    'shell:build'
+  ]);
+  grunt.registerTask('dev', [
+    'shell:dev'
   ]);
 
 
