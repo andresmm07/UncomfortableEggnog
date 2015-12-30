@@ -52,8 +52,9 @@ module.exports = function (event) {
             matchObj.userCommand,
             function () {
               startCmd.play();
-              executeShellCommand(matchObj.action);
-              this.switch();
+              executeShellCommand(matchObj.action, function () {
+                confirmListener.switch();
+              });
           }.bind(this));
         } else {
           console.log(this.name, ' just failed to match');
@@ -64,8 +65,6 @@ module.exports = function (event) {
       confirmListener.link(this.switchListener);
       confirmListener.start();
     }.bind(this));
-
-
   } else {
     failedCmd.play();
     this.switch();

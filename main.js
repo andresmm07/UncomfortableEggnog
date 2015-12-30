@@ -27,8 +27,10 @@ app.on('ready', function () {
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/app/index.html');
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // Open the DevTools when in dev mode
+  if (process.env.NODE_ENV === 'DEV') {
+    mainWindow.webContents.openDevTools();
+  }
 
   //start listening when the app starts
   mainWindow.webContents.on('dom-ready', function () {

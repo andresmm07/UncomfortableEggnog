@@ -36,8 +36,9 @@ module.exports = function (actionPrefix, variable, commandsObj) {
   var actions = commandsObj.rawCommands;
   var argCommands = commandsObj.parsedCommands.argCommands;
   var exactCommands = commandsObj.parsedCommands.exactCommands;
+  var testPhrase = testPhrases(actions, _actionPrefix);
 
-  if (actions[_actionPrefix] !== undefined) {
+  if (actions[_actionPrefix] !== undefined || actions[testPhrase]) {
     actionObj.exact = true;
     if (variable && argCommands[_actionPrefix]) {
       actionObj.action = formatVariable(_actionPrefix, argCommands[_actionPrefix], variable, commandsObj);
