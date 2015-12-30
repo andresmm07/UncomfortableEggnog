@@ -39,7 +39,7 @@ This guide will help you get started in a few minutes so that you can start enjo
 
 **1. Launch the application**
 
-Navigate to your Applications folder or the folder where Jarvis was installed and double click it. You can also use Spotlight Search to search for Jarvis in your computer. Press Command + Space and type the name of the application. When it pops up, press enter. 
+Navigate to your Applications folder or the folder where Jarvis was installed and double click it. You can also use Spotlight Search to search for Jarvis in your computer. **Press Command + Space** and type the name of the application. When it pops up, press enter. 
 
 ![Spotlight](https://www.dropbox.com/s/00biqwwq9s1kxy3/Screen%20Shot%202015-12-29%20at%2011.24.01%20AM.png?dl=1)
 
