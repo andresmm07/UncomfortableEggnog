@@ -5,7 +5,7 @@ export default class About extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
     };
   }
   render() {
@@ -17,7 +17,7 @@ export default class About extends React.Component {
         width: '80vh',
         textAlign: 'center',
         color: '#343D5C',
-        fontFamily: '"Courier New", Courier, monospace'
+        fontFamily: '"Courier New", Courier, monospace',
       };
 
     const aboutText = 'Welcome to a new world of awesome.  We are software ' +
@@ -35,14 +35,20 @@ export default class About extends React.Component {
         <div>
           <p>{aboutText}</p>
           <p>Tracy x Yilen x Andres x Mitchell</p>
-          <a onClick={() => {
-            openBrowser('open http://voicecommand.herokuapp.com');
-            }}>www.voicecommand.herokuapp.com
+          <a
+            onClick={ () => {
+              openBrowser('open http://voicecommand.herokuapp.com');
+            }}
+          >
+          www.voicecommand.herokuapp.com
           </a>
           <p>
-            <a onClick={() => {
-              openBrowser('open https://github.com/UncomfortableEggnog/UncomfortableEggnog-Desktop');
-            }}>Documentation...
+            <a
+              onClick={() => {
+                openBrowser('open https://github.com/UncomfortableEggnog/UncomfortableEggnog-Desktop');
+              }}
+            >
+            Documentation...
             </a>
           </p>
         </div>
@@ -50,4 +56,3 @@ export default class About extends React.Component {
     );
   }
 }
-
