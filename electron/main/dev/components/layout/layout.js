@@ -41,7 +41,7 @@ export default class Layout extends React.Component {
             </div>
             <div className="col-xs-4 pull-right buttons">
               <div id="about" className='col-xs-4 text-center button-right'>
-                <Link to="settings">
+                <Link to="about">
                   <img src={about} className="img-responsive img-icon"/>
                   <p className="nav-text">
                     About

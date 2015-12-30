@@ -71,7 +71,7 @@
 //  variable = "name of US president";
 
 //NOTE: this syntax does NOT have the global (/g) flag!!
-var _argSyntax = /<ARG\s*[a-zA-Z0-9+=_'"\s\\\/]*\/>/;
+var _argSyntax = /<ARG\s*[a-zA-Z0-9+=_'"\s\\\/%]*\/>/;
 
 function buildArgumentSyntax (argStr, argParams) {
 
