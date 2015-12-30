@@ -2,13 +2,10 @@ var fs = require('fs');
 var utils = require('../utils/utils');
 var _ = require('underscore');
 var path = require('path');
-var rootPath = (function () {
-  return __dirname;
-})();
-var configPath = rootPath + '/config.json';
+var rootPath = localStorage.getItem('appPath');
+var configPath = rootPath + '/app/configCTRL/config.json';
 
 var getConfig = function (cb) {
-  // console.log('process.resourcesPath ', );
   console.log('configPath, ', configPath);
   fs.readFile(configPath, 'utf8', function (err, data) {
     if (err) {

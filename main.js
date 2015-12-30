@@ -5,6 +5,7 @@ var globalShortcut = electron.globalShortcut;
 var Tray = electron.Tray;
 var Menu = electron.Menu;
 var MenuItem = electron.MenuItem;
+var ipcMain = electron.ipcMain;
 
 electron.crashReporter.start();
 
@@ -18,22 +19,25 @@ var menu = null;
 
 app.on('ready', function () {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600
-    // minWidth: 800,
-    // minHeight: 600,
-    // maxWidth: 800,
-    // maxHeight: 600
+    minWidth: 800,
+    minHeight: 600,
+    maxWidth: 800,
+    maxHeight: 600
   });
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/app/index.html');
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   //start listening when the app starts
   mainWindow.webContents.on('dom-ready', function () {
     mainWindow.webContents.send('listening', 'listening');
+  });
+
+  var appPath = app.getAppPath();
+  ipcMain.on('getPath', function (event, arg) {
+    event.sender.send('sendPath', appPath);
   });
 
   mainWindow.showWindow = false;
