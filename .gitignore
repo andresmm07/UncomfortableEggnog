@@ -6,3 +6,4 @@ server/config/authKeys.js
 electron/main/dist/bundle.js
 **/bundle.js
 electron/packages/newphrases.json
+Jarvis-darwin-x64/
