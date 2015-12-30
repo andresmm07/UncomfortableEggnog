@@ -17,11 +17,11 @@ Start giving voice commands to Jarvis to get started.
 Find a list of existing voice commands and the corresponding command that will be executed. You’ll also find that Jarvis provides incredible flexibility which allows you to customize the existing commands, add new commands and add new packages.
 
 
-Take a look at the [Commands and Packages](#packages) section for more details.
+Take a look at the [Commands and Packages](#commandPackages) section for more details.
 
 ###**Settings**
 
-Customize Jarvis’ default configuration to match your preferences. Take a look at the [Settings and Configuration](#settings) section for more details about each option.
+Customize Jarvis’ default configuration to match your preferences. Take a look at the [Settings and Configuration](#settingsConfiguration) section for more details about each option.
 
 ###**Contact**
 
@@ -58,7 +58,7 @@ Jarvis comes with a list of default voice commands. Take a look at Appendix A fo
 Now that you’ve browsed Jarvis’ features, you can start customizing Jarvis using these guides and tutorials
 
 
-#**Commands and Packages** <a id="packages"></a>
+#**Commands and Packages** <a id="commandPackages"></a>
 
 ###**Add a command** <a id="addCommand"></a>
 
@@ -104,7 +104,7 @@ To load a package to the application, follow these steps:
 
 **NOTE:** The commands in the JSON file won't be displayed in the **Commands** table.
 
-#**Settings and Configuration** <a id="settings"></a>
+#**Settings and Configuration** <a id="settingsConfiguration"></a>
 
 Jarvis' settings allow you to customize the default configuration to match your needs.
 
