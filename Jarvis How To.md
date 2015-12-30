@@ -17,11 +17,11 @@ Start giving voice commands to Jarvis to get started.
 Find a list of existing voice commands and the corresponding command that will be executed. You’ll also find that Jarvis provides incredible flexibility which allows you to customize the existing commands, add new commands and add new packages.
 
 
-Take a look at the [Packages and Commands](#packages) section for more details.
+Take a look at the **[Commands and Packages](#commandPackages)** section for more details.
 
 ###**Settings**
 
-Customize Jarvis’ default configuration to match your preferences. Take a look at the [Settings and Configuration](#settings) section for more details about each option.
+Customize Jarvis’ default configuration to match your preferences. Take a look at the **[Settings and Configuration](#settingsConfiguration)** section for more details about each option.
 
 ###**Contact**
 
@@ -29,7 +29,7 @@ Here you can find how to contact us if you have any suggestions to improve the a
 
 ###**About**
 
-If you want to know more about us, visit the About section.
+If you want to know more about us, visit the **About** section.
 
 ##Getting Started with Jarvis <a id="gettingStarted"></a>
 
@@ -39,7 +39,7 @@ This guide will help you get started in a few minutes so that you can start enjo
 
 **1. Launch the application**
 
-Navigate to your Applications folder or the folder where Jarvis was installed and double click it. You can also use Spotlight Search to search for Jarvis in your computer. Press Command + Space and type the name of the application. When it pops up, press enter. 
+Navigate to your Applications folder or the folder where Jarvis was installed and double click it. You can also use Spotlight Search to search for Jarvis in your computer. Press **Command + Space** and type the name of the application. When it pops up, press enter. 
 
 ![Spotlight](https://www.dropbox.com/s/00biqwwq9s1kxy3/Screen%20Shot%202015-12-29%20at%2011.24.01%20AM.png?dl=1)
 
@@ -58,7 +58,7 @@ Jarvis comes with a list of default voice commands. Take a look at Appendix A fo
 Now that you’ve browsed Jarvis’ features, you can start customizing Jarvis using these guides and tutorials
 
 
-#**Commands and Packages** <a id="packages"></a>
+#**Commands and Packages** <a id="commandPackages"></a>
 
 ###**Add a command** <a id="addCommand"></a>
 
@@ -66,11 +66,11 @@ Jarvis provides the option to manually add new voice commands with its correspon
 
 1. Launch the application. Refer to the **[Getting Started](#gettingStarted)** section for more information.
 
-2. Navigate to the **Packages** section of the application by clicking the **Packages **button. ![packages button](https://www.dropbox.com/s/jl4bdr4ih67itp2/Screen%20Shot%202015-12-29%20at%203.13.43%20PM.png?dl=1)
+2. Navigate to the **Packages** section of the application by clicking the **Packages** button. ![packages button](https://www.dropbox.com/s/jl4bdr4ih67itp2/Screen%20Shot%202015-12-29%20at%203.13.43%20PM.png?dl=1)
 
-3. Once you’re in the **Packages** section, click the **+ **symbol on the top right corner. ![plus button](https://www.dropbox.com/s/0ts2ld6d5yen23b/Screen%20Shot%202015-12-29%20at%203.16.07%20PM.png?dl=1)
+3. Once you’re in the **Packages** section, click the **+** symbol on the top right corner. ![plus button](https://www.dropbox.com/s/0ts2ld6d5yen23b/Screen%20Shot%202015-12-29%20at%203.16.07%20PM.png?dl=1)
 
-4. After you click the **+ **symbol, you’ll see a new empty field added at the end of the **Commands **table. Add the **voice command **in the **command **field and the **bash command **in the **action **field. ![add command field](https://www.dropbox.com/s/7gqtkqfvyxydwkl/Screen%20Shot%202015-12-29%20at%203.54.24%20PM.png?dl=1) 
+4. After you click the **+** symbol, you’ll see a new empty field added at the end of the **Commands** table. Add the **voice command** in the **command** field and the **bash command** in the **action** field. ![add command field](https://www.dropbox.com/s/7gqtkqfvyxydwkl/Screen%20Shot%202015-12-29%20at%203.54.24%20PM.png?dl=1) 
 
   Below you can find an example of how this would look like:
   ![new command](https://www.dropbox.com/s/75bv011gxd1g9ns/Screen%20Shot%202015-12-29%20at%203.57.47%20PM.png?dl=1)
@@ -104,7 +104,7 @@ To load a package to the application, follow these steps:
 
 **NOTE:** The commands in the JSON file won't be displayed in the **Commands** table.
 
-#**Settings and Configuration** <a id="settings"></a>
+#**Settings and Configuration** <a id="settingsConfiguration"></a>
 
 Jarvis' settings allow you to customize the default configuration to match your needs.
 
@@ -130,7 +130,7 @@ In the **Settings** section, you'll find two thresholds:
 
 2. **Close Matching Threshold:** Jarvis also has the ability to guess the phrase when there is no exact match. The **Close Matching Threshold** determines how similar it has to be to an existing phrase/command for Jarvis to suggest it. 
 
-To change these thresholds follow the steps below:
+To change these thresholds, follow the steps below:
 
 1. Launch the application. Refer to the **[Getting Started](#gettingStarted)** section for more information.
 
@@ -141,4 +141,6 @@ To change these thresholds follow the steps below:
 4. While the handle is being clicked, slide it to the preferred value.
 
 5. Click the **Save** button on the bottom right corner to save the new value of the threshold(s).
+
+
 
